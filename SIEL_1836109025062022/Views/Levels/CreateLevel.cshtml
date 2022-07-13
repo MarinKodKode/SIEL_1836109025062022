@@ -1,0 +1,77 @@
+﻿@model LevelCreateViewModel
+@{
+    ViewData["Title"] = "Crear nivel";
+}
+
+    <!-- Basic Horizontal form layout section start -->
+    <section id="basic-horizontal-layouts">
+        <div class="row match-height justify-content-center">
+            <div class="col-md-8 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Crear un nuevo nivel</h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <form class="form form-horizontal" asp-controller="Levels" asp-action="CreateLevel">
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label class="form-label" asp-for="level_name">Nombre</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <input type="text" asp-for="level_name"class="form-control"
+                                                placeholder="Nombre del nivel">
+                                                <span asp-validation-for="level_name" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label asp-for="level_description">Descripción</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <textarea type="text" class="form-control" asp-for="level_description"
+                                                placeholder="Descripción"></textarea>
+                                                <span asp-validation-for="level_description" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label asp-for="level_id_program">Programa</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <select asp-for="level_id_program" asp-items="Model.Programs" class="form-select"></select>
+                                            <span asp-validation-for="level_id_program" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label asp-for="level_picture">Imagen del nivel</label>
+                                        </div>
+                                        <div class="col-12 col-md-12">
+                                            <div class="card">
+                                                <div class="card-content">
+                                                    <div class="card-body">
+                                                        <input type="file" class="image-preview-filepond">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-primary me-1 mb-1">Guardar</button>
+                                            
+                                            <a class="btn btn-danger" asp-action="index">Cancelar</a>
+                                        </div>
+
+                                        
+                                    </div>
+                                </div>
+                            </form>
+                                <!-- Basic Tables start -->
+    
+
+                            @section Scripts{
+                                <partial name = "_ValidationScriptsPartial"/>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- // Basic Horizontal form layout section end -->
