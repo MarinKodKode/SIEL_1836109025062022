@@ -45,15 +45,25 @@
             <div class="sidebar-menu">
                 <ul class="menu">
                     <li class="sidebar-title">Menu</li>
+
+                    <!------------------------Acciones de estudiante------------------------>
+                        <li class="sidebar-item  has-sub">
+                            <a class='sidebar-link' >
+                                <i class="bi bi-bar-chart-fill"></i>
+                                <span>Inicio</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a asp-area="" asp-controller="Student" asp-action="Index" >Mi Avance</a>
+                                </li>    
+                                <li class="submenu-item ">
+                                    <a href="https://www.youtube.com/channel/UCUXpwMzV4Mx5lV_NbnY2Kcw/videos">Tutoriales del Curso</a>
+                                </li>    
+                            </ul>
+                        </li>
+                    <!------------------------INICIA ITEM DESPLEGABLE------------------------>
                     
-                    <li
-                        class="sidebar-item active ">
-                        <a class="sidebar-link" asp-area="" asp-controller="Student" asp-action="Index">
-                            <i class="bi bi-grid-fill"></i>
-                            <span>Avance Reticular</span>
-                        </a>
-                    </li>
-                    
+                 
                     <li
                         class="sidebar-item  ">
                         <a  class='sidebar-link' asp-area="" asp-controller="Student" asp-action="StudentAnnouncement">
@@ -85,6 +95,34 @@
                             <span>Datos personales</span>
                         </a>
                     </li>
+
+
+                    <!------------------------Acciones de administrador------------------------>
+                    <li class="sidebar-title">Administrador</li>
+                    <li class="sidebar-item  has-sub">
+                        <a class='sidebar-link' >
+                            <i class="bi bi-person-badge-fill"></i>
+                            <span>Administrador</span>
+                        </a>
+                        <ul class="submenu ">
+                            <li class="submenu-item ">
+                                <a class="sidebar-link" asp-area="" asp-controller="CourseProgram" asp-action="Index">Programas</a>
+                            </li>    
+                            <li class="submenu-item" >
+                                <a class="sidebar-link" asp-area="" asp-controller="Levels" asp-action="Index">Niveles</a>
+                            </li>
+                            <li class="submenu-item ">
+                                <a >Horarios</a>
+                            </li>
+                            <li class="submenu-item ">
+                                <a>Profesores</a>
+                            </li>
+                            <li class="submenu-item ">
+                                <a >Modalidades</a>
+                            </li>
+                        </ul>
+                    </li>
+                <!------------------------INICIA ITEM DESPLEGABLE------------------------>
                     
                     
                 </ul>

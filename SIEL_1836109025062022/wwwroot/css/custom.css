@@ -1,3 +1,9 @@
 ﻿#reordenable tr{
     cursor : move;
 }
+
+.acordeon-levels button > span {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}

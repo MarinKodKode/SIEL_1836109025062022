@@ -16,5 +16,7 @@ namespace SIEL_1836109025062022.Models
         public string level_description { get; set; }
         public string level_picture { get; set; } = "No picture";
         public int level_order { get; set; } = 1;
+
+        public string program_name { get; set; }
     }
 }

@@ -17,6 +17,21 @@ namespace SIEL_1836109025062022.Controllers
             this.courseProgramRepository = courseProgramRepository;
             this.levelsRepository = levelsRepository;
         }
+
+        public async Task<IActionResult> Index()
+        {
+            var levels = await levelsRepository.GetLevels();
+
+            var modelo = levels
+                .GroupBy(x => x.program_name)
+                .Select(grupo => new IndexLevelsViewModel
+                {
+                    program = grupo.Key,
+                    levels= grupo.AsEnumerable()
+                }).ToList();
+            return View(modelo);
+        }
+
         [HttpGet]
         public  async Task<IActionResult> CreateLevel()
         {
