@@ -22,6 +22,11 @@ namespace SIEL_1836109025062022.Controllers
             return View();
         }
 
+        public IActionResult StudentRegister()
+        {
+            return View();
+        }
+
         public IActionResult StudentData()
         {
             return View("StudentData");
@@ -46,9 +51,9 @@ namespace SIEL_1836109025062022.Controllers
             return View("StudentPersonalData");
         }
 
-        public IActionResult StudentRegister()
+        public IActionResult Register()
         {
-            return View("StudentRegister");
+            return View();
         }
         [HttpPost]
         public async Task<IActionResult> StudentRegister(StudentViewModel model)

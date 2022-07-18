@@ -11,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<ICourseProgramRepository, CourseProgramRepository>();
 builder.Services.AddTransient<ILevelsRepository, LevelsRepository>();
+builder.Services.AddTransient<IModalityRepository, ModalityRepository>();
+builder.Services.AddTransient<IScheduleRepository, ScheduleRepository>();
 builder.Services.AddTransient<IStudentsRepository, StudentsRepository>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<IUserStore<Student>, StudentStore>();

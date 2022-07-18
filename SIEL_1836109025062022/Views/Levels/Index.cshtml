@@ -16,7 +16,7 @@
                             <p class="card-text">Listado de programas de estudio registrados en la institución
                             </p>
 
-                            <div class="accordion acordeon-levels">
+                            <div class="accordion acordeon-levels center justify-content-center">
 
     @foreach(var programa in Model)
     {
@@ -41,8 +41,13 @@
                     <ul class="list-group">
                         @foreach (var item in programa.levels)
                         {
-                            <li class="list-group-item">
+                            <li class="list-group-item align-content-md-between">
                                 <span><strong>@item.level_name</strong></span>
+                                <div class="d-inline float-sm-end float-md-end">
+                                    <a class="btn btn-sm btn-info"><i class="bi bi-pencil-fill"></i></a>
+                                    <a class="btn btn-sm btn-danger"><i class="bi bi-trash3"></i></a>
+                                    
+                                </div>
                             </li>
                         }
                     </ul>

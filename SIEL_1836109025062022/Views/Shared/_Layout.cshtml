@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="~/css/shared/iconly.css" asp-append-version="true">
     <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true">
     <link rel="stylesheet" href="~/assets/css/pages/filepond.css">
+    <link rel="stylesheet" href="~/assets/plugin/whatsapp-chat-support.css">
 
 
 
@@ -95,8 +96,20 @@
                             <span>Datos personales</span>
                         </a>
                     </li>
-
-
+                    <li
+                        class="sidebar-item  ">
+                        <a  class="sidebar-link" href="https://ed.engdis.com//avatarisolution#/login" target="_blank">
+                            <i class="bi bi-laptop-fill"></i>
+                            <span>English Discoveries</span>
+                        </a>
+                    </li>
+                    <li
+                        class="sidebar-item  ">
+                        <a  class="sidebar-link" href="https://wa.me/5215522461687" target="_blank">
+                            <i class="bi bi-whatsapp"></i>
+                            <span>Contácto Loogan Lts.</span>
+                        </a>
+                    </li>
                     <!------------------------Acciones de administrador------------------------>
                     <li class="sidebar-title">Administrador</li>
                     <li class="sidebar-item  has-sub">
@@ -104,7 +117,7 @@
                             <i class="bi bi-person-badge-fill"></i>
                             <span>Administrador</span>
                         </a>
-                        <ul class="submenu ">
+                        <ul class="submenu">
                             <li class="submenu-item ">
                                 <a class="sidebar-link" asp-area="" asp-controller="CourseProgram" asp-action="Index">Programas</a>
                             </li>    
@@ -112,19 +125,49 @@
                                 <a class="sidebar-link" asp-area="" asp-controller="Levels" asp-action="Index">Niveles</a>
                             </li>
                             <li class="submenu-item ">
-                                <a >Horarios</a>
+                                <a class="sidebar-link" asp-area="" asp-controller="Schedule" asp-action="Index">Horarios</a>
                             </li>
                             <li class="submenu-item ">
-                                <a>Profesores</a>
+                                <a class="sidebar-link" asp-area="" asp-controller="Teacher" asp-action="Index" >Profesores</a>
                             </li>
                             <li class="submenu-item ">
-                                <a >Modalidades</a>
+                                <a class="sidebar-link" asp-area="" asp-controller="Modality" asp-action="Index" >Modalidades</a>
                             </li>
                         </ul>
                     </li>
                 <!------------------------INICIA ITEM DESPLEGABLE------------------------>
-                    
-                    
+                    <li class="sidebar-title">Contabilidad</li>
+
+                    <!------------------------Acciones de auxiliar contable------------------------>
+                        <li class="sidebar-item  has-sub">
+                            <a class='sidebar-link' >
+                                <i class="bi bi-bar-chart-fill"></i>
+                                <span>Contabilidad</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a asp-area="" asp-controller="Boucher" asp-action="Index" >Bouchers de pago</a>
+                                </li> 
+                            </ul>
+                        </li>
+                    <!------------------------INICIA ITEM DESPLEGABLE------------------------>
+                    <!------------------------INICIA ITEM DESPLEGABLE------------------------>
+                    <li class="sidebar-title">Facilitador</li>
+
+                    <!------------------------Acciones de auxiliar contable------------------------>
+                        <li class="sidebar-item  has-sub">
+                            <a class='sidebar-link' >
+                                <i class="bi bi-bar-chart-fill"></i>
+                                <span>Contabilidad</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a asp-area="" asp-controller="Boucher" asp-action="Index" >Bouchers de pago</a>
+                                </li> 
+                            </ul>
+                        </li>
+                    <!------------------------INICIA ITEM DESPLEGABLE------------------------>
+
                 </ul>
             </div>
         </div>
@@ -133,9 +176,12 @@
     <header class="mb-3">
                     <nav class="navbar navbar-expand navbar-light ">
                     <div class="container-fluid">
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="collapse navbar-collapse align-content-md-between" id="navbarSupportedContent ">
+                            
                             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                                
                             </ul>
+                            
                             <div class="dropdown">
                                 <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="user-menu d-flex">
@@ -148,9 +194,11 @@
                                             <div class="avatar avatar-md">
                                                 <img src="~/assets/images/faces/1.jpg">
                                             </div>
-                                        </div>
+                                        </div>       
                                     </div>
                                 </a>
+                                
+                                               
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" style="min-width: 11rem;">
                                     <li>
                                         <h6 class="dropdown-header">Hola Keyla</h6>
@@ -198,6 +246,16 @@
     <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/assets/js/extensions/filepond.js"></script>
+    <script src="~/assets/plugin/components/moment/moment.min.js"></script>
+    <script src="~/assets/plugin/components/moment/moment-timezone-with-data.min.js"></script>
+    <!-- spanish language (es) -->
+    <script src="~/assets/plugin/whatsapp-chat-support.js"></script>
+    
     @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        $('#button-w').whatsappChatSupport({
+            defaultMsg: '',
+        });
+    </script>
 </body>
 </html>

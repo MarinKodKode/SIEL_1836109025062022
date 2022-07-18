@@ -1,0 +1,66 @@
+﻿@model Modality
+@{
+    ViewData["Title"] = "Crear modalidad";
+}
+
+    <!-- Basic Horizontal form layout section start -->
+    <section id="basic-horizontal-layouts">
+        <div class="row match-height justify-content-center">
+            <div class="col-md-8 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Crear una nueva modalidad</h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <form class="form form-horizontal" asp-controller="Modality" asp-action="CreateModality">
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label class="form-label" asp-for="modality_name">Nombre</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <input type="text" asp-for="modality_name"class="form-control"
+                                                placeholder="Nombre de programa">
+                                                <span asp-validation-for="modality_name" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label asp-for="modality_description">Descripción</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <textarea type="text" class="form-control" asp-for="modality_description"
+                                                placeholder="Descripción"></textarea>
+                                                <span asp-validation-for="modality_description" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label asp-for="modality_weeks_duration">Semanas de duración</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <input type="number" class="form-control" asp-for="modality_weeks_duration"
+                                                placeholder="Semanas de duración"/>
+                                                <span asp-validation-for="modality_weeks_duration" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="col-sm-12 d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-primary me-1 mb-1">Guardar</button>
+                                            
+                                            <a class="btn btn-danger" asp-action="index">Cancelar</a>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </form>
+                                <!-- Basic Tables start -->
+    
+
+                            @section Scripts{
+                                <partial name = "_ValidationScriptsPartial"/>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- // Basic Horizontal form layout section end -->
+
