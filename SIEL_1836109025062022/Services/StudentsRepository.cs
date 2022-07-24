@@ -9,6 +9,7 @@ namespace SIEL_1836109025062022.Services
     {
         Task<int> CreateStudent(Student student);
         Task<Student> GetStudentByNormalizedEmail(string normalizedEmail);
+        Task UpdateStudentProgramId(int id_student, int id_program);
     }
     public class StudentsRepository : IStudentsRepository
     {
@@ -46,6 +47,12 @@ namespace SIEL_1836109025062022.Services
                 @"select * from students where stdt_nomalized_p_email= @stdt_nomalized_p_email;",
                 new { stdt_nomalized_p_email }
                 );
+        }
+
+        public async Task UpdateStudentProgramId (int id_student, int id_program)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            await connection.ExecuteAsync(@"update students set stdt_id_program = @id_program where id_student = @id_student;", new { id_student, id_program});
         }
     }
 }

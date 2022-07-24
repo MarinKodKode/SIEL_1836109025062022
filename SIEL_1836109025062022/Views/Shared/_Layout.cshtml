@@ -9,6 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"]</title>
     
+    
+    <link rel="stylesheet" href="~/css/pages/pagina_no_inscrito.css">
     <link rel="stylesheet" href="~/assets/css/main/app.css" asp-append-version="true">
     <link rel="stylesheet" href="~/assets/css/main/app-dark.css" asp-append-version="true">
     <link rel="shortcut icon" href="~/images/lodgo/favicon.svg" type="image/x-icon">
@@ -16,8 +18,7 @@
     <link rel="stylesheet" href="~/css/shared/iconly.css" asp-append-version="true">
     <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true">
     <link rel="stylesheet" href="~/assets/css/pages/filepond.css">
-    <link rel="stylesheet" href="~/assets/plugin/whatsapp-chat-support.css">
-
+    
 
 
 </head>
@@ -133,6 +134,9 @@
                             <li class="submenu-item ">
                                 <a class="sidebar-link" asp-area="" asp-controller="Modality" asp-action="Index" >Modalidades</a>
                             </li>
+                            <li class="submenu-item ">
+                                <a class="sidebar-link" asp-area="" asp-controller="Convocation" asp-action="Index" >Convocatorias</a>
+                            </li>
                         </ul>
                     </li>
                 <!------------------------INICIA ITEM DESPLEGABLE------------------------>
@@ -158,11 +162,11 @@
                         <li class="sidebar-item  has-sub">
                             <a class='sidebar-link' >
                                 <i class="bi bi-bar-chart-fill"></i>
-                                <span>Contabilidad</span>
+                                <span>Facilitador</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a asp-area="" asp-controller="Boucher" asp-action="Index" >Bouchers de pago</a>
+                                    <a asp-area="" asp-controller="Boucher" asp-action="Index" >Estudiantes</a>
                                 </li> 
                             </ul>
                         </li>

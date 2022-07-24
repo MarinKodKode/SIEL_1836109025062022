@@ -1,0 +1,39 @@
+﻿@model IEnumerable<IndexLevelsViewModel>
+
+
+    @foreach(var programa in Model)
+    {
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="header-one">
+            @{
+                var id = programa.program.Replace(" ", "");
+                var dataBSTarget = "#" + id;
+
+            }
+            <button class="accordion-button " type="button" data-bs-toggle="collapse"
+            data-bs-target="@dataBSTarget">
+            <span class="me-3">
+                <span><strong>@programa.program</strong></span>
+                <span class="text-primary"> @programa.summary niveles</span>
+            </span>
+            </button>
+            </h2>
+
+            <div id="@id" class="accordion-collapse collapse show">
+                <div>
+                    <ul class="list-group">
+                        @foreach (var item in programa.levels)
+                        {
+                            <div class="col-60 col-sm-60 col-lg-3 mt-2 mt-md-0 mb-md-0 mb-2">
+                                            <a href="#">
+                                                <img class="w-100 active" data-bs-target="#Gallerycarousel"
+                                                    data-bs-slide-to="0" src="~/assets/images/levels/basic1.png">
+                                            </a>
+                            </div>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    }

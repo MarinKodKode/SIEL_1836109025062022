@@ -1,5 +1,6 @@
 ﻿@{
 }
+
         <div class="page-heading">
             <h3>Inscripción al Curso</h3>
         </div>
@@ -7,7 +8,7 @@
         <div class="page-heading">
             <div class="page-title">
                 <div class="row">
-                    <div class="col-12 col-md-10 order-md-1 order-last">
+                    <div class="col-12 col-md-12 order-md-1 order-last">
                         <p class="text-subtitle text-muted">Selecione los campos solicitados a continuación para
                             su registro en el periodo escolar Julio-Diciembre 2022.
                         </p>
@@ -18,7 +19,7 @@
 
         <section id="multiple-column-form">
             <div class="row match-height">
-                <div class="col-7">
+                <div class="col-md-7 col-sm-12">
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">Selección de Horario y Modalidad</h4>
@@ -34,18 +35,43 @@
                                                     <label class="col-form-label">Horario</label>
                                                 </div>
 
+                                                <input readonly type="text" class="form-control" name="horario" id="horario"
+                                                    aria-label="Sizing example input"
+                                                    aria-describedby="inputGroup-sizing-sm">
+
+
+
+                                                <div class="btn-group mb-1">
+                                                    <div class="dropdown ">
+                                                        <select class="selectpicker btn btn-primary"
+                                                            onchange="mostrarHorario(this.value);">
+                                                            <option id="3:00 - 4:00">3:00 - 4:00</option>
+                                                            <option id="4:00 - 5:00">4:00 - 5:00</option>
+                                                            <option id="5:00 - 6:00">5:00 - 6:00</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+
+
+                                                <!-- <div class="col-lg-3 col-3">
+                                                    <label class="col-form-label">Horario</label>
+                                                </div>
+
                                                 <input type="text" class="form-control"
                                                     aria-label="Sizing example input"
-                                                    aria-describedby="inputGroup-sizing-sm" value="3:00 - 4:00">
+                                                    aria-describedby="inputGroup-sizing-sm">
                                                 <div class="btn-group mb-1">
-                                                    <div class="dropdown">
+                                                    <div class="dropdown ">
                                                         <button class="btn btn-primary dropdown-toggle me-1"
                                                             type="button" id="dropdownMenuButton"
                                                             data-bs-toggle="dropdown" aria-haspopup="true"
                                                             aria-expanded="false">
                                                             Seleccionar
                                                         </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                                                        <div class="dropdown-menu "
+                                                            aria-labelledby="dropdownMenuButton">
                                                             <a class="dropdown-item" href="#">3:00 - 4:00
                                                             </a>
                                                             <a class="dropdown-item" href="#">4:00 - 5:00
@@ -54,7 +80,9 @@
                                                             </a>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
+
+
                                             </div>
 
                                             <div class="input-group input-group-sm mb-3">
@@ -63,26 +91,36 @@
                                                     <label class="col-form-label">Modalidad</label>
                                                 </div>
 
-                                                <input type="text" class="form-control"
+                                                <input readonly type="text" class="form-control" name="modalidad" id="modalidad"
                                                     aria-label="Sizing example input"
-                                                    aria-describedby="inputGroup-sizing-sm" value="Regular (Lun, Mier, Vie)">
+                                                    aria-describedby="inputGroup-sizing-sm">
+
+
+
                                                 <div class="btn-group mb-1">
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-primary dropdown-toggle me-1"
-                                                            type="button" id="dropdownMenuButton"
-                                                            data-bs-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            Seleccionar
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            <a class="dropdown-item" href="#">Intensivo (Lun - Vie)
-                                                            </a>
-                                                            <a class="dropdown-item" href="#">Regular (Lun, Mier, Vie)
-                                                            </a>
-                                                            <a class="dropdown-item" href="#">Sabatino (Sábados)
-                                                            </a>
-                                                        </div>
+                                                    <div class="dropdown ">
+                                                        <select class="selectpicker btn btn-primary"
+                                                            onchange="mostrarModalidad(this.value);">
+                                                            <option id="Intensivo (Lun - Vie)">Intensivo </option>
+                                                            <option id="Regular (Lun, Mier, Vie)">Regular </option>
+                                                            <option id="Sabatino">Sabatino</option>
+                                                        </select>
                                                     </div>
+                                                </div>
+
+                                               
+                                            </div>
+
+                                            <div class="input-group input-group-sm mb-3">
+
+                                                <div class="col-lg-3 col-3">
+                                                    <label class="col-form-label">Docente</label>
+                                                </div>
+
+                                                <input  type="text" class="form-control"
+                                                    aria-label="Sizing example input"
+                                                    aria-describedby="inputGroup-sizing-sm" placeholder="">
+                                                <div class="btn-group mb-1">
                                                 </div>
                                             </div>
                                         </div>
@@ -107,18 +145,13 @@
                                         <h5><span class="badge bg-warning">Programa: Regular</span></h5>
                                     </div><br>
                                     <div class="badges">
-                                        <h5><span class="badge bg-danger">Inicio de Clases: 29 de Agosto, 2022</span></h5>
+                                        <h5><span class="badge bg-danger">Inicio de Clases:</span>
+                                        </h5>
                                     </div>
-
-                                    <!--<p class="card-text">
-                                        Nivel: Basico 4
-                                    </p>
-                                    <p class="card-text">
-                                        Programa: Regular
-                                    </p>
-                                    <p class="card-text">
-                                        Inicio de Clases: 29 de Septiembre, 2022
-                                    </p>-->
+                                    <div class="badges">
+                                        <h5><span class="badge bg-danger">29 de Agosto, 2022</span>
+                                        </h5>
+                                    </div>
 
                                 </div>
                             </center>

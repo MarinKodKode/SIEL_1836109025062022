@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using SIEL_1836109025062022.Models;
+using SIEL_1836109025062022.Services;
 
 namespace SIEL_1836109025062022.Controllers
 {
@@ -9,17 +11,28 @@ namespace SIEL_1836109025062022.Controllers
     {
         private readonly UserManager<Student> userManager;
         private readonly SignInManager<Student> signInManager;
+        private readonly ICourseProgramRepository courseProgramRepository;
+        private readonly ILevelsRepository levelsRepository;
+        private readonly IStudentsRepository studentsRepository;
 
         public StudentController(UserManager<Student> userManager,
-            SignInManager<Student> signInManager)
+            SignInManager<Student> signInManager,
+            ICourseProgramRepository courseProgramRepository,
+            ILevelsRepository levelsRepository,
+            IStudentsRepository studentsRepository)
         {
 
             this.signInManager = signInManager;
+            this.courseProgramRepository = courseProgramRepository;
+            this.levelsRepository = levelsRepository;
+            this.studentsRepository = studentsRepository;
             this.userManager = userManager;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var modelo = new StudenIndexViewModel();
+            modelo.Programs = await GetAllCoursePrograms();
+            return View(modelo);
         }
 
         public IActionResult StudentRegister()
@@ -129,6 +142,24 @@ namespace SIEL_1836109025062022.Controllers
         {
             await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
             return RedirectToAction("Index","Home");
+        }
+
+        private async Task<IEnumerable<SelectListItem>> GetAllCoursePrograms()
+        {
+            var programs = await courseProgramRepository.GetAllCoursePrograms();
+            return programs.Select(x => new SelectListItem(
+                    x.program_name,
+                    x.id_program.ToString()));
+        }
+
+        public async Task<IActionResult> StudentProgramElection(StudenIndexViewModel student
+            )
+        {
+            var student_id = 2002;
+            int id_program_selected = student.id_program;
+
+            await studentsRepository.UpdateStudentProgramId(student_id, id_program_selected);
+            return RedirectToAction("Index", "Student");
         }
     }
 }
