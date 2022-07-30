@@ -2,8 +2,12 @@
 
 namespace SIEL_1836109025062022.Models
 {
-    public class StudenIndexViewModel:CourseProgram
+    public class StudenIndexViewModel:Level 
     {
         public IEnumerable<SelectListItem> Programs { get; set; }
+
+        public string program { get; set; }
+        public IEnumerable<Level> levels { get; set; }
+        
     }
 }

@@ -17,3 +17,10 @@
     box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.01);
     filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.20));
 }
+.editar-foto{
+    z-index : 100;
+    position : absolute;
+    align-self : end;
+    border-radius : 90%;
+    height : 9%;
+}

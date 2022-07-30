@@ -1,11 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @model StudenIndexViewModel
 @{
-    var status = 1;   
+    var status = int.Parse(ViewData["studentProgram"].ToString());   
 }
 
 
-@if(status == 1)
+@if(status == 0)
 {
     <partial name = "_NoProgramSelected" />
 }

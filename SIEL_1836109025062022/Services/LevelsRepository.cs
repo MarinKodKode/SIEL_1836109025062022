@@ -9,6 +9,7 @@ namespace SIEL_1836109025062022.Services
     {
         Task CreateLevel(Level level);
         Task<IEnumerable<Level>> GetLevels();
+        Task<IEnumerable<Level>> GetStudentLevelsByIdProgram(int id_program);
     }
 
     public class LevelsRepository : ILevelsRepository
@@ -41,5 +42,19 @@ namespace SIEL_1836109025062022.Services
                             inner join programs program 
                             on program.id_program  = levels.level_id_program;");
         }
+
+        public async Task<IEnumerable<Level>> GetStudentLevelsByIdProgram(int id_program)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            return await connection.QueryAsync<Level>(@"
+                            select * 
+                            from levels
+                            inner join programs 
+                            on programs.id_program = levels.level_id_program
+                            where programs.id_program = @id_program;",
+                            new { id_program });
+        }
+
+
     }
 }

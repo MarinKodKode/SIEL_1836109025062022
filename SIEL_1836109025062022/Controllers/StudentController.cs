@@ -14,25 +14,46 @@ namespace SIEL_1836109025062022.Controllers
         private readonly ICourseProgramRepository courseProgramRepository;
         private readonly ILevelsRepository levelsRepository;
         private readonly IStudentsRepository studentsRepository;
+        private readonly IUserService userService;
 
         public StudentController(UserManager<Student> userManager,
             SignInManager<Student> signInManager,
             ICourseProgramRepository courseProgramRepository,
             ILevelsRepository levelsRepository,
-            IStudentsRepository studentsRepository)
+            IStudentsRepository studentsRepository,
+            IUserService userService )
         {
 
             this.signInManager = signInManager;
             this.courseProgramRepository = courseProgramRepository;
             this.levelsRepository = levelsRepository;
             this.studentsRepository = studentsRepository;
+            this.userService = userService;
             this.userManager = userManager;
         }
         public async Task<IActionResult> Index()
         {
-            var modelo = new StudenIndexViewModel();
-            modelo.Programs = await GetAllCoursePrograms();
-            return View(modelo);
+            var student_id = userService.GetUserId();
+            var studentProgram = await studentsRepository.VerifyStudentProgramById(student_id);
+            
+
+            if (studentProgram == 0)
+            {
+                var modelo = new StudenIndexViewModel();
+                modelo.Programs = await GetAllCoursePrograms();
+                ViewData["studentProgram"] = studentProgram;
+                return View(modelo);
+            }
+            else
+            {
+                ViewData["studentProgram"] = studentProgram;
+
+                var modelo = new StudenIndexViewModel();
+                modelo.levels = await levelsRepository.GetStudentLevelsByIdProgram(studentProgram);
+
+                return View(modelo);
+            }
+
         }
 
         public IActionResult StudentRegister()
@@ -59,9 +80,16 @@ namespace SIEL_1836109025062022.Controllers
         {
             return View("StudentGetPaymentData");
         }
-        public IActionResult StudentPersonalData()
+        [HttpGet]
+        public async Task<IActionResult> StudentPersonalData()
         {
-            return View("StudentPersonalData");
+            var student_id = userService.GetUserId();
+            var student = await studentsRepository.GetStudentById(student_id);
+            if (student is null)
+            {
+                return RedirectToAction("Errore", "Home");
+            }
+            return View(student);
         }
 
         public IActionResult Register()
@@ -69,7 +97,7 @@ namespace SIEL_1836109025062022.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> StudentRegister(StudentViewModel model)
+        public async Task<IActionResult> Register(StudentViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -152,14 +180,16 @@ namespace SIEL_1836109025062022.Controllers
                     x.id_program.ToString()));
         }
 
-        public async Task<IActionResult> StudentProgramElection(StudenIndexViewModel student
-            )
+        public async Task<IActionResult> StudentProgramElection(StudenIndexViewModel student)
         {
-            var student_id = 2002;
-            int id_program_selected = student.id_program;
-
+            var student_id = userService.GetUserId();
+            int id_program_selected = student.level_id_program;
             await studentsRepository.UpdateStudentProgramId(student_id, id_program_selected);
             return RedirectToAction("Index", "Student");
         }
+    
+    
+
+    
     }
 }

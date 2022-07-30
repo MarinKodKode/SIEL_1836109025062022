@@ -17,7 +17,7 @@ namespace SIEL_1836109025062022.Models
         public int stdt_isLogged { get; set; } = 1;
         public int stdt_id_class { get; set; } = 1;
         public string stdt_hash_password { get; set; } = "hash";
-        public int stdt_id_program { get; set; } = 1;
+        public int stdt_id_program { get; set; }
         public int stdt_age { get; set; } = 1;
         public string stdt_normalized_i_email { get; set; } = "Sindatos";
         public string stdt_nomalized_p_email { get; set; } = "Sindatos";
