@@ -44,7 +44,7 @@
                   <p class="mb-0">Ingresa tu correo y tu contraseña</p>
                 </div>
                 <div class="card-body">
-                  <form role="form" asp-area="" asp-controller="Student" asp-action="login">
+                  <form role="form" asp-area="" asp-controller="User" asp-action="Login">
                     <div class="mb-3">
                       <input type="email" class="form-control form-control-lg" placeholder="Correo" aria-label="Email" asp-for="Email">
                     </div>
@@ -66,7 +66,7 @@
                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
                   <p class="mb-4 text-sm mx-auto">
                     ¿No tienes una cuenta?
-                    <a asp-area="" asp-controller="Student" asp-action="Register" class="text-primary text-gradient font-weight-bold">Registrate</a>
+                    <a asp-area="" asp-controller="User" asp-action="Register" class="text-primary text-gradient font-weight-bold">Registrate</a>
                   </p>
                 </div>
               </div>

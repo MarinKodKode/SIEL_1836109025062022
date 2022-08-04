@@ -1,7 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 
-
-@inject SignInManager<Student> SignInManager
+@inject SignInManager<User> SignInManager
 
 <!DOCTYPE html>
 <html lang="en">
@@ -197,7 +196,7 @@
                                         </div>
                                         <div class="user-img d-flex align-items-center">
                                             <div class="avatar avatar-md">
-                                                <img src="~/assets//images/4853433.png">
+                                                <img src="~/assets/images/4853433.png">
                                             </div>
                                         </div>       
                                     </div>
@@ -206,7 +205,7 @@
                                                
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" style="min-width: 11rem;">
                                     <li>
-                                        <h6 class="dropdown-header">Hola Keyla</h6>
+                                        <h6 class="dropdown-header">Hola @User.Identity.Name</h6>
                                     </li>
                                     <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-person me-2"></i>Mis datos</a></li>
                                     <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-building me-2"></i>
@@ -217,7 +216,7 @@
                                         <hr class="dropdown-divider">
                                     </li>
                                     <li>
-                                        <form class="form-control" asp-controller="Student"  asp-action="StudentLogout">
+                                        <form class="form-control" asp-controller="User"  asp-action="Logout">
                                         <button type="submit">
                                             <span class="dropdown-item" ><i
                                                 class="icon-mid bi bi-box-arrow-left me-2"></i> Cerrar sesión</span>

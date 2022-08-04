@@ -8,8 +8,12 @@ namespace SIEL_1836109025062022.Services
     public interface IStudentsRepository
     {
         Task<int> CreateStudent(Student student);
+        Task CreateStudentProgramId(int id_student, int id_program);
         Task<Student> GetStudentById(int id_student);
-        Task<Student> GetStudentByNormalizedEmail(string normalizedEmail);
+        Task<StudentDataViewModel> GetStudentSchoolarData(int id_student);
+        Task<Student> GetStudentUserById(int id_student);
+        Task<bool> IsStudent(int id_student);
+        Task UpdateControlNumber(StudentDataViewModel student);
         Task UpdateStudentProgramId(int id_student, int id_program);
         Task<int> VerifyStudentProgramById(int id_student);
     }
@@ -26,16 +30,9 @@ namespace SIEL_1836109025062022.Services
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             var id_student = await connection.QuerySingleAsync<int>(@"
-                insert into students (stdt_name, stdt_surname, stdt_phone_1,
-                stdt_phone_2,stdt_personal_email,stdt_institutional_email,
-                stdt_avatar,stdt_id_institution,stdt_isLogged,stdt_id_class,
-                stdt_hash_password,stdt_id_program,stdt_age,stdt_nomalized_p_email,
-                stdt_normalized_i_email,stdt_control_number)
-                values (@stdt_name, @stdt_surname, @stdt_phone_1,
-                @stdt_phone_2,@stdt_personal_email,@stdt_institutional_email,
-                @stdt_avatar,@stdt_id_institution,@stdt_isLogged,@stdt_id_class,
-                @stdt_hash_password,@stdt_id_program,@stdt_age,@stdt_nomalized_p_email,
-                @stdt_normalized_i_email,@stdt_control_number);
+                SET IDENTITY_INSERT students ON;
+                insert into students (id_student, stdt_id_class,stdt_id_program,stdt_control_number)
+                values (@id_student,@stdt_id_class,@stdt_id_program,@stdt_control_number);
                 SELECT SCOPE_IDENTITY();",
                 student);
 
@@ -60,10 +57,42 @@ namespace SIEL_1836109025062022.Services
                 );
         }
 
+        public async Task<Student> GetStudentUserById(int id_student)
+        {
+            using var connection = new SqlConnection(connectionString);
+            return await connection.QuerySingleOrDefaultAsync<Student>(
+                @"select * from students
+                  inner join users on  students.id_student = users.id_user
+                  where id_student=@id_student and id_user = @id_student",
+                new { id_student }
+                );
+        }
+
+        public async Task<StudentDataViewModel> GetStudentSchoolarData(int id_student)
+        {
+            using var connection = new SqlConnection(connectionString);
+            return await connection.QuerySingleOrDefaultAsync<StudentDataViewModel>(
+                @"select * from users
+                    inner join institutions on users.user_id_institution = institutions.id_institution
+                    inner join students on users.id_user = students.id_student
+                    where id_user = @id_student;",
+                new { id_student }
+                );
+        }
+
         public async Task UpdateStudentProgramId (int id_student, int id_program)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             await connection.ExecuteAsync(@"update students set stdt_id_program = @id_program where id_student = @id_student;", new { id_student, id_program});
+        }
+
+        public async Task CreateStudentProgramId(int id_student, int stdt_id_program)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            await connection.ExecuteAsync
+                (@" SET IDENTITY_INSERT students ON;
+                    insert into students (id_student,stdt_id_program) values(@id_student, @stdt_id_program);",
+                new { id_student, stdt_id_program });
         }
 
         public async Task<int> VerifyStudentProgramById(int id_student)
@@ -77,6 +106,24 @@ namespace SIEL_1836109025062022.Services
             return id_program;
         }
 
+        public async Task<bool> IsStudent(int id_student)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            var exists = await connection.QueryFirstOrDefaultAsync<int>(@"
+                                            select 1 
+                                            from students
+                                            where id_student = @id_student;",
+                                            new { id_student });
+            return exists == 1;
+        }
+        public async Task UpdateControlNumber(StudentDataViewModel student)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            await connection.ExecuteAsync(@"UPDATE students
+                                            set stdt_control_number = @stdt_control_number
+                                            where id_student = @id_student;",
+                                            student);
+        }
 
     }
 }

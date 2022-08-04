@@ -15,10 +15,12 @@ builder.Services.AddTransient<ILevelsRepository, LevelsRepository>();
 builder.Services.AddTransient<IModalityRepository, ModalityRepository>();
 builder.Services.AddTransient<IScheduleRepository, ScheduleRepository>();
 builder.Services.AddTransient<IStudentsRepository, StudentsRepository>();
+builder.Services.AddTransient<IInscriptionRepository, InscriptionRepository>();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddTransient<IUserStore<Student>, StudentStore>();
-builder.Services.AddTransient<SignInManager<Student>>();
-builder.Services.AddIdentityCore<Student>(opciones =>
+builder.Services.AddTransient<IUserStore<User>, UserStore>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<SignInManager<User>>();
+builder.Services.AddIdentityCore<User>(opciones =>
 {
     opciones.Password.RequireDigit = false;
     opciones.Password.RequireLowercase = false;

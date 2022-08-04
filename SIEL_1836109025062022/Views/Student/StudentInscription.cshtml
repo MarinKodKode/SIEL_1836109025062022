@@ -1,4 +1,6 @@
-﻿@{
+﻿@model InscriptionViewModel
+@{
+    ViewData["Title"] = "Inscripción al curso";
 }
 
         <div class="page-heading">
@@ -10,7 +12,8 @@
                 <div class="row">
                     <div class="col-12 col-md-12 order-md-1 order-last">
                         <p class="text-subtitle text-muted">Selecione los campos solicitados a continuación para
-                            su registro en el periodo escolar Julio-Diciembre 2022.
+                            su registro en el periodo escolar Julio-Diddddciembre 2022.
+                            
                         </p>
                     </div>
                 </div>
@@ -18,213 +21,105 @@
         </div>
 
         <section id="multiple-column-form">
-            <div class="row match-height">
-                <div class="col-md-7 col-sm-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Selección de Horario y Modalidad</h4>
-                        </div>
-                        <div class="card-content">
-                            <div class="card-body">
-                                <form class="form">
-                                    <div class="row">
-                                        <div class="col-sm-11 mb-1">
-                                            <div class="input-group input-group-sm mb-3">
 
-                                                <div class="col-lg-3 col-3">
-                                                    <label class="col-form-label">Horario</label>
-                                                </div>
-
-                                                <input readonly type="text" class="form-control" name="horario" id="horario"
-                                                    aria-label="Sizing example input"
-                                                    aria-describedby="inputGroup-sizing-sm">
-
-
-
-                                                <div class="btn-group mb-1">
-                                                    <div class="dropdown ">
-                                                        <select class="selectpicker btn btn-primary"
-                                                            onchange="mostrarHorario(this.value);">
-                                                            <option id="3:00 - 4:00">3:00 - 4:00</option>
-                                                            <option id="4:00 - 5:00">4:00 - 5:00</option>
-                                                            <option id="5:00 - 6:00">5:00 - 6:00</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-
-
-                                                <!-- <div class="col-lg-3 col-3">
-                                                    <label class="col-form-label">Horario</label>
-                                                </div>
-
-                                                <input type="text" class="form-control"
-                                                    aria-label="Sizing example input"
-                                                    aria-describedby="inputGroup-sizing-sm">
-                                                <div class="btn-group mb-1">
-                                                    <div class="dropdown ">
-                                                        <button class="btn btn-primary dropdown-toggle me-1"
-                                                            type="button" id="dropdownMenuButton"
-                                                            data-bs-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            Seleccionar
-                                                        </button>
-
-                                                        <div class="dropdown-menu "
-                                                            aria-labelledby="dropdownMenuButton">
-                                                            <a class="dropdown-item" href="#">3:00 - 4:00
-                                                            </a>
-                                                            <a class="dropdown-item" href="#">4:00 - 5:00
-                                                            </a>
-                                                            <a class="dropdown-item" href="#">5:00 - 6:00
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
-
-
-                                            </div>
-
-                                            <div class="input-group input-group-sm mb-3">
-
-                                                <div class="col-lg-3 col-3">
-                                                    <label class="col-form-label">Modalidad</label>
-                                                </div>
-
-                                                <input readonly type="text" class="form-control" name="modalidad" id="modalidad"
-                                                    aria-label="Sizing example input"
-                                                    aria-describedby="inputGroup-sizing-sm">
-
-
-
-                                                <div class="btn-group mb-1">
-                                                    <div class="dropdown ">
-                                                        <select class="selectpicker btn btn-primary"
-                                                            onchange="mostrarModalidad(this.value);">
-                                                            <option id="Intensivo (Lun - Vie)">Intensivo </option>
-                                                            <option id="Regular (Lun, Mier, Vie)">Regular </option>
-                                                            <option id="Sabatino">Sabatino</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                               
-                                            </div>
-
-                                            <div class="input-group input-group-sm mb-3">
-
-                                                <div class="col-lg-3 col-3">
-                                                    <label class="col-form-label">Docente</label>
-                                                </div>
-
-                                                <input  type="text" class="form-control"
-                                                    aria-label="Sizing example input"
-                                                    aria-describedby="inputGroup-sizing-sm" placeholder="">
-                                                <div class="btn-group mb-1">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
+                <div class="row match-height">
+                    <div class="col-md-7 col-sm-12">
+                        <div class="card sombra">
+                            <div class="card-header">
+                                <h4 class="card-title">Selección de Horario y Modalidad</h4>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-5 col-md-6 col-sm-12">
-                    <div class="card">
-                        <div class="card-content">
-                            <center>
+                            <div class="card-content">
                                 <div class="card-body">
-
-                                    <h5 class="card-title">Datos del Curso Próximo a Inscripción</h5><br>
-
-                                    <div class="badges">
-                                        <h5><span class="badge bg-success">Nivel: Basico 4</span></h5>
-                                    </div><br>
-                                    <div class="badges">
-                                        <h5><span class="badge bg-warning">Programa: Regular</span></h5>
-                                    </div><br>
-                                    <div class="badges">
-                                        <h5><span class="badge bg-danger">Inicio de Clases:</span>
-                                        </h5>
-                                    </div>
-                                    <div class="badges">
-                                        <h5><span class="badge bg-danger">29 de Agosto, 2022</span>
-                                        </h5>
-                                    </div>
-
-                                </div>
-                            </center>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Custom file input start -->
-        <section id="custom-file-input">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Subir Comprobante de Pago English Discoveries</h4>
-                        </div>
-                        <div class="card-content">
-                            <div class="card-body">
-                                <div class="row">
-                                    <center>
-                                        <div class="col-md-6 mb-1">
-                                            <div class="input-group mb-3">
-                                                <div class="input-group mb-3">
-                                                    <!--<label class="input-group-text" for="inputGroupFile01"><i
-                                                            class="bi bi-upload"></i></label>-->
-                                                    <input type="file" class="form-control" id="inputGroupFile01">
+                                    
+                                    <form class="form" asp-action="MakeInscription" asp-controller="Student">
+                                        <input type="text" readonly value="@Model.insc_id_student" asp-for="insc_id_student"/>
+                                        <div class="row">
+                                            <div class="col-sm-11 mb-1">
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="col-lg-3 col-3">
+                                                        <label class="col-form-label">Modalidad</label>
+                                                    </div>
+                                                    <div class="col-md-9 form-group">
+                                                        <select class="form-select" asp-for="insc_id_modality">
+                                                            @foreach (var item in Model.Modalities)
+                                                            {
+                                                                <option value="@item.id_modality">@item.modality_name</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="col-lg-3 col-3">
+                                                        <label class="col-form-label">Horario</label>
+                                                    </div>
+                                                    <div class="col-md-9 form-group">
+                                                        <select class="form-select" asp-for="insc_id_schedule">
+                                                            @foreach (var item in Model.Schedules)
+                                                            {
+                                                                <option value="@item.id_schedule">@item.schedule_name</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <label class="col-form-label">Comprobante de pago</label>
+                                                    </div>
+                                                    <div class="col-lg-9 col-md-9">
+                                                        <input type="file" class="basic-filepond">
+                                                    </div>
+                                                </div>
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <label  class="col-form-label">Comprobante de pago</label>
+                                                    </div>
+                                                    <div class="col-lg-9 col-md-9">
+                                                        <input type="file" class="multiple-filepond">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 col-lg-12 text-end">
+                                                    <button type="submit" class="btn btn-outline-success">
+                                                        Inscribirme
+                                                    </button>
                                                 </div>
                                             </div>
-
-                                            </fieldset>
                                         </div>
-                                    </center>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
+                    <div class="col-xl-5 col-md-6 col-sm-12 sombra">
+                        <div class="card">
+                            <div class="card-content">
+                                <center>
+                                    <div class="card-body">
 
-                <!-- Custom file input start -->
-        <section id="custom-file-input">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Subir Comprobante de Pago TECNM</h4>
-                        </div>
-                        <div class="card-content">
-                            <div class="card-body">
-                                <div class="row">
-                                    <center>
-                                        <div class="col-md-6 mb-1">
-                                            <div class="input-group mb-3">
-                                                <div class="input-group mb-3">
-                                                    <!--<label class="input-group-text" for="inputGroupFile01"><i
-                                                            class="bi bi-upload"></i></label>-->
-                                                    <input type="file" class="form-control" id="inputGroupFile01">
-                                                </div>
-                                            </div>
+                                        <h5 class="card-title">Datos del Curso Próximo a Inscripción</h5><br>
 
-                                            </fieldset>
+                                        <div class="badges">
+                                            <h5><span class="badge bg-success">Nivel: Basico 4</span></h5>
+                                        </div><br>
+                                        <div class="badges">
+                                            <h5><span class="badge bg-warning">Programa: Regular</span></h5>
+                                        </div><br>
+                                        <div class="badges">
+                                            <h5><span class="badge bg-danger">Inicio de Clases:</span>
+                                            </h5>
                                         </div>
-                                    </center>
-                                </div>
+                                        <div class="badges">
+                                            <h5><span class="badge bg-danger">29 de Agosto, 2022</span>
+                                            </h5>
+                                        </div>
+
+                                    </div>
+                                </center>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+
+
         </section>
 
-        <div class="col-12 d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary me-1 mb-1">Inscribirse</button>
-        </div>
+        

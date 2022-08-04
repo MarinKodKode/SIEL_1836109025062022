@@ -1,5 +1,6 @@
-﻿@model StudentViewModel
+﻿@model RegisterViewModel
 @{
+    ViewData["Title"] = "Registrate";
     Layout = null;
 }
 <!DOCTYPE html>
@@ -68,27 +69,27 @@
               <h6>Porfavor, ingrese los datos requeridos.</h6>
             </div>
             <div class="card-body">
-              <form asp-action="Register">
+              <form asp-action="Register" asp-controller="User">
                   <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="mb-3">
-                  <input  asp-for="stdt_name"  type="text" class="form-control" placeholder="Nombre(s)" aria-label="Nombre(s)">
-                  <span asp-validation-for="stdt_name" class="text-danger"></span>
+                  <input  asp-for="user_name"  type="text" class="form-control" placeholder="Nombre(s)" aria-label="Nombre(s)">
+                  <span asp-validation-for="user_name" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                  <input  asp-for="stdt_surname" type="text" class="form-control" placeholder="Apellidos" aria-label="Apellidos">
-                  <span asp-validation-for="stdt_surname" class="text-danger"></span>  
+                  <input  asp-for="user_surname" type="text" class="form-control" placeholder="Apellidos" aria-label="Apellidos">
+                  <span asp-validation-for="user_surname" class="text-danger"></span>  
                 </div>
                 <div class="mb-3">
-                  <input  asp-for="stdt_personal_email" type="email" class="form-control" placeholder="Correo electronico personal" aria-label="Correo electronico personal">
-                  <span asp-validation-for="stdt_personal_email" class="text-danger"></span>   
+                  <input  asp-for="user_personal_email" type="email" class="form-control" placeholder="Correo electronico personal" aria-label="Correo electronico personal">
+                  <span asp-validation-for="user_personal_email" class="text-danger"></span>   
                 </div>
                 <div class="mb-3">
-                  <input  asp-for="stdt_phone_1" type="number" class="form-control" placeholder="Teléfono" aria-label="Correo electronico Institucional">
-                  <span asp-validation-for="stdt_phone_1" class="text-danger"></span>
+                  <input  asp-for="user_phone_1" type="number" class="form-control" placeholder="Teléfono" aria-label="Correo electronico Institucional">
+                  <span asp-validation-for="user_phone_1" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                  <input  asp-for="stdt_hash_password" type="password" class="form-control" placeholder="Contraseña" aria-label="Contraseña">
-                  <span asp-validation-for="stdt_hash_password" class="text-danger"></span>
+                  <input  asp-for="user_hash_password" type="password" class="form-control" placeholder="Contraseña" aria-label="Contraseña">
+                  <span asp-validation-for="user_hash_password" class="text-danger"></span>
                 </div>
                 <div class="text-center">
                   <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Registrarse</button>
