@@ -115,6 +115,22 @@ namespace SIEL_1836109025062022.Controllers
             var student_id = userService.GetUserId();
             int id_program_selected = student.level_id_program;
             await studentsRepository.CreateStudentProgramId(student_id, id_program_selected);
+
+            var levels = await levelsRepository.GetStudentLevelsByIdProgram(id_program_selected);
+            var notes = "[{'speaking':'100','writing':'100'}]";
+            foreach (var level in levels)
+            {
+                var curriculumItem = new CurriculumAdvance()
+                {
+                    crlm_id_level = level.id_level,
+                    crlm_id_student = student_id,
+                    crlm_notes = notes,
+                    crlm_start_date = DateTime.Parse("2000-07-08 23:51:33.680"),
+                    crlm_end_date = DateTime.Parse("2000-07-08 23:51:33.680"),
+                };
+                await studentsRepository.CreateCurriculumAdvanceById(curriculumItem);
+            }
+            
             return RedirectToAction("Index", "Student");
         }
     
@@ -122,24 +138,53 @@ namespace SIEL_1836109025062022.Controllers
         public async Task<IActionResult> StudentInscription()
         {
             var student_id = userService.GetUserId();
-            InscriptionViewModel inscriptionViewModel = new InscriptionViewModel();
 
-            inscriptionViewModel.insc_id_student = student_id;
-            inscriptionViewModel.Schedules = await scheduleRepository.GetAllSchedules();
-            inscriptionViewModel.Modalities = await modalityRepository.GetAllModalities();
+            var student = await studentsRepository.GetStudentSchoolarData(student_id);
 
-            return View(inscriptionViewModel);
+            if (student is null)
+            {
+                return RedirectToAction("Index", "Student");
+            }
+            else
+            {
+                var isStudentJoined = await inscriptionRepository.IsStudentJoined(student_id);
+
+                if (!isStudentJoined)
+                {
+                    ViewBag.status = isStudentJoined;
+                    var student_id_program = await studentsRepository.VerifyStudentProgramById(student_id);
+                    InscriptionViewModel inscriptionViewModel = new InscriptionViewModel();
+                    inscriptionViewModel.insc_id_student = student_id;
+                    inscriptionViewModel.Schedules = await scheduleRepository.GetAllSchedules();
+                    inscriptionViewModel.Modalities = await modalityRepository.GetAllModalities();
+                    inscriptionViewModel.Levels = await levelsRepository.GetStudentLevelsByIdProgram(student_id_program);
+                    return View(inscriptionViewModel);
+                }
+                else
+                {
+                    ViewBag.status = isStudentJoined;
+                    return View();
+                }
+            }
         }
         [HttpPost]
         public async Task<IActionResult> MakeInscription(Inscription inscription)
         {
             var student_id = userService.GetUserId();
-            DateTime date =  DateTime.Now;
-            inscription.insc_date_time = date;
-
+            var student_control_number = await studentsRepository.GetStudentControlNumber(student_id);
+            var student_program = await studentsRepository.GetStudentProgramId(student_id);
+            var path1 = "wwwroot/EdPaymentFiles";
+            var path2 = "wwwroot/InstitutionPaymentFiles";
+            var file_location = "EdPaymentFiles";
+            var file_location2 = "InstitutionPaymentFiles";
             if (inscription.insc_id_student == student_id)
             {
-
+                inscription.insc_file_one = await UploadFile(path1, inscription.file_one, student_control_number, file_location);
+                inscription.insc_file_two = await UploadFile(path2, inscription.file_two, student_control_number, file_location2);
+                DateTime date = DateTime.Now;
+                inscription.insc_date_time = date;
+                inscription.insc_status = 1;
+                inscription.insc_id_course_program = student_program;
                 await inscriptionRepository.MakeInscription(inscription);
                 return RedirectToAction("Index", "Student");
             }
@@ -148,6 +193,7 @@ namespace SIEL_1836109025062022.Controllers
                 return RedirectToAction("Errore", "Home");
             }
         }
+        
         [HttpPost]
         public async Task<IActionResult> UpdateControlNumber(StudentDataViewModel student)
         {
@@ -155,6 +201,19 @@ namespace SIEL_1836109025062022.Controllers
             return RedirectToAction("StudentPersonalData", "Student");
         }
 
-
+        public async Task<string> UploadFile(string path, IFormFile file, string file_name, string file_location)
+        {
+            
+            var fileName = System.IO.Path.Combine(webHostEnvironment.ContentRootPath,
+                path, file_name + Path.GetExtension(file.FileName));
+            var file_name_db = System.IO.Path.
+                Combine("/", file_location, 
+                file_name + Path.GetExtension(file.FileName));
+            
+            await file.CopyToAsync(new System.IO.FileStream(
+                fileName, System.IO.FileMode.Create));
+            return file_name_db;
+            
+        }
     }
 }

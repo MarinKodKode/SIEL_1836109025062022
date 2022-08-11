@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SIEL_1836109025062022.Models;
+using SIEL_1836109025062022.Models.ViewModel;
 using SIEL_1836109025062022.Services;
 
 namespace SIEL_1836109025062022.Controllers
@@ -7,10 +8,13 @@ namespace SIEL_1836109025062022.Controllers
     public class ScheduleController : Controller 
     {
         private readonly IScheduleRepository scheduleRepository;
+        private readonly ILevelsRepository levelsRepository;
 
-        public ScheduleController(IScheduleRepository scheduleRepository)
+        public ScheduleController(IScheduleRepository scheduleRepository,
+            ILevelsRepository levelsRepository)
         {
             this.scheduleRepository = scheduleRepository;
+            this.levelsRepository = levelsRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -19,19 +23,23 @@ namespace SIEL_1836109025062022.Controllers
             return View(schedules);
         }
 
-        public IActionResult CreateSchedule()
+        [HttpGet]
+        public async Task<IActionResult> CreateSchedule()
         {
-            return View();
+            var model = new ScheduleCreateViewModel
+            {
+                Levels = await levelsRepository.GetLevels(),
+            };
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSchedule(Schedule schedule)
+        public async Task<IActionResult> CreateSchedule(ScheduleCreateViewModel schedule)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
-
             await scheduleRepository.CreateSchedule(schedule);
             return RedirectToAction("Index");
         }

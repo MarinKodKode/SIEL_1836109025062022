@@ -1,12 +1,13 @@
 ﻿using Dapper;
 using SIEL_1836109025062022.Models;
+using SIEL_1836109025062022.Models.ViewModel;
 using System.Data.SqlClient;
 
 namespace SIEL_1836109025062022.Services
 {
     public interface IScheduleRepository
     {
-        Task CreateSchedule(Schedule schedule);
+        Task CreateSchedule(ScheduleCreateViewModel schedule);
         Task DeleteScheduleById(int id_schedule);
         Task<bool> ExistSchedule(string schedule_name, string schedule_description);
         Task<IEnumerable<Schedule>> GetAllSchedules();
@@ -22,11 +23,11 @@ namespace SIEL_1836109025062022.Services
             connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public async Task CreateSchedule(Schedule schedule)
+        public async Task CreateSchedule(ScheduleCreateViewModel schedule)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
-            var id_schedule = await connection.QuerySingleAsync<int>(@"insert into schedules (schedule_name, schedule_description, schedule_order)
-                                values (@schedule_name,@schedule_description, @schedule_order); 
+            var id_schedule = await connection.QuerySingleAsync<int>(@"insert into schedules (schedule_name, schedule_description, schedule_level)
+                                values (@schedule_name,@schedule_description, @schedule_level); 
                                 SELECT SCOPE_IDENTITY();",
                                 schedule);
             schedule.id_schedule = id_schedule;

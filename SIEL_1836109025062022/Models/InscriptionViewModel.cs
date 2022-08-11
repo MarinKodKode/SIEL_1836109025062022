@@ -4,6 +4,7 @@
     {
         public IEnumerable<Schedule>  Schedules { get; set; }
         public IEnumerable<Modality> Modalities { get; set; }
+        public IEnumerable<Level> Levels { get; set; }
 
     }
 }

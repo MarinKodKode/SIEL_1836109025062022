@@ -7,9 +7,12 @@ namespace SIEL_1836109025062022.Services
 
     public interface IStudentsRepository
     {
+        Task CreateCurriculumAdvanceById(CurriculumAdvance curriculum);
         Task<int> CreateStudent(Student student);
         Task CreateStudentProgramId(int id_student, int id_program);
         Task<Student> GetStudentById(int id_student);
+        Task<string> GetStudentControlNumber(int id_student);
+        Task<int> GetStudentProgramId(int id_student);
         Task<StudentDataViewModel> GetStudentSchoolarData(int id_student);
         Task<Student> GetStudentUserById(int id_student);
         Task<bool> IsStudent(int id_student);
@@ -125,5 +128,36 @@ namespace SIEL_1836109025062022.Services
                                             student);
         }
 
+        public async Task CreateCurriculumAdvanceById(CurriculumAdvance curriculum)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            await connection.ExecuteAsync
+                (@" insert into curriculum_advance(crlm_id_student, crlm_id_level,
+                crlm_notes, crlm_certified_path, crlm_final_mark, crlm_start_date, crlm_end_date)
+                values (@crlm_id_student, @crlm_id_level, 
+                @crlm_notes,@crlm_certified_path,@crlm_final_mark,@crlm_start_date,@crlm_end_date)",
+                curriculum);
+        }
+
+        public async Task<string> GetStudentControlNumber(int id_student)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            var control_number = await connection.QuerySingleAsync<string>(@"
+                select stdt_control_number
+                from students
+                where id_student = @id_student; ",
+                new { id_student });
+            return control_number;
+        }
+        public async Task<int> GetStudentProgramId(int id_student)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            var id_program = await connection.QuerySingleAsync<int>(@"
+                select stdt_id_program
+                from students
+                where id_student = @id_student; ",
+                new { id_student });
+            return id_program;
+        }
     }
 }

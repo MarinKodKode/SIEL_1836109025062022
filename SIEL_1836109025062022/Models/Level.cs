@@ -14,7 +14,7 @@ namespace SIEL_1836109025062022.Models
         [Required(ErrorMessage = "La descripción del nivel es requerido")]
         [StringLength(maximumLength: 900, MinimumLength = 5, ErrorMessage = "El campo debe tener una longitud aceptable")]
         public string level_description { get; set; }
-        public string level_picture { get; set; } = "No picture";
+        public string level_picture { get; set; }
         public int level_order { get; set; } = 1;
 
         public string program_name { get; set; }

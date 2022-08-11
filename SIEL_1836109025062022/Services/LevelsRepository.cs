@@ -37,7 +37,7 @@ namespace SIEL_1836109025062022.Services
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             return await connection.QueryAsync<Level>(@"
-                            select level_name , level_description, program_name , program_description
+                            select *
                             from levels
                             inner join programs program 
                             on program.id_program  = levels.level_id_program;");

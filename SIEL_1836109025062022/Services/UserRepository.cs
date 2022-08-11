@@ -8,6 +8,7 @@ namespace SIEL_1836109025062022.Services
     {
         Task<int> CreateUser(User user);
         Task<User> GetUserByEmail(string user_normalized_email_p);
+        Task<string> GetUserProfilePicturePath(int id_user);
         Task UpdateUser(User user);
         Task UpdateUserProfilePicture(string file_path, int id_user);
     }
@@ -61,6 +62,16 @@ namespace SIEL_1836109025062022.Services
             await connection.ExecuteAsync(@"update users set user_profile_picture = @file_path
                                             where id_user = @id_user;",
                                             new { file_path, id_user});
+        }
+
+        public async Task<string> GetUserProfilePicturePath(int id_user)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            var  path = await connection.QuerySingleAsync<string>(
+                @"select user_profile_picture from users
+                    where id_user = @id_user",
+                new { id_user });
+            return path;
         }
 
     }

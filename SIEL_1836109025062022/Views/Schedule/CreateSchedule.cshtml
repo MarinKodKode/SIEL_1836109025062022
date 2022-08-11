@@ -1,4 +1,5 @@
-﻿@model Schedule
+﻿@using SIEL_1836109025062022.Models.ViewModel
+@model ScheduleCreateViewModel
 @{
     ViewData["Title"] = "Crear un horario";
 }
@@ -31,6 +32,18 @@
                                             <input type="text" class="form-control" asp-for="schedule_description"
                                                 placeholder="Ej. 8:00 Am - 10:00 AM"/>
                                                 <span asp-validation-for="schedule_description" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label asp-for="schedule_level">Nivel</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                                <select class="form-select" asp-for="schedule_level">
+                                                    @foreach (var level in Model.Levels)
+                                                    {
+                                                        <option value="@level.id_level">@level.level_name</option>
+                                                    }
+                                                </select>
                                         </div>
 
                                         <div class="col-sm-12 d-flex justify-content-end">

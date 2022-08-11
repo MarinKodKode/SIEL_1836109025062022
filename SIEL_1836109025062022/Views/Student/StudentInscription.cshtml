@@ -1,7 +1,10 @@
 ﻿@model InscriptionViewModel
 @{
     ViewData["Title"] = "Inscripción al curso";
+    var isStudentJoined = ViewBag.status; 
 }
+
+@if(!isStudentJoined){
 
         <div class="page-heading">
             <h3>Inscripción al Curso</h3>
@@ -12,14 +15,12 @@
                 <div class="row">
                     <div class="col-12 col-md-12 order-md-1 order-last">
                         <p class="text-subtitle text-muted">Selecione los campos solicitados a continuación para
-                            su registro en el periodo escolar Julio-Diddddciembre 2022.
-                            
+                            su registro en el siguiente módulo.
                         </p>
                     </div>
                 </div>
             </div>
         </div>
-
         <section id="multiple-column-form">
 
                 <div class="row match-height">
@@ -31,10 +32,23 @@
                             <div class="card-content">
                                 <div class="card-body">
                                     
-                                    <form class="form" asp-action="MakeInscription" asp-controller="Student">
-                                        <input type="text" readonly value="@Model.insc_id_student" asp-for="insc_id_student"/>
+                                    <form class="form" asp-action="MakeInscription" asp-controller="Student" enctype="multipart/form-data" method="post">
+                                        <input type="hidden" readonly value="@Model.insc_id_student" asp-for="insc_id_student"/>
                                         <div class="row">
                                             <div class="col-sm-11 mb-1">
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="col-lg-3 col-3">
+                                                        <label class="col-form-label">Nivel</label>
+                                                    </div>
+                                                    <div class="col-md-9 form-group">
+                                                        <select class="form-select" asp-for="insc_id_level">
+                                                            @foreach (var item in Model.Levels)
+                                                            {
+                                                                <option value="@item.id_level">@item.level_name</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
                                                 <div class="input-group input-group-sm mb-3">
                                                     <div class="col-lg-3 col-3">
                                                         <label class="col-form-label">Modalidad</label>
@@ -62,19 +76,19 @@
                                                     </div>
                                                 </div>
                                                 <div class="input-group input-group-sm mb-3">
-                                                    <div class="col-lg-3 col-md-3">
-                                                        <label class="col-form-label">Comprobante de pago</label>
+                                                    <div class="col-12">
+                                                        <label class="col-form-label">Comprobante de pago English Discoveries</label>
                                                     </div>
-                                                    <div class="col-lg-9 col-md-9">
-                                                        <input type="file" class="basic-filepond">
+                                                    <div class="col-12">
+                                                        <input asp-for="file_one" class="form-control"  type="file" value="upload">
                                                     </div>
                                                 </div>
                                                 <div class="input-group input-group-sm mb-3">
-                                                    <div class="col-lg-3 col-md-3">
-                                                        <label  class="col-form-label">Comprobante de pago</label>
+                                                    <div class="col-12">
+                                                        <label  class="col-form-label">Comprobante de pago Tecnológico </label>
                                                     </div>
-                                                    <div class="col-lg-9 col-md-9">
-                                                        <input type="file" class="multiple-filepond">
+                                                    <div class="col-12">
+                                                        <input asp-for="file_two" class="form-control"  type="file" value="upload">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12 col-sm-12 col-lg-12 text-end">
@@ -118,8 +132,10 @@
                         </div>
                     </div>
                 </div>
-
-
         </section>
-
-        
+    
+}
+else
+{
+  <partial name = "_StudentIsAlreadyJoined"/>  
+}

@@ -10,21 +10,18 @@ namespace SIEL_1836109025062022.Controllers
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
-        private readonly IStudentsRepository studentsRepository;
         private readonly IUserService userService;
         private readonly IUserRepository userRepository;
         private readonly IWebHostEnvironment webHostEnvironment;
 
         public UserController(UserManager<User> userManager,
             SignInManager<User> signInManager,
-            IStudentsRepository studentsRepository,
             IUserService userService,
             IUserRepository userRepository,
             IWebHostEnvironment webHostEnvironment)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
-            this.studentsRepository = studentsRepository;
             this.userService = userService;
             this.userRepository = userRepository;
             this.webHostEnvironment = webHostEnvironment;
@@ -33,7 +30,7 @@ namespace SIEL_1836109025062022.Controllers
         {
             return View();
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -47,11 +44,13 @@ namespace SIEL_1836109025062022.Controllers
                 user_name = model.user_name,
                 user_surname = model.user_surname,
                 user_phone_1 = model.user_phone_1,
+                user_id_institution =1,
+                user_id_role = 4,
             };
             var resultado = await userManager.CreateAsync(user, password: model.user_hash_password);
             if (resultado.Succeeded)
             {
-                await  signInManager.SignInAsync(user, isPersistent: true);
+                await signInManager.SignInAsync(user, isPersistent: true);
                 return RedirectToAction("Index", "Student");
             }
             else
@@ -78,10 +77,10 @@ namespace SIEL_1836109025062022.Controllers
                 return View(loginViewModel);
             }
 
-            var result = await signInManager.PasswordSignInAsync(loginViewModel.Email,loginViewModel.Password,
+            var result = await signInManager.PasswordSignInAsync(loginViewModel.Email, loginViewModel.Password,
                 loginViewModel.Rememberme, lockoutOnFailure: false);
 
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 return RedirectToAction("Index", "Student");
             }
@@ -103,18 +102,30 @@ namespace SIEL_1836109025062022.Controllers
             await userRepository.UpdateUser(user);
             return RedirectToAction("StudentPersonalData", "Student");
         }
-    
+
         [HttpPost]
         public async Task<IActionResult> UpdateUserProfilePicture(StudentDataViewModel user)
         {
             var id_user = userService.GetUserId();
+            var db_path = await userRepository.GetUserProfilePicturePath(id_user) ;
+             DeleteExistingFile(db_path);
+
             var fileName = System.IO.Path.Combine(webHostEnvironment.ContentRootPath,
-                "wwwroot/UsersPictures", id_user +Path.GetExtension(user.file_user_profile_picture.FileName));
+                "wwwroot/UsersPictures", id_user + Path.GetExtension(user.file_user_profile_picture.FileName));
             var file_name_db = System.IO.Path.Combine("/", "UsersPictures", id_user + Path.GetExtension(user.file_user_profile_picture.FileName));
             await user.file_user_profile_picture.CopyToAsync
                 (new System.IO.FileStream(fileName, System.IO.FileMode.Create));
             await userRepository.UpdateUserProfilePicture(file_name_db, id_user);
+            
             return RedirectToAction("StudentPersonalData", "Student");
+
+        }
+
+        public void DeleteExistingFile(string db_path)
+        {
+            string path =  System.IO.Path.Combine(webHostEnvironment.ContentRootPath,
+                "wwwroot/"+db_path);
+            System.IO.File.Delete(path);
         }
     }
 }

@@ -7,6 +7,8 @@ namespace SIEL_1836109025062022.Controllers
 
         public IActionResult Index()
         {
+
+
             return View();
         }
     }
