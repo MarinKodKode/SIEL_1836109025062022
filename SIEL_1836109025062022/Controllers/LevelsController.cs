@@ -67,7 +67,31 @@ namespace SIEL_1836109025062022.Controllers
                     x.program_name,
                     x.id_program.ToString()));
         }
-        //hsbdvkjbvdljsbv.<rs hts 
-        // ndfgnx hjg
+
+        [HttpGet]
+        public async Task<IActionResult> EditLevel(int id)
+        {
+            var level = await levelsRepository.GetLevelById(id);
+            if (level is null)
+            {
+                return RedirectToAction("Errore", "Home");
+            }
+            return View(level);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> EditLevel(Level level)
+        {
+            var levelExists = await levelsRepository.GetLevelById(level.id_level);
+
+            if (levelExists is null)
+            {
+                return RedirectToAction("Errore", "Home");
+            }
+            await levelsRepository.UpdateLevel(level);
+            return RedirectToAction("Index");
+
+
+        }
     }
 }

@@ -8,8 +8,10 @@ namespace SIEL_1836109025062022.Services
     public interface ILevelsRepository
     {
         Task CreateLevel(Level level);
+        Task<Level> GetLevelById(int id_program);
         Task<IEnumerable<Level>> GetLevels();
         Task<IEnumerable<Level>> GetStudentLevelsByIdProgram(int id_program);
+        Task UpdateLevel(Level level);
     }
 
     public class LevelsRepository : ILevelsRepository
@@ -54,7 +56,22 @@ namespace SIEL_1836109025062022.Services
                             where programs.id_program = @id_program;",
                             new { id_program });
         }
-
-
+        public async Task UpdateLevel(Level level)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            await connection.ExecuteAsync(@"update levels 
+                                            set level_name = @level_name,                                        
+                                            level_description = @level_description,
+                                            level_picture = @level_picture,
+                                            level_order = @level_order
+                                            where id_level =@id_level", level);
+        }
+        public async Task<Level>GetLevelById(int id_level)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            return await connection.QueryFirstOrDefaultAsync<Level>(@"select * from levels 
+                                                                 where id_level = @id_level",
+                                                                 new{id_level});
+        }
     }
 }
