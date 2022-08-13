@@ -8,6 +8,7 @@ namespace SIEL_1836109025062022.Services
     public interface ILevelsRepository
     {
         Task CreateLevel(Level level);
+        Task DeleteLevelById(int id_level);
         Task<Level> GetLevelById(int id_program);
         Task<IEnumerable<Level>> GetLevels();
         Task<IEnumerable<Level>> GetStudentLevelsByIdProgram(int id_program);
@@ -72,6 +73,13 @@ namespace SIEL_1836109025062022.Services
             return await connection.QueryFirstOrDefaultAsync<Level>(@"select * from levels 
                                                                  where id_level = @id_level",
                                                                  new{id_level});
+        }
+        public async Task DeleteLevelById(int id_level)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            await connection.ExecuteAsync(@"
+                             delete levels where id_level = @id_level",
+                             new { id_level });
         }
     }
 }

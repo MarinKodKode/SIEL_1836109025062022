@@ -93,5 +93,28 @@ namespace SIEL_1836109025062022.Controllers
 
 
         }
+        public async Task<IActionResult> DeleteLevelConfirmation(int id)
+        {
+            var levelProgram = await levelsRepository.GetLevelById(id);
+
+            if (levelProgram is null)
+            {
+                return RedirectToAction("Errore", "Home");
+            }
+            return View(levelProgram);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteLevel(int id_level)
+        {
+            var levelProgram = await levelsRepository.GetLevelById(id_level);
+
+            if (levelProgram is null)
+            {
+                return RedirectToAction("Errore", "Home");
+            }
+            await levelsRepository.DeleteLevelById(id_level);
+            return RedirectToAction("Index");
+        }
     }
 }
