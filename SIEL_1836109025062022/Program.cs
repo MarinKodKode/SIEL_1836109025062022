@@ -16,6 +16,8 @@ builder.Services.AddTransient<IModalityRepository, ModalityRepository>();
 builder.Services.AddTransient<IScheduleRepository, ScheduleRepository>();
 builder.Services.AddTransient<IStudentsRepository, StudentsRepository>();
 builder.Services.AddTransient<IInscriptionRepository, InscriptionRepository>();
+builder.Services.AddTransient<IAccountantRepository, AccountantRepository>();
+builder.Services.AddTransient<IStatusRepository, StatusIncriptionRepostitory>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<IUserStore<User>, UserStore>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();

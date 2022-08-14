@@ -6,10 +6,10 @@
     <section class="section">
         <div class="row justify-content-center" id="basic-table">
             <div class="col-12 col-md-12">
-                <div class="card">
+                <div class="card sombra">
                     <div class="card-header">
                         <h4 class="card-title d-inline">Programas de estudio</h4>
-                        <a class="btn btn-info float-end mr-5" asp-action="CreateCourseProgram" asp-controller="CourseProgram">Crear programa de estudios</a>
+                        <a class="btn btn-info float-end mr-5 sombra-1" asp-action="CreateCourseProgram" asp-controller="CourseProgram">Crear programa de estudios</a>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
@@ -32,8 +32,8 @@
                                                 <td class="text-bold-500 col-md-2">@program.program_name</td>
                                                 <td class="text-bold-500 col-md-7">@program.program_description</td>
                                                 <td class=" col-md-3"> 
-                                                    <a class="btn btn-success" asp-action="EditCourseProgram" asp-controller="CourseProgram" asp-route-id="@program.id_program">Editar</a>
-                                                    <a class="btn btn-danger" asp-action="DeleteCourseProgramConfirmation" asp-controller="CourseProgram" asp-route-id="@program.id_program">Eliminar</a>
+                                                    <a class="btn btn-success sombra-1" asp-action="EditCourseProgram" asp-controller="CourseProgram" asp-route-id="@program.id_program">Editar</a>
+                                                    <a class="btn btn-danger sombra-1" asp-action="DeleteCourseProgramConfirmation" asp-controller="CourseProgram" asp-route-id="@program.id_program">Eliminar</a>
                                                 </td>
                                             </tr>
                                         }

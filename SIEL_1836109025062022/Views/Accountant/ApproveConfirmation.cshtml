@@ -1,0 +1,87 @@
+﻿@using SIEL_1836109025062022.Models.ViewModel
+@model AccountantAuthorizationViewModel
+@{
+}
+
+
+    <!-- Basic Horizontal form layout section start -->
+    <section id="basic-horizontal-layouts">
+        <div class="row match-height">
+            <div class="col-md-4 col-lg-4 col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Confirmación de comprobante de pago.</h4>
+                        <div>
+                            <label>Alumno:</label>
+                            <label>@Model.user_name @Model.user_surname</label>
+                        </div>
+                        <div>
+                            <label>Número de control:</label>
+                            <label>@Model.stdt_control_number</label>
+                        </div>
+                        <div>
+                            <label>Fecha de registro:</label>
+                            <label>@Model.insc_date_time</label>
+                        </div>
+                        <label class="">
+                            
+                            <a href="@Model.insc_file_one" class="btn btn-success"
+                               target="iframe_file">Comprobante English Discoveries<i class="bi bi-eye"></i></a>
+                            <a href="@Model.insc_file_two" class="btn btn-primary"
+                               target="iframe_file">Comprobante Institucional<i class="bi bi-eye"></i></a>
+                        </label>
+                    </div>
+                        
+                    
+                    <div class="card-content">
+                        <div class="card-body">
+                            <form class="form form-horizontal" asp-controller="Accountant" asp-action="ApproveInscription">
+                                <input type="hidden" asp-for="id_inscription"/>
+                                <input type="hidden" asp-for="insc_id_student"/>
+                                <div class="form-body">
+                                    <div class="row">
+                                        <select class="form-select" asp-for="insc_status">
+                                            @foreach (var item in Model.status)
+                                            {
+                                                <option value="@item.id_status">@item.status_description</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-info">Guardar</button>
+                                    <a class="btn btn-danger" asp-action="index">Cancelar</a>
+                                </div>
+                            </form>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    <div class="col-md-8 col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Vista del Documento</h4>
+                                </div>
+
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <center>
+                                            <div class="col-md-6 col-sm-8"></div>
+
+                                            <div class="ExternalFiles ">
+                                                <iframe name="iframe_file" src="" style=" height:620px; width: 100%;"
+                                                    frameborder="0"></iframe>
+                                            </div>
+                                    </div>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+
+        </div>
+    </section>
+    <!-- // Basic Horizontal form layout section end -->
+
+                        @section Scripts{
+                                <partial name = "_ValidationScriptsPartial"/>
+                            }

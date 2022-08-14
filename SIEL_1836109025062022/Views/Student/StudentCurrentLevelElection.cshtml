@@ -1,0 +1,49 @@
+﻿@using SIEL_1836109025062022.Models.ViewModel
+@model LevelElectionViewModel
+@{
+    ViewData["Title"] = "Nivel actual";
+    var program = ViewData["studentProgram"].ToString();   
+    var isStudentCoursing = ViewBag.status;
+}
+
+@if(!isStudentCoursing){
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="card col-mdbi-dice-6 col-sm-12 col-lg-6">
+                <div class="card-title">
+                    <h3>Indica el nivel actual de estudio</h3>
+                </div>
+                <div class="card-subtitle">
+                    <p>Por única ocasión, deberás indicar el nivel en el que te encuentras.
+                        Es necesario que preguntes a tu profesor y pidas ayuda para realizar 
+                        este paso, de lo contrario no podrás realizar futuras inscripciones a
+                        los siguientes modulos de tu curso.
+                    </p>
+                </div>
+                <form asp-controller="Student" asp-action="StudentCurrentLevelElection">
+                    <div class="card-body">
+                        
+                        <label class="font-bold"> Actualmente cursas el @program </label>
+                        <select class="form-select" asp-for="id_level">
+                            @foreach (var item in Model.Levels)
+                            {
+                                <option value="@item.id_level">@item.level_name</option>
+                            }
+                        </select>
+                        <div>
+                            <button type="submit" class="btn btn-success">Guardar</button>
+                            <a class="btn btn-danger">Cancelar</a>
+                        </div>
+                    </div>
+                </form>
+                
+                
+            </div>
+        </div>
+    </div>
+</section>
+}else
+{
+  <partial name = "_StudentIsAlreadyCoursing"/>  
+}

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SIEL_1836109025062022.Models;
+using SIEL_1836109025062022.Models.ViewModel;
 using SIEL_1836109025062022.Services;
 
 namespace SIEL_1836109025062022.Controllers
@@ -73,17 +74,60 @@ namespace SIEL_1836109025062022.Controllers
 
         }
 
-        public IActionResult StudentData()
+        [HttpGet]
+        public async Task<IActionResult> StudentCurrentLevelElection()
         {
-            return View("StudentData");
+            var student_id = userService.GetUserId();
+            var isStudentCoursing = await studentsRepository.IsStudentCoursing(student_id);
+            var id_program = await studentsRepository.GetStudentProgramId(student_id);
+            var program = await courseProgramRepository.GetCourseProgramById(id_program);
+            if (!isStudentCoursing)
+            {
+                
+                var model = new LevelElectionViewModel
+                {
+                    Levels = await levelsRepository.GetStudentLevelsByIdProgram(id_program),
+                };
+                ViewBag.status = isStudentCoursing;
+                if (model == null)
+                {
+                    return RedirectToAction("Index", "Student");
+                }
+                else
+                {
+                    ViewData["studentProgram"] = program.program_name.ToString();
+                    return View(model);
+                }
+            }
+            else
+            {
+                ViewData["studentProgram"] = program.program_name.ToString();
+                ViewBag.status = isStudentCoursing;
+                return View();
+            }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> StudentCurrentLevelElection(int id_level)
+        {
+            var id_student = userService.GetUserId();
+            var current_level = id_level;
+
+            
+            await studentsRepository.UpdateStudentLevel(id_student, current_level);
+            await studentsRepository.UpdateStudentCoursingLevel(id_student, current_level);
+
+            return RedirectToAction("Index", "Student");
+            
+            
+
+        }
         public IActionResult StudentAnnouncement()
         {
             return View("StudentAnnouncement");
         }
 
-
+        
         public IActionResult StudentGetPaymentData()
         {
             return View("StudentGetPaymentData");
@@ -110,28 +154,37 @@ namespace SIEL_1836109025062022.Controllers
                     x.id_program.ToString()));
         }
 
+        [HttpPost]
         public async Task<IActionResult> StudentProgramElection(StudenIndexViewModel student)
         {
             var student_id = userService.GetUserId();
             int id_program_selected = student.level_id_program;
-            await studentsRepository.CreateStudentProgramId(student_id, id_program_selected);
+            var isStudent = await studentsRepository.IsStudent(student_id);
 
-            var levels = await levelsRepository.GetStudentLevelsByIdProgram(id_program_selected);
-            var notes = "[{'speaking':'100','writing':'100'}]";
-            foreach (var level in levels)
+            if (!isStudent)
             {
-                var curriculumItem = new CurriculumAdvance()
+                await studentsRepository.CreateStudentProgramId(student_id, id_program_selected);
+                var levels = await levelsRepository.GetStudentLevelsByIdProgram(id_program_selected);
+                var notes = "[{'speaking':'100','writing':'100'}]";
+                foreach (var level in levels)
                 {
-                    crlm_id_level = level.id_level,
-                    crlm_id_student = student_id,
-                    crlm_notes = notes,
-                    crlm_start_date = DateTime.Parse("2000-07-08 23:51:33.680"),
-                    crlm_end_date = DateTime.Parse("2000-07-08 23:51:33.680"),
-                };
-                await studentsRepository.CreateCurriculumAdvanceById(curriculumItem);
+                    var curriculumItem = new CurriculumAdvance()
+                    {
+                        crlm_id_level = level.id_level,
+                        crlm_id_student = student_id,
+                        crlm_notes = notes,
+                        crlm_start_date = DateTime.Parse("2000-07-08 23:51:33.680"),
+                        crlm_end_date = DateTime.Parse("2000-07-08 23:51:33.680"),
+                    };
+                    await studentsRepository.CreateCurriculumAdvanceById(curriculumItem);
+                }
+
+                return RedirectToAction("Index", "Student");
             }
-            
-            return RedirectToAction("Index", "Student");
+            else
+            {
+                return RedirectToAction("Index", "Student");
+            }
         }
     
         [HttpGet]
@@ -215,5 +268,7 @@ namespace SIEL_1836109025062022.Controllers
             return file_name_db;
             
         }
+
+        
     }
 }

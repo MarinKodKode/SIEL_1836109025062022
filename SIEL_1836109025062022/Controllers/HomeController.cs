@@ -22,6 +22,15 @@ namespace SIEL_1836109025062022.Controllers
         {
             return View();
         }
+        public IActionResult e404()
+        {
+            return View();
+        }
+
+        public IActionResult WhereDoYouGo()
+        {
+            return View();
+        }
 
         public IActionResult Privacy()
         {

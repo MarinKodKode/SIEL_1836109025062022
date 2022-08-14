@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using SIEL_1836109025062022.Models;
+using SIEL_1836109025062022.Models.ViewModel;
 using System.Data.SqlClient;
 
 
@@ -8,7 +9,10 @@ namespace SIEL_1836109025062022.Services
 
     public interface IInscriptionRepository
     {
+       
+        Task ApproveInscription(int id_student, int id_inscription, int insc_status);
         Task<IEnumerable<Inscription>> GetInscriptionList();
+        Task<AccountantAuthorizationViewModel> GetInscriptionRequestById(int id_inscription);
         Task<CurriculumAdvance> GetLastCourseTaken(int id_student);
         Task<bool> IsStudentJoined(int id_student);
         Task MakeInscription(Inscription inscription);
@@ -55,7 +59,7 @@ namespace SIEL_1836109025062022.Services
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             return await connection.QueryAsync<Inscription>(@"
-                    select * from inscriptions");
+                    select * from inscriptions where insc_status = 1");
         }
 
         public async Task<bool> IsStudentJoined(int id_student)
@@ -67,6 +71,27 @@ namespace SIEL_1836109025062022.Services
                                             where insc_id_student = @id_student;",
                                             new { id_student });
             return exists == 1;
+        }
+
+        public async Task ApproveInscription(int insc_id_student, int id_inscription, int insc_status)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            await connection.ExecuteAsync(@"update inscriptions 
+                                            set insc_status = @insc_status  
+                                            where id_inscription = @id_inscription
+                                            and insc_id_student = @insc_id_student",
+                                            new { insc_id_student, id_inscription, insc_status });
+        }
+
+        public async Task<AccountantAuthorizationViewModel> GetInscriptionRequestById(int id_inscription)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            return await connection.QueryFirstOrDefaultAsync<AccountantAuthorizationViewModel>(@"
+                         select * from inscriptions
+                            inner join students on students.id_student = inscriptions.insc_id_student
+                            inner join users on students.id_student = users.id_user
+                            where inscriptions.id_inscription = @id_inscription;",
+                         new { id_inscription });
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using SIEL_1836109025062022.Models;
+using SIEL_1836109025062022.Models.ViewModel;
 using System.Data.SqlClient;
 
 namespace SIEL_1836109025062022.Services
@@ -8,6 +9,7 @@ namespace SIEL_1836109025062022.Services
     public interface ILevelsRepository
     {
         Task CreateLevel(Level level);
+        Task<IEnumerable<LevelElectionViewModel>> GetLevelElection(int id_program);
         Task<IEnumerable<Level>> GetLevels();
         Task<IEnumerable<Level>> GetStudentLevelsByIdProgram(int id_program);
     }
@@ -54,6 +56,21 @@ namespace SIEL_1836109025062022.Services
                             where programs.id_program = @id_program;",
                             new { id_program });
         }
+
+        public async Task<IEnumerable<LevelElectionViewModel>> GetLevelElection(int id_program)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            return await connection.QueryAsync<LevelElectionViewModel>(@"
+                            select * 
+                            from levels
+                            inner join programs 
+                            on programs.id_program = levels.level_id_program
+                            where programs.id_program = @id_program;",
+                            new { id_program });
+        }
+
+
+
 
 
     }

@@ -5,6 +5,7 @@ namespace SIEL_1836109025062022.Models
     public class RegisterViewModel
     {
         [Required (ErrorMessage = "El nombre de usuario es requerido")]
+        //[DataType(DataType.Text)]
         public string user_name { get; set; }
         [Required(ErrorMessage = "El apellido de usuario es requerido")]
         public string user_surname { get; set; }

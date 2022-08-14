@@ -11,6 +11,7 @@ namespace SIEL_1836109025062022.Services
         Task<bool> ExistsCourseProgram(string program_name);
         Task<IEnumerable<CourseProgram>> GetAllCoursePrograms();
         Task<CourseProgram> GetCourseProgramById(int id_program);
+        Task<string> GetCourseProgramNameById(int id_program);
         Task UpdateCourseProgrma(CourseProgram courseProgram);
     }
     public class CourseProgramRepository : ICourseProgramRepository
@@ -73,6 +74,14 @@ namespace SIEL_1836109025062022.Services
             await connection.ExecuteAsync(@"
                              delete programs where id_program = @id_program",
                              new { id_program});
+        }
+        public Task<string> GetCourseProgramNameById(int id_program)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            var program_name =  connection.QueryFirstOrDefaultAsync<string>(@"
+                         select program_description from programs where id_program = @id_program",
+                         new { id_program });
+            return program_name;
         }
     }
 }

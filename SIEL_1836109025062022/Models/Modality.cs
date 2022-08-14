@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace SIEL_1836109025062022.Models
 {
@@ -9,6 +10,7 @@ namespace SIEL_1836109025062022.Models
         [StringLength(
             maximumLength: 45, MinimumLength = 5,
             ErrorMessage = "El campo debe tener una longitud minima de 5 carácteres y máxima de 45")]
+        //[Remote(action: "VerifyExistsModality", controller: "Modality")]
         public string modality_name { get; set; }
         [Required(ErrorMessage = "Una descripción breve de la modalidad es requerida")]
         [StringLength(
@@ -18,5 +20,7 @@ namespace SIEL_1836109025062022.Models
         [Required(ErrorMessage = "La duración de la modalidad es requerida")]
         public int modality_weeks_duration { get; set; }
         public int modality_order { get; set; } = 1;
+
+        public int modality_level_id { get; set; }
     }
 }
