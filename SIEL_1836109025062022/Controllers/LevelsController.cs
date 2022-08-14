@@ -64,7 +64,7 @@ namespace SIEL_1836109025062022.Controllers
                 
 
                 ModelState.AddModelError(nameof(level.level_name),
-                    "Ya hay un nivel con el mismo nombre");
+                    "Ya hay un nivel con el mismo nombre en el programa seleccionado");
                 return View(modelo);
             }
 
