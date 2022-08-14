@@ -60,9 +60,13 @@ namespace SIEL_1836109025062022.Controllers
             var existeLevelinProgram = await levelsRepository.ExistsLevel(level.level_name, level.level_id_program);
             if (existeLevelinProgram)
             {
+                var modelo = new LevelCreateViewModel();
+                modelo.Programs = await GetAllCoursePrograms();
+                
+
                 ModelState.AddModelError(nameof(level.level_name),
                     "Ya hay un nivel con el mismo nombre");
-                return View();
+                return View(modelo);
             }
 
             await levelsRepository.CreateLevel(level);
@@ -85,7 +89,9 @@ namespace SIEL_1836109025062022.Controllers
             {
                 return RedirectToAction("Errore", "Home");
             }
-            return View(level);
+            var modelo = new LevelCreateViewModel();
+            modelo.Programs = await GetAllCoursePrograms();
+            return View(modelo);
         }
 
         [HttpPost]
@@ -104,21 +110,21 @@ namespace SIEL_1836109025062022.Controllers
         }
         public async Task<IActionResult> DeleteLevelConfirmation(int id)
         {
-            var levelProgram = await levelsRepository.GetLevelById(id);
+            var level = await levelsRepository.GetLevelById(id);
 
-            if (levelProgram is null)
+            if (level is null)
             {
                 return RedirectToAction("Errore", "Home");
             }
-            return View(levelProgram);
+            return View(level);
         }
 
         [HttpPost]
         public async Task<IActionResult> DeleteLevel(int id_level)
         {
-            var levelProgram = await levelsRepository.GetLevelById(id_level);
+            var level = await levelsRepository.GetLevelById(id_level);
 
-            if (levelProgram is null)
+            if (level is null)
             {
                 return RedirectToAction("Errore", "Home");
             }

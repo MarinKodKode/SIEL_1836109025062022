@@ -42,10 +42,60 @@ namespace SIEL_1836109025062022.Controllers
 
             if (existePrograma)
             {
-                return Json("Ya existe un programa con ese nombre");
+                return Json("Ya existe una modalidad con ese nombre");
             }
 
             return Json(true);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> EditModality(int id)
+        {
+            var modality = await modalityRepository.GetModalityById(id);
+            if (modality is null)
+            {
+                return RedirectToAction("Errore", "Home");
+            }
+            return View(modality);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> EditModality(Modality modality)
+        {
+            var modalityExists = await modalityRepository.GetModalityById(modality.id_modality);
+
+            if (modalityExists is null)
+            {
+                return RedirectToAction("Errore", "Home");
+            }
+            await modalityRepository.UpdateModality(modality);
+            return RedirectToAction("Index");
+
+
+        }
+        public async Task<IActionResult> DeleteModalityConfirmation(int id)
+        {
+            var modality = await modalityRepository.GetModalityById(id);
+
+            if (modality is null)
+            {
+                return RedirectToAction("Errore", "Home");
+            }
+            return View(modality);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteModality(int id_modality)
+        {
+            var levelProgram = await modalityRepository.GetModalityById(id_modality);
+
+            if (levelProgram is null)
+            {
+                return RedirectToAction("Errore", "Home");
+            }
+            await modalityRepository.DeleteModalityById(id_modality);
+            return RedirectToAction("Index");
+        }
+
     }
 }
