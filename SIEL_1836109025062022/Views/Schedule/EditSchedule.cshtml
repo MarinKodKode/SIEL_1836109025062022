@@ -8,14 +8,15 @@
     <section id="basic-horizontal-layouts">
         <div class="row match-height justify-content-center">
             <div class="col-md-8 col-12">
-                <div class="card">
+                <div class="card sombra">
                     <div class="card-header">
                         <h4 class="card-title">Editar @Model.schedule_name</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
                             <form class="form form-horizontal" asp-controller="Schedule" asp-action="EditSchedule">
-                                <input type="hidden" asp-for="id_schedule"/>
+                                <input type="hidden" asp-for="id_schedule" readonly/>
+                                <input type="hidden" asp-for="schedule_level" readonly/>
                                 <div class="form-body">
                                     <div class="row">
                                         <div class="col-md-4">
@@ -35,9 +36,9 @@
                                                 <span asp-validation-for="schedule_description" class="text-danger"></span>
                                         </div>
                                         <div class="col-sm-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary me-1 mb-1">Guardar</button>
+                                            <button type="submit" class="btn btn-primary sombra-1 me-1">Guardar</button>
                                             
-                                            <a class="btn btn-danger" asp-action="index">Cancelar</a>
+                                            <a class="btn btn-danger sombra-1" asp-action="index">Cancelar</a>
                                         </div>
                                         
                                     </div>
@@ -49,6 +50,13 @@
                             @section Scripts{
                                 <partial name = "_ValidationScriptsPartial"/>
                             }
+                        </div>
+                        <div class="card-footer">
+                            <p class="small fst-italic">
+                                *Para matener la consistencia en los datos, el nivel de un horario no puede ser modificado,
+                                si desea modificar el nivel de este horario.
+                                Deberá eliminar el horario actual y crear uno nuevo.
+                            </p>
                         </div>
                     </div>
                 </div>

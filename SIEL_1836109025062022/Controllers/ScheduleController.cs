@@ -17,12 +17,13 @@ namespace SIEL_1836109025062022.Controllers
             this.levelsRepository = levelsRepository;
         }
 
+        //Read
         public async Task<IActionResult> Index()
         {
             var schedules = await scheduleRepository.GetAllSchedules();
             return View(schedules);
         }
-
+        //Create
         [HttpGet]
         public async Task<IActionResult> CreateSchedule()
         {
@@ -32,67 +33,78 @@ namespace SIEL_1836109025062022.Controllers
             };
             return View(model);
         }
-
         [HttpPost]
-        public async Task<IActionResult> CreateSchedule(ScheduleCreateViewModel schedule)
+        public async Task<IActionResult> CreateSchedule(Schedule schedule)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid){return View();}
+            var exist = await scheduleRepository.ExistsSchedule(schedule);
+            if (exist)
             {
-                return View();
+                var model = new ScheduleCreateViewModel
+                {
+                    Levels = await levelsRepository.GetLevels(),
+                };
+                ModelState.AddModelError(nameof(schedule.schedule_name),
+                    "Ya hay un horario con la misma información asignado al mismo nivel.");
+                return View(model);
             }
             await scheduleRepository.CreateSchedule(schedule);
             return RedirectToAction("Index");
         }
-
+        //Update
         [HttpGet]
         public async Task<IActionResult> EditSchedule(int id)
         {
             var schedule = await scheduleRepository.GetSchedulebyId(id);
             if (schedule is null)
             {
-                return RedirectToAction("Errore", "Home");
+                return RedirectToAction("WhereDoYouGo", "Home");
             }
             return View(schedule);
         }
-
         [HttpPost]
         public async Task<ActionResult> EditSchedule(Schedule schedule)
         {
-            var exist = await scheduleRepository.GetSchedulebyId(schedule.id_schedule);
-
-            if (exist is null)
+            if (!ModelState.IsValid) { return View(); }
+            var exist = await scheduleRepository.ExistsSchedule(schedule);
+            if (exist)
             {
-                return RedirectToAction("Errore", "Home");
-            }
+                var model = new ScheduleCreateViewModel
+                {
+                    Levels = await levelsRepository.GetLevels(),
+                };
+                ModelState.AddModelError(nameof(schedule.schedule_name),
+                    "Ya hay un horario con la misma información asignado al mismo nivel.");
+                return View(model);
+            };
             await scheduleRepository.UpdateSchedule(schedule);
             return RedirectToAction("Index");
-
-
         }
-
+        //Delete
         public async Task<IActionResult> DeleteScheduleConfirmation(int id)
         {
             var schedule = await scheduleRepository.GetSchedulebyId(id);
-
-            if (schedule is null)
-            {
-                return RedirectToAction("Errore", "Home");
-            }
+            if (schedule is null){return RedirectToAction("e404", "Home");}
             return View(schedule);
         }
-
         [HttpPost]
         public async Task<IActionResult> DeleteSchedule(int id_schedule)
         {
             var schedule = await scheduleRepository.GetSchedulebyId(id_schedule);
-
-            if (schedule is null)
-            {
-                return RedirectToAction("Errore", "Home");
-            }
+            if (schedule is null){return RedirectToAction("e404", "Home");}
             await scheduleRepository.DeleteScheduleById(id_schedule);
             return RedirectToAction("Index");
         }
-
+        //Validations
+        [HttpGet]
+        public async Task<IActionResult> VerifyExistsSchedule(Schedule schedule)
+        {
+            var existModality = await scheduleRepository.ExistsSchedule(schedule);
+            if (existModality)
+            {
+                return Json("Ya existe un horario con la misma información asignada al mismo nivel.");
+            }
+            return Json(true);
+        }
     }
 }

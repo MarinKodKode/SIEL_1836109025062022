@@ -7,9 +7,10 @@ namespace SIEL_1836109025062022.Services
 {
     public interface IScheduleRepository
     {
-        Task CreateSchedule(ScheduleCreateViewModel schedule);
+        Task CreateSchedule(Schedule schedule);
         Task DeleteScheduleById(int id_schedule);
         Task<bool> ExistSchedule(string schedule_name, string schedule_description);
+        Task<bool> ExistsSchedule(Schedule schedule);
         Task<IEnumerable<Schedule>> GetAllSchedules();
         Task<Schedule> GetSchedulebyId(int id_schedule);
         Task UpdateSchedule(Schedule schedule);
@@ -23,7 +24,7 @@ namespace SIEL_1836109025062022.Services
             connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public async Task CreateSchedule(ScheduleCreateViewModel schedule)
+        public async Task CreateSchedule(Schedule schedule)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             var id_schedule = await connection.QuerySingleAsync<int>(@"insert into schedules (schedule_name, schedule_description, schedule_level)
@@ -76,6 +77,18 @@ namespace SIEL_1836109025062022.Services
                              new { id_schedule });
         }
 
-       
+        //Validations
+
+        public async Task<bool> ExistsSchedule(Schedule schedule)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            var exists = await connection.QueryFirstOrDefaultAsync<int>(@"
+                                            select 1 from schedules
+                                            where schedule_name like @schedule_name
+                                            and schedule_level = @schedule_level
+                                            AND schedule_description like @schedule_description;",
+                                            schedule);
+            return exists == 1;
+        }
     }
 }
