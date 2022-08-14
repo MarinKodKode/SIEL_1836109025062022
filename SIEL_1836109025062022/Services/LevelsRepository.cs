@@ -9,6 +9,7 @@ namespace SIEL_1836109025062022.Services
     {
         Task CreateLevel(Level level);
         Task DeleteLevelById(int id_level);
+        Task<bool> ExistsLevel(string level_name, int level_id_program);
         Task<Level> GetLevelById(int id_program);
         Task<IEnumerable<Level>> GetLevels();
         Task<IEnumerable<Level>> GetStudentLevelsByIdProgram(int id_program);
@@ -80,6 +81,17 @@ namespace SIEL_1836109025062022.Services
             await connection.ExecuteAsync(@"
                              delete levels where id_level = @id_level",
                              new { id_level });
+        }
+        public async Task<bool> ExistsLevel(string level_name, int level_id_program)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            var exists = await connection.QueryFirstOrDefaultAsync<int>(@"
+                               select 1 
+                               from levels
+                               where level_name = @level_name 
+                               and level_id_program = @level_id_program;",
+                               new { level_name, level_id_program });
+            return exists == 1;
         }
     }
 }

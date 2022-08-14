@@ -56,6 +56,15 @@ namespace SIEL_1836109025062022.Controllers
                 return View(level);
             }
 
+            //si existe nivel
+            var existeLevelinProgram = await levelsRepository.ExistsLevel(level.level_name, level.level_id_program);
+            if (existeLevelinProgram)
+            {
+                ModelState.AddModelError(nameof(level.level_name),
+                    "Ya hay un nivel con el mismo nombre");
+                return View();
+            }
+
             await levelsRepository.CreateLevel(level);
             return RedirectToAction("index");
         }
@@ -115,6 +124,19 @@ namespace SIEL_1836109025062022.Controllers
             }
             await levelsRepository.DeleteLevelById(id_level);
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> VerifyExistsLevel(string level_name, int level_id_program)
+        {
+            var existeLevel = await levelsRepository.ExistsLevel(level_name, level_id_program);
+
+            if (existeLevel)
+            {
+                return Json("Ya existe un nivel con ese nombre");
+            }
+
+            return Json(true);
         }
     }
 }
