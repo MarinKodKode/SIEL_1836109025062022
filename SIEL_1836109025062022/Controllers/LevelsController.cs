@@ -17,7 +17,6 @@ namespace SIEL_1836109025062022.Controllers
             this.courseProgramRepository = courseProgramRepository;
             this.levelsRepository = levelsRepository;
         }
-
         public async Task<IActionResult> Index()
         {
             var levels = await levelsRepository.GetLevels();
