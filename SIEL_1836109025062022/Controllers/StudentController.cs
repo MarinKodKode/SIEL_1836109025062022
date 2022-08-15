@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SIEL_1836109025062022.Models;
+using SIEL_1836109025062022.Models.ViewModel;
 using SIEL_1836109025062022.Services;
 
 namespace SIEL_1836109025062022.Controllers
@@ -70,6 +71,54 @@ namespace SIEL_1836109025062022.Controllers
             }
             
             
+
+        }
+        [HttpGet]
+        public async Task<IActionResult> StudentCurrentLevelElection()
+        {
+            var student_id = userService.GetUserId();
+            var isStudentCoursing = await studentsRepository.IsStudentCoursing(student_id);
+            var id_program = await studentsRepository.GetStudentProgramId(student_id);
+            var program = await courseProgramRepository.GetCourseProgramById(id_program);
+            if (!isStudentCoursing)
+            {
+
+                var model = new LevelElectionViewModel
+                {
+                    Levels = await levelsRepository.GetStudentLevelsByIdProgram(id_program),
+                };
+                ViewBag.status = isStudentCoursing;
+                if (model == null)
+                {
+                    return RedirectToAction("Index", "Student");
+                }
+                else
+                {
+                    ViewData["studentProgram"] = program.program_name.ToString();
+                    return View(model);
+                }
+            }
+            else
+            {
+                ViewData["studentProgram"] = program.program_name.ToString();
+                ViewBag.status = isStudentCoursing;
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> StudentCurrentLevelElection(int id_level)
+        {
+            var id_student = userService.GetUserId();
+            var current_level = id_level;
+
+
+            await studentsRepository.UpdateStudentLevel(id_student, current_level);
+            await studentsRepository.UpdateStudentCoursingLevel(id_student, current_level);
+
+            return RedirectToAction("Index", "Student");
+
+
 
         }
 

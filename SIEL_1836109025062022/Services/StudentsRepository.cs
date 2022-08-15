@@ -16,7 +16,10 @@ namespace SIEL_1836109025062022.Services
         Task<StudentDataViewModel> GetStudentSchoolarData(int id_student);
         Task<Student> GetStudentUserById(int id_student);
         Task<bool> IsStudent(int id_student);
+        Task<bool> IsStudentCoursing(int id_student);
         Task UpdateControlNumber(StudentDataViewModel student);
+        Task UpdateStudentCoursingLevel(int student, int current_level);
+        Task UpdateStudentLevel(int student, int current_level);
         Task UpdateStudentProgramId(int id_student, int id_program);
         Task<int> VerifyStudentProgramById(int id_student);
     }
@@ -158,6 +161,38 @@ namespace SIEL_1836109025062022.Services
                 where id_student = @id_student; ",
                 new { id_student });
             return id_program;
+        }
+
+
+        public async Task UpdateStudentLevel(int student, int current_level)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            await connection.ExecuteAsync(@"update curriculum_advance 
+                                            set crlm_id_status_level = 3 
+                                            where crlm_id_level < @current_level 
+                                            and crlm_id_student = @student",
+                                            new { student, current_level });
+        }
+
+        public async Task UpdateStudentCoursingLevel(int student, int current_level)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            await connection.ExecuteAsync(@"update curriculum_advance 
+                                            set crlm_id_status_level = 4 
+                                            where crlm_id_level = @current_level 
+                                            and crlm_id_student = @student",
+                                            new { student, current_level });
+        }
+        public async Task<bool> IsStudentCoursing(int id_student)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            var exists = await connection.QueryFirstOrDefaultAsync<int>(@"
+                                            select 1 
+                                            from curriculum_advance 
+                                            where  crlm_id_status_level = 4 
+                                            and crlm_id_student = @id_student",
+                                            new { id_student });
+            return exists == 1;
         }
     }
 }
