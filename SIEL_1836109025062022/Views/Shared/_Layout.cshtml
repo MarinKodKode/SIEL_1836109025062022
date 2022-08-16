@@ -1,10 +1,14 @@
 ﻿@using Microsoft.AspNetCore.Identity
-
 @inject SignInManager<User> SignInManager
+@{
+   var role = int.Parse(ViewData["role"].ToString());        
+   var picture  = ViewData["picture"].ToString();        
+   var role_name = ViewData["role_name"].ToString();        
+}
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"]</title>
@@ -47,140 +51,25 @@
             </div>
             <div class="sidebar-menu">
                 <ul class="menu">
-                    <li class="sidebar-title">Menu</li>
+                    <li class="sidebar-title">Menu </li>
 
                     <!------------------------Acciones de estudiante------------------------>
-                        <li class="sidebar-item  has-sub">
-                            <a class='sidebar-link' >
-                                <i class="bi bi-bar-chart-fill"></i>
-                                <span>Inicio</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a asp-area="" asp-controller="Student" asp-action="Index" >Mi Avance</a>
-                                </li>    
-                                <li class="submenu-item ">
-                                    <a href="https://www.youtube.com/channel/UCUXpwMzV4Mx5lV_NbnY2Kcw/videos">Tutoriales del Curso</a>
-                                </li>    
-                            </ul>
-                        </li>
-                    <!------------------------INICIA ITEM DESPLEGABLE------------------------>
-                    
-                 
-                    <li
-                        class="sidebar-item  ">
-                        <a  class='sidebar-link' asp-area="" asp-controller="Student" asp-action="StudentAnnouncement">
-                            <i class="bi bi-file-earmark-medical-fill"></i>
-                            <span>Convocatorias</span>
-                        </a>
-                    </li>
-                    
-                    <li
-                        class="sidebar-item  ">
-                        <a class="sidebar-link" asp-area="" asp-controller="Student" asp-action="StudentGetPaymentData">
-                            <i class="bi bi-credit-card-2-front-fill"></i>
-                            <span>Referencias de pago</span>
-                        </a>
-                    </li>
-                    
-                    <li
-                        class="sidebar-item  ">
-                        <a  class="sidebar-link" asp-area="" asp-controller="Student" asp-action="StudentInscription">
-                            <i class="bi bi-building"></i>
-                            <span>Incripción</span>
-                        </a>
-                    </li>
-                    
-                    <li
-                        class="sidebar-item  ">
-                        <a  class="sidebar-link" asp-area="" asp-controller="Student" asp-action="StudentCurrentLevelElection">
-                            <i class="bi bi-building"></i>
-                            <span>Elección de nivel</span>
-                        </a>
-                    </li>
-                    <li
-                        class="sidebar-item  ">
-                        <a  class="sidebar-link" asp-area="" asp-controller="Student" asp-action="StudentPersonalData">
-                            <i class="bi bi-person"></i>
-                            <span>Datos personales</span>
-                        </a>
-                    </li>
-                    <li
-                        class="sidebar-item  ">
-                        <a  class="sidebar-link" href="https://ed.engdis.com//avatarisolution#/login" target="_blank">
-                            <i class="bi bi-laptop-fill"></i>
-                            <span>English Discoveries</span>
-                        </a>
-                    </li>
-                    <li
-                        class="sidebar-item  ">
-                        <a  class="sidebar-link" href="https://wa.me/5215522461687" target="_blank">
-                            <i class="bi bi-whatsapp"></i>
-                            <span>Contácto Loogan Lts.</span>
-                        </a>
-                    </li>
-                    <!------------------------Acciones de administrador------------------------>
-                    <li class="sidebar-title">Administrador</li>
-                    <li class="sidebar-item  has-sub">
-                        <a class='sidebar-link' >
-                            <i class="bi bi-person-badge-fill"></i>
-                            <span>Administrador</span>
-                        </a>
-                        <ul class="submenu">
-                            <li class="submenu-item ">
-                                <a class="sidebar-link" asp-area="" asp-controller="CourseProgram" asp-action="Index">Programas</a>
-                            </li>    
-                            <li class="submenu-item" >
-                                <a class="sidebar-link" asp-area="" asp-controller="Levels" asp-action="Index">Niveles</a>
-                            </li>
-                            <li class="submenu-item ">
-                                <a class="sidebar-link" asp-area="" asp-controller="Schedule" asp-action="Index">Horarios</a>
-                            </li>
-                            <li class="submenu-item ">
-                                <a class="sidebar-link" asp-area="" asp-controller="Teacher" asp-action="Index" >Profesores</a>
-                            </li>
-                            <li class="submenu-item ">
-                                <a class="sidebar-link" asp-area="" asp-controller="Modality" asp-action="Index" >Modalidades</a>
-                            </li>
-                            <li class="submenu-item ">
-                                <a class="sidebar-link" asp-area="" asp-controller="Convocation" asp-action="Index" >Convocatorias</a>
-                            </li>
-                        </ul>
-                    </li>
-                <!------------------------INICIA ITEM DESPLEGABLE------------------------>
-                    <li class="sidebar-title">Contabilidad</li>
-
-                    <!------------------------Acciones de auxiliar contable------------------------>
-                        <li class="sidebar-item  has-sub">
-                            <a class='sidebar-link' >
-                                <i class="bi bi-bar-chart-fill"></i>
-                                <span>Contabilidad</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a asp-area="" asp-controller="Accountant" asp-action="Index" >Bouchers de pago</a>
-                                </li> 
-                            </ul>
-                        </li>
-                    <!------------------------INICIA ITEM DESPLEGABLE------------------------>
-                    <!------------------------INICIA ITEM DESPLEGABLE------------------------>
-                    <li class="sidebar-title">Facilitador</li>
-
-                    <!------------------------Acciones de auxiliar contable------------------------>
-                        <li class="sidebar-item  has-sub">
-                            <a class='sidebar-link' >
-                                <i class="bi bi-bar-chart-fill"></i>
-                                <span>Facilitador</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a asp-area="" asp-controller="Boucher" asp-action="Index" >Estudiantes</a>
-                                </li> 
-                            </ul>
-                        </li>
-                    <!------------------------INICIA ITEM DESPLEGABLE------------------------>
-
+                        
+                            @if(role == 2)
+                            {
+                               <partial name = "_AdminInstOptions" /> 
+                            }
+                            else if(role ==  3){
+                                <partial name = "_TeacherOptions" />
+                            }else if(role == 4)
+                            {
+                                <partial name = "_StudentOptions" />
+                            }else if(role == 5)
+                            {
+                                <partial name = "_AccountantOptions" />
+                            }
                 </ul>
+                
             </div>
         </div>
     </div>
@@ -191,20 +80,18 @@
                         <div class="collapse navbar-collapse align-content-md-between" id="navbarSupportedContent ">
                             
                             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                                
                             </ul>
                             
                             <div class="dropdown">
                                 <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="user-menu d-flex">
                                         <div class="user-name text-end me-3">
-
                                             <h6 class="mb-0 text-gray-600">@User.Identity.Name</h6>
-                                            <p class="mb-0 text-sm text-gray-600">Estudiante</p>
+                                            <p class="mb-0 text-sm text-gray-600">@role_name </p>
                                         </div>
                                         <div class="user-img d-flex align-items-center">
                                             <div class="avatar avatar-md">
-                                                <img src="~/assets/images/4853433.png">
+                                                <img src="@picture">
                                             </div>
                                         </div>       
                                     </div>
@@ -261,14 +148,5 @@
     <script src="~/assets/plugin/components/moment/moment.min.js"></script>
     <script src="~/assets/plugin/components/moment/moment-timezone-with-data.min.js"></script>
     <script src="~/assets/js/extensions/datatables.js"></script>
-    <!-- spanish language (es) -->
-    <script src="~/assets/plugin/whatsapp-chat-support.js"></script>
-    
-    @await RenderSectionAsync("Scripts", required: false)
-    <script>
-        $('#button-w').whatsappChatSupport({
-            defaultMsg: '',
-        });
-    </script>
 </body>
 </html>

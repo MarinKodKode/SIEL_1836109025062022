@@ -49,9 +49,11 @@ namespace SIEL_1836109025062022.Controllers
             };
             var resultado = await userManager.CreateAsync(user, password: model.user_hash_password);
             if (resultado.Succeeded)
+
             {
                 await signInManager.SignInAsync(user, isPersistent: true);
                 return RedirectToAction("Index", "Student");
+                
             }
             else
             {
@@ -79,10 +81,11 @@ namespace SIEL_1836109025062022.Controllers
 
             var result = await signInManager.PasswordSignInAsync(loginViewModel.Email, loginViewModel.Password,
                 loginViewModel.Rememberme, lockoutOnFailure: false);
-
+            //var user_id = userService.GetUserId();
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Student");
+                
+                return RedirectToAction("Index", "Redirect");
             }
             else
             {

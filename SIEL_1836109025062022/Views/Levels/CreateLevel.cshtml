@@ -7,13 +7,13 @@
     <section id="basic-horizontal-layouts">
         <div class="row match-height justify-content-center">
             <div class="col-md-8 col-12">
-                <div class="card">
+                <div class="card sombra">
                     <div class="card-header">
                         <h4 class="card-title">Crear un nuevo nivel</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <form class="form form-horizontal" asp-controller="Levels" asp-action="CreateLevel">
+                            <form class="form form-horizontal" asp-controller="Levels" asp-action="CreateLevel" enctype="multipart/form-data" method="post">
                                 <div class="form-body">
                                     <div class="row">
                                         <div class="col-md-4">
@@ -42,20 +42,15 @@
                                         <div class="col-md-4">
                                             <label asp-for="level_picture">Imagen del nivel</label>
                                         </div>
-                                        <div class="col-12 col-md-12">
-                                            <div class="card">
-                                                <div class="card-content">
-                                                    <div class="card-body">
-                                                        <input type="file" class="image-preview-filepond">
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-8 form-group">
+                                            <input asp-for="level_file_picture" value="level_file_picture" type="file" name="level_file_picture" 
+                                            class="form-control" required/>       
                                         </div>
 
                                         <div class="col-sm-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary me-1 mb-1">Guardar</button>
+                                            <button type="submit" class="sombra-1 btn btn-primary me-1">Guardar</button>
                                             
-                                            <a class="btn btn-danger" asp-action="index">Cancelar</a>
+                                            <a class="btn btn-danger sombra-1" asp-action="index">Cancelar</a>
                                         </div>
 
                                         

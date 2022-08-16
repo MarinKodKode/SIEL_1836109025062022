@@ -13,6 +13,7 @@ namespace SIEL_1836109025062022.Services
         Task DeleteModalityById(int id_modality);
         Task<bool> ExistsModality(Modality modality);
         Task<IEnumerable<Modality>> GetAllModalities();
+        Task<IEnumerable<Modality>> GetAllModalitiesByLevel(int id_level);
         Task<Modality> GetModalityById(int id_modality);
         Task<ModalityDetailViewModel> GetModalityLevelById(int id_modality);
         Task UpdateModality(Modality modality);
@@ -44,6 +45,14 @@ namespace SIEL_1836109025062022.Services
             return await connection.QueryAsync<Modality>(@"
                                     select * from modalities;");
         }
+        public async Task<IEnumerable<Modality>> GetAllModalitiesByLevel(int id_level)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            return await connection.QueryAsync<Modality>(@"
+                                    select * from modalities
+                                    where modality_level_id = @id_level;",
+                                    new { id_level });
+        }
         public async Task<Modality> GetModalityById(int id_modality)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
@@ -51,6 +60,7 @@ namespace SIEL_1836109025062022.Services
                          select * from modalities where id_modality = @id_modality",
                          new { id_modality });
         }
+
 
         public async Task<ModalityDetailViewModel> GetModalityLevelById(int id_modality)
         {

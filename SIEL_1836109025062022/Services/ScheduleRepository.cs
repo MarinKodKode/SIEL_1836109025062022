@@ -12,6 +12,7 @@ namespace SIEL_1836109025062022.Services
         Task<bool> ExistSchedule(string schedule_name, string schedule_description);
         Task<bool> ExistsSchedule(Schedule schedule);
         Task<IEnumerable<Schedule>> GetAllSchedules();
+        Task<IEnumerable<Schedule>> GetAllSchedulesByLevel(int id_level);
         Task<Schedule> GetSchedulebyId(int id_schedule);
         Task UpdateSchedule(Schedule schedule);
     }
@@ -41,6 +42,14 @@ namespace SIEL_1836109025062022.Services
                                     select * from schedules;");
         }
 
+        public async Task<IEnumerable<Schedule>> GetAllSchedulesByLevel(int id_level)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            return await connection.QueryAsync<Schedule>(@"
+                                    select * from schedules
+                                    where schedule_level = @id_level;",
+                                    new { id_level });
+        }
         public async Task<bool> ExistSchedule(string schedule_name, string schedule_description)
         {
             using SqlConnection connection = new SqlConnection(connectionString);

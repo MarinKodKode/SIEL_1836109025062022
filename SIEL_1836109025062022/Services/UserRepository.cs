@@ -8,7 +8,12 @@ namespace SIEL_1836109025062022.Services
     {
         Task<int> CreateUser(User user);
         Task<User> GetUserByEmail(string user_normalized_email_p);
+        Task<User> GetUserById(int id_user);
+        Task<string> GetUserPicturePath(int id_user);
         Task<string> GetUserProfilePicturePath(int id_user);
+        Task<int> GetAsyncUserRole(int id_user);
+        int GetUserRole(int id_user);
+        Task<string> GetUserRoleName(int id_role);
         Task UpdateUser(User user);
         Task UpdateUserProfilePicture(string file_path, int id_user);
     }
@@ -42,6 +47,42 @@ namespace SIEL_1836109025062022.Services
             return await connection.QuerySingleOrDefaultAsync<User>(
                 @"Select * from users where  user_normalized_email_p = @user_normalized_email_p",
                 new { user_normalized_email_p });
+        }
+
+        public async Task<User> GetUserById(int  id_user)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            return await connection.QuerySingleOrDefaultAsync<User>(
+                @"Select * from users where  id_user = @id_user",
+                new { id_user });
+        }
+        public int GetUserRole(int id_user)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            return  connection.QuerySingleOrDefault<int>(
+                @"Select user_id_role from users where  id_user = @id_user",
+                new { id_user });
+        }
+        public async Task<int> GetAsyncUserRole(int id_user)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            return await connection.QuerySingleOrDefaultAsync<int>(
+                @"Select user_id_role from users where  id_user = @id_user",
+                new { id_user });
+        }
+        public async Task<string> GetUserPicturePath(int id_user)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            return await connection.QuerySingleOrDefaultAsync<string>(
+                @"Select user_profile_picture from users where  id_user = @id_user",
+                new { id_user });
+        }
+        public async Task<string> GetUserRoleName( int id_role)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            return await connection.QuerySingleOrDefaultAsync<string>(
+                @"Select role_description from roles where  id_role = @id_role",
+                new { id_role });
         }
 
         public async Task UpdateUser(User user)
