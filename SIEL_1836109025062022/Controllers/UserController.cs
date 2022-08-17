@@ -52,7 +52,7 @@ namespace SIEL_1836109025062022.Controllers
 
             {
                 await signInManager.SignInAsync(user, isPersistent: true);
-                return RedirectToAction("Index", "Student");
+                return RedirectToAction("Begin", "Student");
                 
             }
             else

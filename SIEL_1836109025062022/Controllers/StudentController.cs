@@ -94,11 +94,20 @@ namespace SIEL_1836109025062022.Controllers
 
         }
 
+        public async Task<IActionResult> Begin()
+        {
+            return View();
+        }
         [HttpGet]
         public async Task<IActionResult> StudentCurrentLevelElection()
         {
 
             var student_id = userService.GetUserId();
+            var student = await studentsRepository.GetStudentSchoolarData(student_id);
+            if (student is null)
+            {
+                return RedirectToAction("Index", "Student");
+            }
             var isStudentCoursing = await studentsRepository.IsStudentCoursing(student_id);
             var id_program = await studentsRepository.GetStudentProgramId(student_id);
             var program = await courseProgramRepository.GetCourseProgramById(id_program);
@@ -340,11 +349,17 @@ namespace SIEL_1836109025062022.Controllers
             var upicture = await userRepository.GetUserPicturePath(student_id);
             var urole_name = await userRepository.GetUserRoleName(urole);
             var id_level = await levelsRepository.GetLevelMinimunLevel(1);
-            
+            var student = await studentsRepository.GetStudentSchoolarData(student_id);
+
+            if (student is null)
+            {
+                return RedirectToAction("Index", "Student");
+            }
             if (!isStudentJoined)
             {
                 ViewBag.status = isStudentJoined;
-                var student_id_program = await studentsRepository.VerifyStudentProgramById(student_id);
+                //var student_id_program = await studentsRepository.VerifyStudentProgramById(student_id);
+                var student_id_program = 1;
                 InscriptionViewModel inscriptionViewModel = new InscriptionViewModel();
                 inscriptionViewModel.insc_id_student = student_id;
                 inscriptionViewModel.Schedules = await scheduleRepository.GetAllSchedulesByLevel(id_level);
