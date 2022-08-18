@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SIEL_1836109025062022.Models;
+using SIEL_1836109025062022.Models.Credentials;
 using SIEL_1836109025062022.Services;
 
 namespace SIEL_1836109025062022.Controllers
@@ -10,20 +11,32 @@ namespace SIEL_1836109025062022.Controllers
         private readonly ICourseProgramRepository courseProgramRepository;
         private readonly ILevelsRepository levelsRepository;
         private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly IUserService userService;
+        private readonly IUserRepository userRepository;
+        private readonly ICredentialsRepository credentials;
 
         public LevelsController(
             ICourseProgramRepository courseProgramRepository,
             ILevelsRepository levelsRepository,
-            IWebHostEnvironment webHostEnvironment)
+            IWebHostEnvironment webHostEnvironment,
+            IUserService userService,
+            IUserRepository userRepository,
+            ICredentialsRepository credentials)
         {
             this.courseProgramRepository = courseProgramRepository;
             this.levelsRepository = levelsRepository;
             this.webHostEnvironment = webHostEnvironment;
+            this.userService = userService;
+            this.userRepository = userRepository;
+            this.credentials = credentials;
         }
 
         //READ
         public async Task<IActionResult> Index()
         {
+            var student_id = userService.GetUserId();
+            var credential = new Credential();
+            credential = await credentials.GetCredentials(student_id);
 
             var levels = await levelsRepository.GetLevels();
             var modelo = levels
@@ -33,15 +46,25 @@ namespace SIEL_1836109025062022.Controllers
                     program = grupo.Key,
                     levels= grupo.AsEnumerable()
                 }).ToList();
+            ViewData["role"] = credential.id_role;
+            ViewData["picture"] = credential.path_image;
+            ViewData["role_name"] = credential.role_name;
             return View(modelo);
         }
         //CREATE
         [HttpGet]
         public  async Task<IActionResult> CreateLevel()
         {
+            var student_id = userService.GetUserId();
+            var credential = new Credential();
+            credential = await credentials.GetCredentials(student_id);
+            ViewData["role"] = credential.id_role;
+            ViewData["picture"] = credential.path_image;
+            ViewData["role_name"] = credential.role_name;
             var modelo = new LevelCreateViewModel();
             modelo.Programs = await GetAllCoursePrograms();
-            return View(modelo);  
+            return View(modelo);
+            
         }
         [HttpPost]
         public async Task<IActionResult> CreateLevel(LevelCreateViewModel level)
@@ -67,6 +90,12 @@ namespace SIEL_1836109025062022.Controllers
         [HttpGet]
         public async Task<IActionResult> EditLevel(int id)
         {
+            var student_id = userService.GetUserId();
+            var credential = new Credential();
+            credential = await credentials.GetCredentials(student_id);
+            ViewData["role"] = credential.id_role;
+            ViewData["picture"] = credential.path_image;
+            ViewData["role_name"] = credential.role_name;
             var level = await levelsRepository.GetLevelById(id);
             if (level is null){return RedirectToAction("WhereDoYouGo", "Home");}
             return View(level);

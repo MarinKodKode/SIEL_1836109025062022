@@ -1,0 +1,96 @@
+﻿@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasos Programa de Egresados</title>
+    <link rel="apple-touch-icon" sizes="76x76" href="~/assets2/img/impl.png">
+    <link rel="icon" type="image/png" href="~/assets2/img/impl.png">
+    
+    <link rel="stylesheet" href="~/css/pages/pagina_no_inscrito.css">
+    <link rel="stylesheet" href="~/assets/css/main/app.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/assets/css/main/app-dark.css" asp-append-version="true">
+    <link rel="shortcut icon" href="~/images/lodgo/favicon.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="~/images/lodgo/favicon.png" type="image/png">
+    <link rel="stylesheet" href="~/css/shared/iconly.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/assets/css/pages/filepond.css">
+    
+
+
+</head>
+<body>
+        <div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" 
+aria-hidden="false">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="row">
+          
+          <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="card sombra">
+                  <div class="card-header text-center">
+                      <h3 class="card-title">Bienvenido a SIEL</h3>
+                      <h6 class="card-subtitle">Sistema de Información Escolar Loogan</h6>
+                  </div>
+                  <div class="card-body ">
+                      <div class="text-center">
+                          <p>Elige la opción que se adecue a tus necesidades.
+                      </p>
+                      </div>
+                      
+                      
+                          <div class="row mt-5">
+                              <div class="col-lg-4 col-sm-6 col-md-4 ">
+                                  <div >
+                                      <label>Obten tu referencia bancaria</label>
+                                      <p></p>
+                                      <a asp-controller="Student" asp-action="StudentGetPaymentData"  class="btn btn-success">Incripción normal</a>
+                                  </div>
+                              </div>
+                              <div class="col-lg-4 col-sm-4 col-md-4 ">
+                                  <div >
+                                      <label>Realiza tu inscripción</label>
+                                      <p></p>
+                                      <a asp-controller="Student" asp-action="InscriptionGraduatedProgram" class="btn btn-success">Placement Test</a>
+                                  </div>
+                              </div>
+                              <div class="col-lg-4 col-sm-6 col-md-4 ">
+                                  <div >
+                                      <label>Espera las notificaciones en plataforma.</label>
+                                      <p>Si ya eres un alumno egresado de la institución</p>
+                                      
+                                  </div>
+                              </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+    <script src="~/js/app.js"></script>
+    <script src="~/js/pages/dashboard.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/assets/js/extensions/filepond.js"></script>
+    <script src="~/assets/plugin/components/moment/moment.min.js"></script>
+    <script src="~/assets/plugin/components/moment/moment-timezone-with-data.min.js"></script>
+    <script src="~/assets/js/extensions/datatables.js"></script>
+
+    <script>
+        $(document).ready(function() {
+          $('#myModal').modal('show');
+        });
+    </script>
+</body>
+</html>

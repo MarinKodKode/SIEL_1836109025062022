@@ -16,6 +16,7 @@ namespace SIEL_1836109025062022.Services
         Task<CurriculumAdvance> GetLastCourseTaken(int id_student);
         Task<bool> IsStudentJoined(int id_student);
         Task MakeInscription(Inscription inscription);
+        Task MakePlacementTestRequest(PlacementTest placementTest);
     }
 
     public class InscriptionRepository : IInscriptionRepository
@@ -40,6 +41,20 @@ namespace SIEL_1836109025062022.Services
                                  select SCOPE_IDENTITY();",
                                  inscription);
             inscription.id_inscription = id_inscription;
+        }
+        public async Task MakePlacementTestRequest(PlacementTest placementTest)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            var id_inscription = await connection.QuerySingleAsync<int>(@"
+                                 insert into inscriptions(insc_id_student, insc_id_level,
+                                    insc_id_schedule,insc_id_modality,insc_id_course_program,
+                                    insc_institution, insc_file_one, insc_file_two, insc_date_time, insc_status)
+                                    values (@insc_id_student,@insc_id_level,@insc_id_schedule,@insc_id_modality,
+                                    @insc_id_course_program,@insc_institution,@insc_file_one,
+                                    @insc_file_two, @insc_date_time,@insc_status);
+                                 select SCOPE_IDENTITY();",
+                                 placementTest);
+            placementTest.id_inscription = id_inscription;
         }
 
         public async Task<CurriculumAdvance> GetLastCourseTaken(int id_student)
