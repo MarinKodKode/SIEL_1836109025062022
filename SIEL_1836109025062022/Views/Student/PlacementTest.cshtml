@@ -1,6 +1,94 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model PlacementTest
 @{
+    ViewData["Title"] = "Incripción para nuevo ingreso";
+    var isStudentJoined = false; 
 }
-Hola placement test
+
+@if(!isStudentJoined){
+ <div class="page-heading">
+            <h3>Registro para placement test</h3>
+    </div>
+
+    <div class="page-heading">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-12 col-md-12 order-md-1 order-last">
+                    <p class="text-subtitle text-muted">
+                        El Placement Test es un examen de ubicación para conocer cual es tu nivel de inglés.
+                        Asegurate de haber realizado los pagos correspondientes para evitar que tu solicitud
+                        de registro sea rechazada.
+                        Las fechas de examen están a disposición tuya. Un link para la video conferencia y las
+                        instrucciones se te proporcionarán luego de aprobada tu solicitud.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section id="multiple-column-form">
+
+            <div class="row match-height">
+                <div class="col-md-7 col-sm-12">
+                    <div class="card sombra">
+                        <div class="card-header">
+                            <h4 class="card-title">Sube tus comprobantes de pago</h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-body">
+                                    
+                                <form class="form" asp-action="RegisterPlacementTest" asp-controller="Student" enctype="multipart/form-data" method="post">
+                                    <input type="hidden" asp-for="insc_id_student">
+                                    <div class="row">
+                                        <div class="col-sm-11 mb-1">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <div class="col-12">
+                                                    <label class="col-form-label">Comprobante de pago English Discoveries</label>
+                                                </div>
+                                                <div class="col-12">
+                                                    <input asp-for="file_one" class="form-control"  type="file" value="upload">
+                                                </div>
+                                            </div>
+                                            <div class="input-group input-group-sm mb-3">
+                                                <div class="col-12">
+                                                    <label  class="col-form-label">Comprobante de pago Tecnológico </label>
+                                                </div>
+                                                <div class="col-12">
+                                                    <input asp-for="file_two" class="form-control"  type="file" value="upload">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-lg-12 text-end">
+                                                <button type="submit" class="btn btn-outline-success">
+                                                    Registro Placement Test
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-5 col-md-6 col-sm-12 sombra">
+                    <div class="card">
+                        <div class="card-content">
+                            <center>
+                                <div class="card-body">
+
+                                    <h5 class="card-title">Fechas de aplicación</h5><br>
+                                    <div class="badges">
+                                        <h5><span class="badge bg-info">
+                                            9 de Septiembre de 2022</span>
+                                        </h5>
+                                    </div>
+
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+    }
+else
+{
+  <partial name = "_StudentIsAlreadyJoined"/>  
+}

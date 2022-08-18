@@ -16,8 +16,6 @@
 
   <ItemGroup>
     <Folder Include="UsersPictures\" />
-    <Folder Include="wwwroot\EdPaymentFiles\" />
-    <Folder Include="wwwroot\InstitutionPaymentFiles\" />
     <Folder Include="wwwroot\UsersPictures\" />
   </ItemGroup>
 

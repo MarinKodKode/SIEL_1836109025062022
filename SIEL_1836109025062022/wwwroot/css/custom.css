@@ -1,5 +1,5 @@
-﻿#reordenable tr{
-    cursor : move;
+﻿#reordenable tr {
+    cursor: move;
 }
 
 .acordeon-levels button > span {
@@ -10,23 +10,26 @@
 
 .sombra {
     box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.01);
-    filter: drop-shadow(1px 4px 4px  rgba(0,0,0,0.10));
+    filter: drop-shadow(1px 4px 4px rgba(0,0,0,0.10));
 }
 
 .sombra-1 {
     box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.01);
     filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.20));
 }
-.editar-foto{
-    z-index : 100;
-    position : absolute;
-    align-self : end;
-    border-radius : 90%;
-    height : 9%;
+
+.editar-foto {
+    z-index: 100;
+    position: absolute;
+    align-self: end;
+    border-radius: 90%;
+    height: 9%;
 }
-.img-joined{
+
+.img-joined {
     height: 40%;
 }
+
 .img_begin {
     height: 10%
 }

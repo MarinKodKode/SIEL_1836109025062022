@@ -48,7 +48,7 @@
                                               <label style="font-weight: bold">Inscripción al Básico 1</label>
                                               <p>No es necesario realizar Placement Test</p>
                                               <img class="pt-3 pb-4" src="~/assets/images/reading.png" style="width:61%"><br>
-                                              <a asp-controller="Student" asp-action="NewJoining"  class="btn btn-success">Incripción normal</a>
+                                              <a asp-controller="Student" asp-action="NewJoiningSteps"  class="btn btn-success">Incripción normal</a>
                                           </div>
                                       </div>
                                       <div class="col-lg-4 col-sm-4 col-md-4 ">
@@ -56,7 +56,7 @@
                                               <label style="font-weight: bold">Realizar un Placement Test</label>
                                               <p>Si tienes conocimiento de inglés y quieres saber tu nivel.</p>
                                               <img class="pt-3 pb-4" src="~/assets/images/sharing.png" style="width:79%"><br>
-                                              <a asp-controller="Student" asp-action="PlacementTest" class="btn btn-success">Placement Test</a>
+                                              <a asp-controller="Student" asp-action="PlacementTestSteps" class="btn btn-success">Placement Test</a>
                                           </div>
                                       </div>
                                       <div class="col-lg-4 col-sm-6 col-md-4 ">
@@ -64,7 +64,7 @@
                                               <label style="font-weight: bold">Programa de Egresados</label>
                                               <p>Si ya eres un alumno egresado de la institución</p>
                                               <img class="pb-4" src="~/assets/images/graduateStudent.png" style="width:60%"><br>
-                                              <a asp-controller="Student" asp-action="Index"  class="btn btn-success">Programa egresados</a>
+                                              <a asp-controller="Student" asp-action="GraduatedProgramSteps"  class="btn btn-success">Programa egresados</a>
                                           </div>
                                       </div>
                                   </div>
@@ -92,12 +92,9 @@
     <script src="~/assets/js/extensions/datatables.js"></script>
 
     <script>
-
         $(document).ready(function() {
           $('#myModal').modal('show');
         });
-
-
         /*$(function(){ 
             $('#myModal').modal({
               backdrop: 'static',
@@ -110,3 +107,5 @@
 
 </body>
 </html>
+
+
