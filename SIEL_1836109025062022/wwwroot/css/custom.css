@@ -36,3 +36,7 @@
 .reference {
     background-color: #6f42c1;
 }
+.data {
+    font-weight: bold;
+    color: #435ebe;
+}

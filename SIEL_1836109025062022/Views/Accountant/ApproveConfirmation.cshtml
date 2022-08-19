@@ -1,0 +1,90 @@
+﻿@using SIEL_1836109025062022.Models.ViewModel
+@model AccountantAuthorizationViewModel
+@{
+}
+
+<section id="basic-horizontal-layouts">
+            <div class="row match-height">
+                <div class="col-md-4 col-lg-4 col-sm-12">
+                    <div class="card sombra">
+                        <div class="card-header">
+                            <h4 class="card-title text-center">Confirmación de Comprobante de Pago.</h4>
+                            <div class="pt-3 pb-2">
+                                <label class="data">Alumno:</label>
+                                <label>@Model.user_name @Model.user_surname</label>
+
+                            </div>
+                            <div class="pb-2">
+                                <label class="data">Número de control:</label>
+                                <label>@Model.stdt_control_number</label>
+                                
+                            </div>
+                            <div class="pb-2">
+                                <label class="data">Fecha de registro:</label>
+                                <label>@Model.insc_date_time</label>
+                            
+                            </div>
+                            <div class="text-center">
+                                <label class="pt-4">             
+                                    <a href="@Model.insc_file_one" class="btn btn-success"
+                                       target="iframe_file">Comprobante English Discoveries <i class="bi bi-eye"></i></a>
+                                </label>
+    
+                                <label class="pt-4">
+                                    <a href="@Model.insc_file_two" class="btn btn-primary"
+                                       target="iframe_file">Comprobante Institucional <i class="bi bi-eye"></i></a>
+                                </label>
+                            </div>
+                        </div>
+                            
+                        
+                        <div class="card-content">
+                            <div class="card-body">
+                                <form class="form form-horizontal" asp-controller="Accountant" asp-action="ApproveInscription">
+                                    <input type="hidden" asp-for="id_inscription"/>
+                                    <input type="hidden" asp-for="insc_id_student"/>
+                                    <div class="form-body">
+                                        <div class="row">
+                                            <select class="form-select" asp-for="insc_status">
+                                                @foreach (var item in Model.status)
+                                                {
+                                                    <option value="@item.id_status">@item.status_description</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <button type="submit" class="btn btn-info">Guardar</button>
+                                        <a class="btn btn-danger" asp-action="index">Cancelar</a>
+                                    </div>
+                                </form>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-8 col-sm-12">
+                    <div class="card sombra">
+                        <div class="card-header">
+                                        <h4 class="card-title">Vista del Documento</h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-body">
+                                <center>
+                                    <div class="col-md-6 col-sm-8"></div>
+                                    <div class="ExternalFiles ">
+                                        <iframe name="iframe_file" src="" style=" height:620px; width: 100%;"
+                                                        frameborder="0"></iframe>
+                                    </div>
+                                </center>
+                            </div>         
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+@section Scripts{
+    <partial name = "_ValidationScriptsPartial"/>
+}
