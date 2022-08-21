@@ -40,3 +40,11 @@
     font-weight: bold;
     color: #435ebe;
 }
+.my-animation-img {
+    display: inline-block;
+    animation: fadeInRight;
+    animation-duration: 1.1s;
+}
+.conv {
+    background: #CADDFF;
+}
