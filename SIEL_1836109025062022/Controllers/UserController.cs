@@ -128,7 +128,10 @@ namespace SIEL_1836109025062022.Controllers
         {
             string path =  System.IO.Path.Combine(webHostEnvironment.ContentRootPath,
                 "wwwroot/"+db_path);
-            System.IO.File.Delete(path);
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+            }
         }
     }
 }
