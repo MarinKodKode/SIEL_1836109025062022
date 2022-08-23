@@ -14,6 +14,7 @@ namespace SIEL_1836109025062022.Services
         Task<IEnumerable<Inscription>> GetInscriptionList();
         Task<AccountantAuthorizationViewModel> GetInscriptionRequestById(int id_inscription);
         Task<CurriculumAdvance> GetLastCourseTaken(int id_student);
+        Task<int> IsStudentInt(int id_student);
         Task<bool> IsStudentJoined(int id_student);
         Task MakeInscription(Inscription inscription);
         Task MakePlacementTestRequest(PlacementTest placementTest);
@@ -86,6 +87,17 @@ namespace SIEL_1836109025062022.Services
                                             where insc_id_student = @id_student;",
                                             new { id_student });
             return exists == 1;
+        }
+
+        public async Task<int> IsStudentInt(int id_student)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            var exists = await connection.QueryFirstOrDefaultAsync<int>(@"
+                                            select 1 
+                                            from inscriptions
+                                            where insc_id_student = @id_student;",
+                                            new { id_student });
+            return exists;
         }
 
         public async Task ApproveInscription(int insc_id_student, int id_inscription, int insc_status)

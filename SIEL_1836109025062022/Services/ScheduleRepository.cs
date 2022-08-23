@@ -28,8 +28,8 @@ namespace SIEL_1836109025062022.Services
         public async Task CreateSchedule(Schedule schedule)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
-            var id_schedule = await connection.QuerySingleAsync<int>(@"insert into schedules (schedule_name, schedule_description, schedule_level)
-                                values (@schedule_name,@schedule_description, @schedule_level); 
+            var id_schedule = await connection.QuerySingleAsync<int>(@"insert into schedules (schedule_name, schedule_description, schedule_level,schedule_modality)
+                                values (@schedule_name,@schedule_description, @schedule_level,@schedule_modality); 
                                 SELECT SCOPE_IDENTITY();",
                                 schedule);
             schedule.id_schedule = id_schedule;

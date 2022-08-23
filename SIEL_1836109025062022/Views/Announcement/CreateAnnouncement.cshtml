@@ -1,0 +1,83 @@
+﻿@model AnnouncementCreationViewModel
+@{
+    ViewData["Title"] = "Crear convocatoria";
+    var date = DateTime.Now;
+}
+    <!-- Basic Horizontal form layout section start -->
+    <section id="basic-horizontal-layouts">
+        <div class="row match-height justify-content-center">
+            <div class="col-md-8 col-12">
+                <div class="card sombra">
+                    <div class="card-header">
+                        <h4 class="card-title">Crear una nueva convocatoria</h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <form class="form form-horizontal" asp-controller="Announcement" asp-action="CreateAnnouncement" enctype="multipart/form-data" method="post">
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label class="form-label" asp-for="announcement_name">Titulo  de Convocatoria</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <input type="text" asp-for="announcement_name"class="form-control"
+                                                placeholder="Titulo de la convocatoria">
+                                                <span asp-validation-for="announcement_name" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label asp-for="announcement_description">Descripción</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <textarea type="text" class="form-control" asp-for="announcement_description"
+                                                placeholder="Descripción"></textarea>
+                                                <span asp-validation-for="announcement_description" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label asp-for="start_date">Fecha de inicio</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <input type="datetime-local" placeholder="@date" value="@date" class="form-control" asp-for="start_date"/>
+                                                <span asp-validation-for="start_date" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label asp-for="end_date">Fecha de cierre</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <input type="datetime-local" value="@date" class="form-control" asp-for="end_date"/>
+                                                <span asp-validation-for="end_date" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label asp-for="announcement_picture_file">Imagen del convocatoria</label>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-8 form-group">
+                                            <input asp-for="announcement_picture_file" value="announcement_picture_file" type="file" name="announcement_picture_file" 
+                                            class="form-control" required accept="image/png, image/jpeg" />       
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label asp-for="notes">Información adicional</label>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-8 form-group">
+                                            <textarea asp-for="notes" type="text" name="notes" 
+                                            class="form-control" required></textarea>       
+                                        </div>
+
+                                        <div class="col-sm-12 d-flex justify-content-end">
+                                            <button type="submit" class="sombra-1 btn btn-primary me-1">Guardar</button>
+                                            
+                                            <a class="btn btn-danger sombra-1" asp-action="index">Cancelar</a>
+                                        </div>
+
+                                        
+                                    </div>
+                                </div>
+                            </form>
+                             @section Scripts{
+                                  <partial name="_ValidationScriptsPartial"/>
+                              }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- // Basic Horizontal form layout section end -->

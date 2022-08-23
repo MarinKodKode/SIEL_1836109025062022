@@ -32,38 +32,55 @@ namespace SIEL_1836109025062022.Controllers
         }
 
         //READ
+        //INDEX SECURED
         public async Task<IActionResult> Index()
         {
             var student_id = userService.GetUserId();
             var credential = new Credential();
             credential = await credentials.GetCredentials(student_id);
 
-            var levels = await levelsRepository.GetLevels();
-            var modelo = levels
-                .GroupBy(x => x.program_name)
-                .Select(grupo => new IndexLevelsViewModel
-                {
-                    program = grupo.Key,
-                    levels= grupo.AsEnumerable()
-                }).ToList();
-            ViewData["role"] = credential.id_role;
-            ViewData["picture"] = credential.path_image;
-            ViewData["role_name"] = credential.role_name;
-            return View(modelo);
+            if (credential.id_role != 1 && credential.id_role != 2)
+            {
+                return RedirectToAction("e404", "Home");
+            }
+            else
+            {
+                ViewData["role"] = credential.id_role;
+                ViewData["picture"] = credential.path_image;
+                ViewData["role_name"] = credential.role_name;
+                var levels = await levelsRepository.GetLevels();
+                var modelo = levels
+                    .GroupBy(x => x.program_name)
+                    .Select(grupo => new IndexLevelsViewModel
+                    {
+                        program = grupo.Key,
+                        levels = grupo.AsEnumerable()
+                    }).ToList();
+                
+                return View(modelo);
+            }
         }
         //CREATE
+        //CREATE SECURED
         [HttpGet]
         public  async Task<IActionResult> CreateLevel()
         {
             var student_id = userService.GetUserId();
             var credential = new Credential();
             credential = await credentials.GetCredentials(student_id);
-            ViewData["role"] = credential.id_role;
-            ViewData["picture"] = credential.path_image;
-            ViewData["role_name"] = credential.role_name;
-            var modelo = new LevelCreateViewModel();
-            modelo.Programs = await GetAllCoursePrograms();
-            return View(modelo);
+            if (credential.id_role != 1 && credential.id_role != 2)
+            {
+                return RedirectToAction("e404", "Home");
+            }
+            else
+            {
+                ViewData["role"] = credential.id_role;
+                ViewData["picture"] = credential.path_image;
+                ViewData["role_name"] = credential.role_name;
+                var modelo = new LevelCreateViewModel();
+                modelo.Programs = await GetAllCoursePrograms();
+                return View(modelo);
+            }
             
         }
         [HttpPost]
@@ -87,18 +104,27 @@ namespace SIEL_1836109025062022.Controllers
             return RedirectToAction("index");
         }
         //UPDATE
+        //UPDATE SECURED
         [HttpGet]
         public async Task<IActionResult> EditLevel(int id)
         {
+
             var student_id = userService.GetUserId();
             var credential = new Credential();
             credential = await credentials.GetCredentials(student_id);
-            ViewData["role"] = credential.id_role;
-            ViewData["picture"] = credential.path_image;
-            ViewData["role_name"] = credential.role_name;
-            var level = await levelsRepository.GetLevelById(id);
-            if (level is null){return RedirectToAction("WhereDoYouGo", "Home");}
-            return View(level);
+            if (credential.id_role != 1 && credential.id_role != 2)
+            {
+                return RedirectToAction("e404", "Home");
+            }
+            else
+            {
+                ViewData["role"] = credential.id_role;
+                ViewData["picture"] = credential.path_image;
+                ViewData["role_name"] = credential.role_name;
+                var level = await levelsRepository.GetLevelById(id);
+                if (level is null) { return RedirectToAction("WhereDoYouGo", "Home"); }
+                return View(level);
+            }
         }
         [HttpPost]
         public async Task<ActionResult> EditLevel(Level level)
@@ -121,9 +147,22 @@ namespace SIEL_1836109025062022.Controllers
         [HttpGet]
         public async Task<IActionResult> DeleteLevelConfirmation(int id)
         {
-            var level = await levelsRepository.GetLevelById(id);
-            if (level is null){return RedirectToAction("WhereDoYouGo", "Home");}
-            return View(level);
+            var student_id = userService.GetUserId();
+            var credential = new Credential();
+            credential = await credentials.GetCredentials(student_id);
+            if (credential.id_role != 1 && credential.id_role != 2)
+            {
+                return RedirectToAction("e404", "Home");
+            }
+            else
+            {
+                ViewData["role"] = credential.id_role;
+                ViewData["picture"] = credential.path_image;
+                ViewData["role_name"] = credential.role_name;
+                var level = await levelsRepository.GetLevelById(id);
+                if (level is null) { return RedirectToAction("WhereDoYouGo", "Home"); }
+                return View(level);
+            }
         }
         [HttpPost]
         public async Task<IActionResult> DeleteLevel(int id_level)
@@ -141,7 +180,6 @@ namespace SIEL_1836109025062022.Controllers
                     x.program_name,
                     x.id_program.ToString()));
         }
-        
         [HttpGet]
         public async Task<IActionResult> VerifyExistsLevel(Level level)
         {
@@ -152,7 +190,6 @@ namespace SIEL_1836109025062022.Controllers
             }
             return Json(true);
         }
-
         public async Task<string> UploadFile(string path, IFormFile file, string file_name, string file_location)
         {
             var fileName = System.IO.Path.Combine(webHostEnvironment.ContentRootPath,
@@ -166,7 +203,6 @@ namespace SIEL_1836109025062022.Controllers
             return file_name_db;
 
         }
-
         [HttpPost]
         public async Task<IActionResult> UpdateLevelPicture(Level level)
         {

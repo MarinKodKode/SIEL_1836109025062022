@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SIEL_1836109025062022.Models;
+using SIEL_1836109025062022.Models.Credentials;
 using SIEL_1836109025062022.Services;
 
 namespace SIEL_1836109025062022.Controllers
@@ -12,18 +13,21 @@ namespace SIEL_1836109025062022.Controllers
         private readonly IAccountantRepository accountantRepository;
         private readonly IStatusRepository statusRepository;
         private readonly IUserRepository userRepository;
+        private readonly ICredentialsRepository credentials;
 
         public AccountantController(IInscriptionRepository inscriptionRepository,
             IUserService userService,
             IAccountantRepository accountantRepository,
             IStatusRepository statusRepository,
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            ICredentialsRepository credentials)
         {
             this.inscriptionRepository = inscriptionRepository;
             this.userService = userService;
             this.accountantRepository = accountantRepository;
             this.statusRepository = statusRepository;
             this.userRepository = userRepository;
+            this.credentials = credentials;
         }
 
         
@@ -44,13 +48,27 @@ namespace SIEL_1836109025062022.Controllers
         [HttpGet]
         public async Task<IActionResult> ApproveConfirmation(int id)
         {
-            var model = await inscriptionRepository.GetInscriptionRequestById(id);
-            model.status = await statusRepository.GetStatusInscriptionList();
-            if (model is null)
+            var user_id = userService.GetUserId();
+            var credential = new Credential();
+            credential = await credentials.GetCredentials(user_id);
+
+            if (credential.id_role != 1 && credential.id_role != 2 && credential.id_role != 5)
             {
-                return RedirectToAction("Errore", "Home");
+                return RedirectToAction("e404", "Home");
             }
-            return View(model);
+            else
+            {
+                ViewData["role"] = credential.id_role;
+                ViewData["picture"] = credential.path_image;
+                ViewData["role_name"] = credential.role_name;
+                var model = await inscriptionRepository.GetInscriptionRequestById(id);
+                model.status = await statusRepository.GetStatusInscriptionList();
+                if (model is null)
+                {
+                    return RedirectToAction("Errore", "Home");
+                }
+                return View(model);
+            }
         }
 
 

@@ -6,5 +6,7 @@
         public IEnumerable<Modality> Modalities { get; set; }
         public IEnumerable<Level> Levels { get; set; }
 
+        public string control_number { get; set; }
+
     }
 }

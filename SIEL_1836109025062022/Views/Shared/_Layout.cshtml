@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="~/css/shared/iconly.css" asp-append-version="true">
     <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true">
     <link rel="stylesheet" href="~/assets/css/pages/filepond.css">
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
     
 
 
@@ -55,9 +57,11 @@
 
                     <!------------------------Acciones de estudiante------------------------>
                         
-                            @if(role == 2)
+                            @if(role == 2 || role == 1)
                             {
                                <partial name = "_AdminInstOptions" /> 
+                               <partial name = "_AccountantOptions" />
+                               <partial name = "_TeacherOptions" />
                             }
                             else if(role ==  3){
                                 <partial name = "_TeacherOptions" />
@@ -133,7 +137,7 @@
     </div>
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - SIEL_1836109025062022 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - SIEL_1836109025062022
         </div>
     </footer>
     </div>
@@ -148,5 +152,6 @@
     <script src="~/assets/plugin/components/moment/moment.min.js"></script>
     <script src="~/assets/plugin/components/moment/moment-timezone-with-data.min.js"></script>
     <script src="~/assets/js/extensions/datatables.js"></script>
+     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -25,7 +25,7 @@ namespace SIEL_1836109025062022.Controllers
             else if(role == 4)
             {
                 return RedirectToAction("Begin", "Student");
-            }else if(role == 2)
+            }else if(role == 2 || role == 1)
             { 
                 return RedirectToAction("Index", "Levels");
             }

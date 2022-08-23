@@ -26,10 +26,7 @@ namespace SIEL_1836109025062022.Services
             }
             else
             {
-                var id = httpContext.User.Claims.
-                    Where(x => x.Type == ClaimTypes.NameIdentifier).FirstOrDefault();
-                var id_user = int.Parse(id.Value);
-                return id_user;
+                return 0;
             }
         }
 

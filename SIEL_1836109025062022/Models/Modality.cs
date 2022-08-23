@@ -20,7 +20,8 @@ namespace SIEL_1836109025062022.Models
         [Required(ErrorMessage = "La duración de la modalidad es requerida")]
         public int modality_weeks_duration { get; set; }
         public int modality_order { get; set; } = 1;
-
         public int modality_level_id { get; set; }
+        public string level_name { get; set; }
+        public string program_name { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace SIEL_1836109025062022.Services
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             return await connection.QueryAsync<StatusIncription>
-                (@"select*from status_inscription;");
+                (@"select top 3 * from status_inscription where id_status != 1;");
         }
     }
 }

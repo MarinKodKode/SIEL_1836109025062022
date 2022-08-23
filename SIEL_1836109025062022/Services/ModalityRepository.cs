@@ -43,7 +43,11 @@ namespace SIEL_1836109025062022.Services
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             return await connection.QueryAsync<Modality>(@"
-                                    select * from modalities;");
+                                    select * from modalities
+                                    inner join levels 
+                                    on levels.id_level = modalities.modality_level_id
+                                    inner join programs
+                                    on programs.id_program = levels.level_id_program;");
         }
         public async Task<IEnumerable<Modality>> GetAllModalitiesByLevel(int id_level)
         {

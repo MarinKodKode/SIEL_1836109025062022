@@ -27,48 +27,51 @@
 <body>
         <div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" 
 aria-hidden="false">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
       <div class="row">
-          
-          <div class="col-lg-12 col-md-12 col-sm-12">
-              <div class="card sombra">
+
+          <div class="col-lg-12 col-md-12 col-sm-12 p-5 pt-4 pb-4">
+           
                   <div class="card-header text-center">
                       <h3 class="card-title">Bienvenido a SIEL</h3>
                       <h6 class="card-subtitle">Sistema de Información Escolar Loogan</h6>
                   </div>
                   <div class="card-body ">
                       <div class="text-center">
-                          <p>Elige la opción que se adecue a tus necesidades.
-                      </p>
-                      </div>
-                      
-                      
-                          <div class="row mt-5">
-                               <div class="col-lg-4 col-sm-6 col-md-4 ">
-                                  <div >
-                                      <label>Obten tu referencia bancaria</label>
-                                      <p>La referencia corresponde al pago de tu nivel</p>
-                                      <a asp-controller="Student" asp-action="StudentGetPaymentData"  class="btn btn-success">Incripción normal</a>
+                          <p style="font-weight: bold">Registro al Placement Test</p>
+                          <p>Por favor sigue los pasos para tu registro al Placement Test</p>
+                      </div>                             
+
+                          <div class="row mt-2 ">
+                              <div class="d-flex justify-content-around">
+                                  <div class="col-lg-5 col-sm-6 col-md-4 ">
+                                      <div style="text-align:center">
+                                          <label>1. Obtén la referencia bancaria correspondiente al pago de tu nivel</label>
+                                          <img class="pt-4 pb-4" src="~/assets/images/documentos.png" style="width:29%"><br>
+                                          <a asp-controller="Student" asp-action="StudentGetPaymentData"  class="btn btn-success">Referencia</a>
+                                      </div>
                                   </div>
-                              </div>
-                              <div class="col-lg-4 col-sm-4 col-md-4 ">
-                                  <div >
-                                      <label>Realiza tu registro</label>
-                                      <p></p>
-                                      <a asp-controller="Student" asp-action="NewJoining" class="btn btn-success">Placement Test</a>
+                                  <div class="col-lg-4 col-sm-4 col-md-4 ">
+                                      <div style="text-align:center">
+                                          <label>2. Realiza tu inscripción al Placement Test</label>
+                                          <img class="pt-4 pb-4" src="~/assets/images/inscription.png" style="width:45%"><br>
+                                          <a asp-controller="Student" asp-action="PlacementTest" class="btn btn-success">Inscribirme</a>
+                                      </div>
                                   </div>
-                              </div>
-                              <div class="col-lg-4 col-sm-6 col-md-4 ">
-                                  <div >
-                                      <label>Consulta las fechas de aplicación del Placement Test</p>
-                                      
+                                  <div class="col-lg-4 col-sm-4 col-md-4 ">
+                                      <div style="text-align:center">
+                                          <label>3. Consulta las fechas de aplicación del Placement Test</label>
+                                          <img class="pt-4 pb-4" src="~/assets/images/calendario.png" style="width:36%"><br>
+                                          <a asp-controller="Student" asp-action="PlacementTest" class="btn btn-success">Ver Fechas</a>
+                                      </div>
                                   </div>
                               </div>
                           </div>
                   </div>
-              </div>
+          
           </div>
+         
       </div>
     </div>
   </div>
