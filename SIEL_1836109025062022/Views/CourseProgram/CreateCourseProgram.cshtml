@@ -33,9 +33,11 @@
                                                 <span asp-validation-for="program_description" class="text-danger"></span>
                                         </div>
                                         <div class="col-sm-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary me-1 mb-1">Guardar</button>
+                                            <button type="submit" class="btn btn-primary me-1 mb-1" title="Guardar" data-bs-toggle="msg"
+                                            >Guardar</button>
                                             
-                                            <a class="btn btn-danger" asp-action="index">Cancelar</a>
+                                            <a class="btn btn-danger" asp-action="index" title="Cancelar" 
+                                            data-bs-toggle="msg">Cancelar</a>
                                         </div>
                                         
                                     </div>
@@ -54,3 +56,11 @@
         </div>
     </section>
     <!-- // Basic Horizontal form layout section end -->
+
+                                    <script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
+        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+
+</script>
