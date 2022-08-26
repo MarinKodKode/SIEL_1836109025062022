@@ -2,87 +2,96 @@
 @{
     ViewData["Title"] = "Bouchers de pago...";
 }
-        <div class="page-heading">
-            <h3>Bauchers de Pago</h3>
-        </div>
-        <section id="multiple-column-form">
+<div class="page-heading">
+    <h3>Bauchers de Pago</h3>
+</div>
+<section id="multiple-column-form">
+    <div class="row match-height">
+        <section class="section ">
             <div class="row match-height">
-                <section class="section ">
-                    <div class="row match-height">
-                        <div class="col-md-6 col-sm-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Bauchers de Pago</h4>
-                                </div>
-
-                                <div col-md-6 col-sm-12>
-                                    <div class="card-body">
-                                        <table class="table" id="table1">
-                                            <thead>
-                                                <tr>
-                                                    <th>No. de Control</th>
-                                                    <th>Tipo de boucher</th>
-                                                    <th>Acciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (var file in Model)
-                                                {
-                                                    <tr>
-                                                        <td>@file.insc_id_student</td>
-                                                        <td>
-                                                            <label>English Disvoceries</label>
-                                                        </td>
-                                                        <td>
-                                                            <a href="@file.insc_file_one" class="btn icon btn-info"
-                                                                target="iframe_file"><i class="bi bi-eye"></i></a>
-                                                            <a href="assets/docs/file2.pdf" class="btn icon btn-success"
-                                                                target="iframe_file"><i class="bi bi-check-all"></i></a>
-                                                            <a href="assets/docs/file2.pdf" class="btn icon btn-danger"
-                                                                target="iframe_file"><i class="bi bi-x-circle-fill"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>@file.insc_id_student</td>
-                                                        <td> TecNM
-                                                        </td>
-                                                        <td>
-                                                            <a href="@file.insc_file_two" class="btn icon btn-info"
-                                                                target="iframe_file"><i class="bi bi-eye"></i></a>
-                                                            <a href="assets/docs/file2.pdf" class="btn icon btn-success"
-                                                                target="iframe_file"><i class="bi bi-check-all"></i></a>
-                                                            <a href="assets/docs/file2.pdf" class="btn icon btn-danger"
-                                                                target="iframe_file"><i class="bi bi-x-circle-fill"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                }
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Bauchers de Pago</h4>
                         </div>
-                        <div class="col-md-6 col-sm-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Vista del Documento</h4>
-                                </div>
 
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <center>
-                                            <div class="col-md-6 col-sm-8"></div>
-
-                                            <div class="ExternalFiles ">
-                                                <iframe name="iframe_file" src="" style=" height:620px; width: 100%;"
-                                                    frameborder="0"></iframe>
-                                            </div>
-                                    </div>
-                                    </center>
-                                </div>
+                        <div col-md-6 col-sm-12>
+                            <div class="card-body">
+                                <table class="table" id="table1">
+                                    <thead>
+                                        <tr>
+                                            <th>No. de Control</th>
+                                            <th>Tipo de boucher</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var file in Model)
+                                        {
+                                            <tr>
+                                                <td>@file.insc_id_student</td>
+                                                <td>
+                                                    <label>English Disvoceries</label>
+                                                </td>
+                                                <td>
+                                                    <a href="@file.insc_file_one" class="btn icon btn-info"
+                                                   target="iframe_file" title="Ver documento" data-bs-toggle="msg"><i class="bi bi-eye"></i></a>
+                                                    <a href="assets/docs/file2.pdf" class="btn icon btn-success"
+                                                   target="iframe_file" title="Aprobar baucher" data-bs-toggle="msg"><i class="bi bi-check-all"></i></a>
+                                                    <a href="assets/docs/file2.pdf" class="btn icon btn-danger"
+                                                   target="iframe_file" title="Descartar baucher" data-bs-toggle="msg"><i class="bi bi-x-circle-fill"></i></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>@file.insc_id_student</td>
+                                                <td>
+                                                    TecNM
+                                                </td>
+                                                <td>
+                                                    <a href="@file.insc_file_two" class="btn icon btn-info"
+                                                   target="iframe_file" title="Ver documento" data-bs-toggle="msg"><i class="bi bi-eye"></i></a>
+                                                    <a href="assets/docs/file2.pdf" class="btn icon btn-success"
+                                                   target="iframe_file" title="Aprobar baucher" data-bs-toggle="msg"><i class="bi bi-check-all"></i></a>
+                                                    <a href="assets/docs/file2.pdf" class="btn icon btn-danger"
+                                                   target="iframe_file" title="Descartar baucher" data-bs-toggle="msg"><i class="bi bi-x-circle-fill"></i></a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
-                </section>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Vista del Documento</h4>
+                        </div>
+
+                        <div class="card-content">
+                            <div class="card-body">
+                                <center>
+                                    <div class="col-md-6 col-sm-8"></div>
+
+                                    <div class="ExternalFiles ">
+                                        <iframe name="iframe_file" src="" style=" height:620px; width: 100%;"
+                                                frameborder="0"></iframe>
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
+    </div>
+</section>
+
+<script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
+    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+</script>
+
