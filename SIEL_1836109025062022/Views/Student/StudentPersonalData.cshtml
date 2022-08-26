@@ -1,168 +1,183 @@
 ﻿@model StudentDataViewModel
 @{
     ViewData["Title"] = "Modificar datos personales";
-    }
-    <div class="page-heading">
-            <h3>Modificar Datos del Estudiante</h3>
+}
+<div class="page-heading">
+    <h3>Modificar Datos del Estudiante</h3>
+</div>
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-10 order-md-1 order-last">
+                <p class="text-subtitle text-muted">
+                    Únicamente los campos marcados con * podrán ser editados por
+                    el alumno.
+                </p>
+            </div>
         </div>
-        <div class="page-heading">
-            <div class="page-title">
-                <div class="row">
-                    <div class="col-12 col-md-10 order-md-1 order-last">
-                        <p class="text-subtitle text-muted">Únicamente los campos marcados con * podrán ser editados por
-                            el alumno.</p>
+    </div>
+
+    <!-- Basic Horizontal form layout section start -->
+    <section id="basic-horizontal-layouts">
+        <div class="row match-height">
+        </div>
+    </section>
+    <section id="multiple-column-form">
+        <div class="row match-height">
+            <div class="col-xl-4 col-md-6 col-sm-12">
+
+                <!--Default size Modal -->
+                <div class="modal fade text-left" id="change-photo" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel18" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                         role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel18">Cambiar foto de perfil</h4>
+                                <button type="button" class="close" data-bs-dismiss="modal"
+                                        aria-label="Close">
+                                    <i data-feather="x"></i>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form asp-controller="User" asp-action="UpdateUserProfilePicture" enctype="multipart/form-data" method="post">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <div class="card-body">
+                                                    <p class="card-text">
+                                                        Sube tu nueva imagen de perfil
+                                                    </p>
+                                                    <input asp-for="file_user_profile_picture" type="file" value="upload">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light-secondary"
+                                                data-bs-dismiss="modal" title="Editar foto de perfil" data-bs-toggle="msg">
+                                            <i class="bx bx-x d-block d-sm-none"></i>
+                                            <span class="d-none d-sm-block">Cerrar</span>
+                                        </button>
+                                        <button type="submit" class="btn btn-primary ml-1" title="Actualizar" data-bs-toggle="msg">
+                                            Actualizar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="card sombra">
+                    <div class="card-content">
+                        <button type="button" class="btn btn-light editar-foto" data-bs-toggle="modal"
+                                data-bs-target="#change-photo">
+                            <i class="bi bi-pencil-fill"></i>
+                        </button>
+                        <img src="@Model.user_profile_picture" class="card-img-top img-fluid"
+                             alt="singleminded">
+                        <div class="card-body">
+                            <center>
+                                <h5 class="card-title">@Model.user_name @Model.user_surname</h5>
+                                <p>@Model.stdt_control_number</p>
+                            </center>
+
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="col-xl-8 col-md-6 col-sm-12">
+                <div class="card sombra">
+                    <div class="card-header">
+                        <h4 class="card-title">Datos Escolares</h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <form class="form" asp-controller="User" asp-action="UpdateUser">
+                                <div class="row">
+                                    <input type="hidden" readonly asp-for="id_user" value="@Model.id_user" />
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="city-column">Institución Educativa</label>
+                                            <input disabled type="text" readonly id="city-column" class="form-control"
+                                                   value="@Model.inst_name">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="last-name-column">
+                                                Correo Electrónico
+                                                Personal
+                                            </label>
+                                            <input type="text" asp-for="user_personal_email" class="form-control"
+                                                   value="@Model.user_personal_email">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="company-column">Correo institucional</label>
+                                            <input type="text" asp-for="user_institution_email" class="form-control"
+                                                   value="@Model.user_institution_email">
+                                        </div>
+                                    </div>
 
-            <!-- Basic Horizontal form layout section start -->
-            <section id="basic-horizontal-layouts">
-                <div class="row match-height">
-                </div>
-            </section>
-            <section id="multiple-column-form">
-                <div class="row match-height">
-                    <div class="col-xl-4 col-md-6 col-sm-12">
-                        
-                                <!--Default size Modal -->
-                                <div class="modal fade text-left" id="change-photo" tabindex="-1" role="dialog"
-                                    aria-labelledby="myModalLabel18" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-                                        role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" id="myModalLabel18">Cambiar foto de perfil</h4>
-                                                <button type="button" class="close" data-bs-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <i data-feather="x"></i>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form asp-controller="User" asp-action="UpdateUserProfilePicture"enctype="multipart/form-data" method="post">
-                                                    <div class="col-12">
-                                                        <div class="card">
-                                                            <div class="card-content">
-                                                                <div class="card-body">
-                                                                    <p class="card-text">Sube tu nueva imagen de perfil
-                                                                    </p>
-                                                                    <input asp-for="file_user_profile_picture"  type="file" value="upload">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-light-secondary"
-                                                            data-bs-dismiss="modal">
-                                                            <i class="bx bx-x d-block d-sm-none"></i>
-                                                            <span class="d-none d-sm-block">Cerrar</span>
-                                                        </button>
-                                                        <button type="submit" class="btn btn-primary ml-1">
-                                                            Actualizar
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="company-column">Número de contácto</label>
+                                            <input type="text" asp-for="user_phone_1" class="form-control"
+                                                   value="@Model.user_phone_1">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="company-column">Número de contácto 2</label>
+                                            <input type="text" asp-for="user_phone_2" class="form-control"
+                                                   value="@Model.user_phone_2">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary col-md-12 col-sm-12 mt-4"
+                                            title="Guardar cambios en Datos Escolares" data-bs-toggle="msg">
+                                                Actualizar datos
+                                                <i class="bi bi-check"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                        <div class="card sombra">
-                            <div class="card-content">
-                                <button type="button" class="btn btn-light editar-foto" data-bs-toggle="modal"
-                                    data-bs-target="#change-photo">
-                                    <i class="bi bi-pencil-fill"></i>
-                                </button>
-                                <img src="@Model.user_profile_picture" class="card-img-top img-fluid"
-                                    alt="singleminded">
-                                <div class="card-body">
-                                    <center>
-                                        <h5 class="card-title">@Model.user_name @Model.user_surname</h5>
-                                        <p>@Model.stdt_control_number</p>
-                                    </center>
-
-                                </div>
-                            </div>
+                            </form>
                         </div>
-                    </div>
-                    <div class="col-xl-8 col-md-6 col-sm-12">
-                        <div class="card sombra">
-                            <div class="card-header">
-                                <h4 class="card-title">Datos Escolares</h4>
-                            </div>
-                            <div class="card-content">
-                                <div class="card-body">
-                                    <form class="form" asp-controller="User" asp-action="UpdateUser">
-                                        <div class="row">
-                                            <input type="hidden" readonly asp-for="id_user" value="@Model.id_user" />
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="city-column">Institución Educativa</label>
-                                                    <input disabled type="text" readonly id="city-column" class="form-control"
-                                                        value="@Model.inst_name">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="last-name-column">Correo Electrónico
-                                                        Personal</label>
-                                                    <input type="text" asp-for="user_personal_email" class="form-control"
-                                                        value="@Model.user_personal_email">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="company-column">Correo institucional</label>
-                                                    <input type="text" asp-for="user_institution_email" class="form-control"
-                                                        value="@Model.user_institution_email" >
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="company-column">Número de contácto</label>
-                                                    <input type="text" asp-for="user_phone_1" class="form-control"
-                                                        value="@Model.user_phone_1" >
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="company-column">Número de contácto 2</label>
-                                                    <input type="text" asp-for="user_phone_2" class="form-control"
-                                                         value="@Model.user_phone_2" >
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <button type="submit" class="btn btn-primary col-md-12 col-sm-12 mt-4">
-                                                        Actualizar datos
-                                                        <i class="bi bi-check"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
+                        <div class="card-footer">
+                            <form asp-controller="Student" asp-action="UpdateControlNumber">
+                                <div class="col-md-12 col-sm-12 mr-4">
+                                    <div class="form-group row">
+                                        <input type="hidden" readonly asp-for="id_student" value="@Model.id_user" />
+                                        <label class="col-md-4 mt-1">Número de control</label>
+                                        <div class="col-md-6 d-flex">
+                                            <input type="number" asp-for="@Model.stdt_control_number" class="form-control" value="@Model.stdt_control_number">
                                         </div>
-                                    </form>
+                                        <button class="btn btn-primary col-md-1" type="submit"
+                                        title="Guardar cambios para Número de Control" data-bs-toggle="msg">
+                                            <i class="bi bi-check-circle"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="card-footer">
-                                    <form asp-controller="Student" asp-action="UpdateControlNumber">
-                                         <div class="col-md-12 col-sm-12 mr-4">
-                                                <div class="form-group row">
-                                                    <input type="hidden" readonly asp-for="id_student" value="@Model.id_user" />
-                                                    <label  class="col-md-4 mt-1">Número de control</label>
-                                                    <div class="col-md-6 d-flex">
-                                                    <input type="number" asp-for="@Model.stdt_control_number" class="form-control"  value="@Model.stdt_control_number" >
-                                                    </div>
-                                                    <button class="btn btn-primary col-md-1" type="submit" >
-                                                        <i class="bi bi-check-circle"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                    </form>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-            </section>
-            <!-- // Basic multiple Column Form section end -->
+            </div>
         </div>
+    </section>
+    <!-- // Basic multiple Column Form section end -->
+</div>
+
+<script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
+    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
+</script>

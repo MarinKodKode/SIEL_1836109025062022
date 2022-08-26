@@ -37,7 +37,8 @@
                                             <p class="card-text"> Inicios de clases el 04 de Julio de 2022</p><br>                                        
                                         
                                             <div class="col-3 d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-primary me-1 mb-1">Inscribirse</button>
+                                                <button type="submit" class="btn btn-primary me-1 mb-1"
+                                                title="Inscripción a la convocatoria vigente" data-bs-toggle="msg">Inscribirse</button>
                                             </div>  
                                         </center>
                                     </div>
@@ -62,3 +63,10 @@
             </section>
         </div>
 
+<script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
+        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+
+</script>

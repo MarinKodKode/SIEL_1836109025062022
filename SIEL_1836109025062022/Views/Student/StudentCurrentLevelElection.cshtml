@@ -2,58 +2,71 @@
 @model LevelElectionViewModel
 @{
     ViewData["Title"] = "Nivel actual";
-    var program = ViewData["studentProgram"].ToString();   
+    var program = ViewData["studentProgram"].ToString();
     var isStudentCoursing = ViewBag.status;
 }
 
-@if(!isStudentCoursing){
+@if (!isStudentCoursing)
+{
     <div class="page-heading">
-            <div class="page-title pb-4">
-                <div class="row">
-                    <div class="col-12 col-md-12 order-md-1 order-last">
-                        <h3>Indica el nivel actual de estudio</h3>
-                    </div>
+        <div class="page-title pb-4">
+            <div class="row">
+                <div class="col-12 col-md-12 order-md-1 order-last">
+                    <h3>Indica el nivel actual de estudio</h3>
                 </div>
             </div>
-            <section id="content-types">
-                <div class="row">
-                    <center>
-                        <div class="col-md-6 col-sm-12">
-                            <div class="card">
-                                <div class="card-content">    
-                                    <div class="card-body pt-4">
-                                        <p style="text-align: justify">
-                                            Por única ocasión, deberás indicar el nivel en el que te encuentras.
-                                            Es necesario que preguntes a tu profesor y pidas ayuda para realizar 
-                                            este paso, de lo contrario no podrás realizar futuras inscripciones a
-                                            los siguientes modulos de tu curso.
-                                        </p>
-                                    </div>    
-                                    <form asp-controller="Student" asp-action="StudentCurrentLevelElection">
-                                        <div class="card-body">
-                                            <label class="font-bold pb-4"> 
-                                                Actualmente cursas el @program </label>                                       
-                                            <select class="form-select" asp-for="id_level">
-                                                @foreach (var item in Model.Levels)
-                                                {
-                                                    <option value="@item.id_level">@item.level_name</option>
-                                                }
-                                            </select>
-                                            <div class="pt-4">
-                                                <button type="submit" class="btn btn-success">Guardar</button>
-                                                <a class="btn btn-danger">Cancelar</a>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    
+        </div>
+        <section id="content-types">
+            <div class="row">
+                <center>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="card-body pt-4">
+                                    <p style="text-align: justify">
+                                        Por única ocasión, deberás indicar el nivel en el que te encuentras.
+                                        Es necesario que preguntes a tu profesor y pidas ayuda para realizar
+                                        este paso, de lo contrario no podrás realizar futuras inscripciones a
+                                        los siguientes modulos de tu curso.
+                                    </p>
                                 </div>
+                                <form asp-controller="Student" asp-action="StudentCurrentLevelElection">
+                                    <div class="card-body">
+                                        <label class="font-bold pb-4">
+                                            Actualmente cursas el @program
+                                        </label>
+                                        <select class="form-select" asp-for="id_level">
+                                            @foreach (var item in Model.Levels)
+                                            {
+                                                <option value="@item.id_level">@item.level_name</option>
+                                            }
+                                        </select>
+                                        <div class="pt-4">
+                                            <button type="submit" class="btn btn-success" 
+                                            title="Asegurate de seleccionar el nivel correcto antes de guardar esta opción." 
+                                            data-bs-toggle="msg">Guardar</button>
+                                            <a class="btn btn-danger">Cancelar</a>
+                                        </div>
+                                    </div>
+                                </form>
+
                             </div>
                         </div>
-                    </center>
-                </div>
-            </section>
-        </div>
-    }else
-{
-  <partial name = "_StudentIsAlreadyCoursing"/>  
+                    </div>
+                </center>
+            </div>
+        </section>
+    </div>
 }
+else
+{
+    <partial name="_StudentIsAlreadyCoursing" />
+}
+
+<script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
+    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
+</script>
