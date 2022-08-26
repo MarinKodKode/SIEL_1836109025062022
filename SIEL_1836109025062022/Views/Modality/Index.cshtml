@@ -3,55 +3,56 @@
     ViewData["Title"] = "Modalidades";
 }
 
-    <!-- Basic Tables start -->
-    <section class="section">
-        <div class="row justify-content-center" id="basic-table">
-            <div class="col-12 col-md-12">
-                <div class="card sombra">
-                    <div class="card-header ">
-                        <h4 class="card-title d-inline">Modalidades de curso</h4>
-                        <a class="btn btn-info float-end mr-5 sombra-1" asp-action="CreateModality" 
-                        asp-controller="Modality" title="Crear nueva Modalidad" data-bs-toggle="msg">Crear modalidad de estudios</a>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-body">
-                            <p class="card-text">Listado de programas de estudio registrados en la institución
-                            </p>
-                            <!-- Table with outer spacing -->
-                            <div class="table-responsive">
-                                <table class="table table-lg">
-                                    <thead>
+<!-- Basic Tables start -->
+<section class="section">
+    <div class="row justify-content-center" id="basic-table">
+        <div class="col-12 col-md-12">
+            <div class="card sombra">
+                <div class="card-header ">
+                    <h4 class="card-title d-inline">Modalidades de curso</h4>
+                    <a class="btn btn-info float-end mr-5 sombra-1" asp-action="CreateModality"
+                       asp-controller="Modality" title="Crear nueva Modalidad" data-bs-toggle="msg">Crear modalidad de estudios</a>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <p class="card-text">
+                            Listado de programas de estudio registrados en la institución
+                        </p>
+                        <!-- Table with outer spacing -->
+                        <div class="table-responsive">
+                            <table class="table table-lg">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre programa</th>
+                                        <th>Descripción</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reordenable">
+                                    @foreach (var modality in Model)
+                                    {
                                         <tr>
-                                            <th>Nombre programa</th>
-                                            <th>Descripción</th>
-                                            <th>Acciones</th>
+                                            <td class="text-bold-500 col-md-2">@modality.modality_name</td>
+                                            <td class="text-bold-500 col-md-7">@modality.modality_description</td>
+                                            <td class=" col-md-3">
+                                                <a class="btn btn-success sombra-1" asp-action="EditCourseProgram" asp-controller="CourseProgram"
+                                               asp-route-id="@modality.id_modality" title="Editar" data-bs-toggle="msg">Editar</a>
+                                                <a class="btn btn-danger sombra" asp-action="DeleteCourseProgramConfirmation" asp-controller="CourseProgram"
+                                               asp-route-id="@modality.id_modality" title="Eliminar" data-bs-toggle="msg">Eliminar</a>
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody id="reordenable">
-                                        @foreach (var modality in Model)
-                                        {
-                                            <tr>
-                                                <td class="text-bold-500 col-md-2">@modality.modality_name</td>
-                                                <td class="text-bold-500 col-md-7">@modality.modality_description</td>
-                                                <td class=" col-md-3"> 
-                                                    <a class="btn btn-success sombra-1" asp-action="EditCourseProgram" asp-controller="CourseProgram" 
-                                                    asp-route-id="@modality.id_modality" title="Editar" data-bs-toggle="msg">Editar</a>
-                                                    <a class="btn btn-danger sombra" asp-action="DeleteCourseProgramConfirmation" asp-controller="CourseProgram" 
-                                                    asp-route-id="@modality.id_modality" title="Eliminar" data-bs-toggle="msg">Eliminar</a>
-                                                </td>
-                                            </tr>
-                                        }
-                                        
-                                    </tbody>
-                                </table>
+                                    }
 
-                                @section Scripts{
-                                    <script>
-                                        $(function(){
-                                            $("#reordenable").sortable();
-                                        })
-                                    </script>
-                                }
+                                </tbody>
+                            </table>
+
+                            @section Scripts{
+                                <script>
+                                    $(function() {
+                                        $("#reordenable").sortable();
+                                    })
+                                </script>
+                            }
                             </div>
                         </div>
                     </div>
@@ -59,9 +60,9 @@
             </div>
         </div>
     </section>
-<script>
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
         var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
-</script>
+    </script>
