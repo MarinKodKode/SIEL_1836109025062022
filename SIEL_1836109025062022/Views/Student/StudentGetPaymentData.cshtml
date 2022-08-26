@@ -1,47 +1,89 @@
 ﻿@{
-}  
+}
 
-     <div class="page-heading">
-            <h3>Referencias</h3>
+<div class="page-heading">
+    <h3>Referencias</h3>
+</div>
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-12 order-md-1 order-last">
+                <p class="text-subtitle text-muted">
+                    Para realizar tu pago a English Discoveries, en motivo o concepto es necesario
+                    colocar tu numero de control seguido del numero 02. El pago solo se puede realizar en practicajas o transferencia
+                    interbancaria, recuerda que esta información es privada y no debe ser compartida con otras personas.
+                </p>
+            </div>
+        </div>
     </div>
-        <div class="page-heading">
-            <div class="page-title">
-                <div class="row">
-                    <div class="col-12 col-md-12 order-md-1 order-last">
-                        <p class="text-subtitle text-muted">Para realizar tu pago a English Discoveries, en motivo o concepto es necesario 
-                            colocar tu numero de control seguido del numero 02. El pago solo se puede realizar en practicajas o transferencia 
-                            interbancaria, recuerda que esta información es privada y no debe ser compartida con otras personas.</p>
+
+    <section id="multiple-column-form">
+        <div class="row match-height">
+            <div class="col-xl-4 col-md-6 col-sm-12 pt-5">
+                <div class="card-body">
+                    <div class="badges">
+                        <div class="badge reference" id="htmlContent">
+                            <br><br>
+                            <p class="card-text"> Ejemplo: 2030067802.</p>
+                            <p class="card-text"> BANCOMER BBVA</p>
+                            <p class="card-text"> NOMBRE: LOGGAN LTS S.A. de C.V.</p>
+                            <p class="card-text"> NÚMERO DE CUENTA: 0118642273</p>
+                            <p class="card-text"> CLABE INTERBANCARIA: 012680001186422731</p>
+                            <p class="card-text"> PAGO: $650.00</p><br>
+                        </div>
+                        <center class="pt-4">
+                            <a class="btn btn-primary" title="Descargar referencias" data-bs-toggle="msg"
+                                    id="download">
+                                Descargar referencias
+                            </a>
+                        </center>
+
                     </div>
                 </div>
             </div>
 
-            <section id="multiple-column-form">
-                <div class="row match-height">
-                    <div class="col-xl-4 col-md-6 col-sm-12 pt-5">                 
-                        <div class="card-body">
-                            <div class="badges">
-                                <div class="badge reference" >
-                                    <br><br>
-                                    <p class="card-text"> Ejemplo: 2030067802.</p>
-                                    <p class="card-text"> BANCOMER BBVA</p>
-                                    <p class="card-text"> NOMBRE: LOGGAN LTS S.A. de C.V.</p>
-                                    <p class="card-text"> NÚMERO DE CUENTA: 0118642273</p>
-                                    <p class="card-text"> CLABE INTERBANCARIA: 012680001186422731</p>
-                                    <p class="card-text"> PAGO: $650.00</p><br>
-                                </div>
-                            </div>
+            <div class="col-xl-8 col-md-6 col-sm-12">
+                <div class="card sombra">
+                    <section id="content-types">
+                        <div class="card-body-r">
+                            <img class="" src="~/assets/images/payment.png" style="width:100%">
                         </div>
-                    </div>
-
-                    <div class="col-xl-8 col-md-6 col-sm-12">
-                        <div class="card sombra">
-                            <section id="content-types">
-                                <div class="card-body-r">
-                                    <img class="" src="~/assets/images/payment.png" style="width:100%"> 
-                                </div>
-                            </section>
-                        </div>
-                    </div>
+                    </section>
                 </div>
-            </section>
+            </div>
         </div>
+    </section>
+</div>
+
+<script src="~/assets/js/html2canvas.js"></script>
+<script src="~/lib/jquery.min.js"></script>
+
+<script>
+
+    function autoClick() {
+        $("#download").click();
+    }
+
+    $(document).ready(function() {
+        var element = $("#htmlContent");
+
+        $("#download").on('click', function() {
+
+            html2canvas(element, {
+                onrendered: function(canvas) {
+                    var imageData = canvas.toDataURL("image/jpg");
+                    var newData = imageData.replace(/^data:image\/jpg/, "data:application/octet-stream");
+                    $("#download").attr("download", "ReferenciaPago.jpg").attr("href", newData);
+                }
+            });
+
+        });
+    });
+
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
+    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+</script>
+
+
