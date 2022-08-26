@@ -3,52 +3,57 @@
     ViewData["Title"] = "Horarios";
 }
 
-    <!-- Basic Tables start -->
-    <section class="section">
-        <div class="row justify-content-center" id="basic-table">
-            <div class="col-12 col-md-12">
-                <div class="card sombra">
-                    <div class="card-header">
-                        <h4 class="card-title d-inline">Horarios</h4>
-                        <a class="btn btn-primary float-end mr-5 sombra-1" asp-controller="Schedule" asp-action="CreateSchedule">Crear nuevo horario</a>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-body">
-                            <p class="card-text">Listado de horarios de clase registrados en la institución
-                            </p>
-                            <!-- Table with outer spacing -->
-                            <div class="table-responsive">
-                                <table class="table table-lg">
-                                    <thead>
+<section class="section">
+    <div class="row justify-content-center" id="basic-table">
+        <div class="col-12 col-md-12">
+            <div class="card sombra">
+                <div class="card-header">
+                    <h4 class="card-title d-inline">Horarios</h4>
+                    <a class="btn btn-primary float-end mr-5 sombra-1" asp-controller="Schedule" asp-action="CreateSchedule"
+                    title="Crear nuevo horario" data-bs-toggle="msg">Crear nuevo horario</a>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <p class="card-text">
+                            Listado de horarios de clase registrados en la institución
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table table-lg">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre programa</th>
+                                        <th>Descripción</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reordenable">
+                                    @foreach (var schedule in Model)
+                                    {
                                         <tr>
-                                            <th>Nombre programa</th>
-                                            <th>Descripción</th>
-                                            <th>Acciones</th>
+                                            <td class="text-bold-500 col-md-2">@schedule.schedule_name</td>
+                                            <td class="text-bold-500 col-md-7">@schedule.schedule_description</td>
+                                            <td class=" col-md-3">
+                                                <a class="btn btn-success" asp-action="EditSchedule" asp-controller="Schedule" 
+                                                asp-route-id="@schedule.id_schedule" title="Editar" data-bs-toggle="msg">Editar</a>
+                                                <a class="btn btn-danger" asp-action="DeleteScheduleConfirmation" asp-controller="Schedule" 
+                                                asp-route-id="@schedule.id_schedule" title="Eliminar" data-bs-toggle="msg">Eliminar</a>
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody id="reordenable">
-                                        @foreach (var schedule in Model)
-                                        {
-                                            <tr>
-                                                <td class="text-bold-500 col-md-2">@schedule.schedule_name</td>
-                                                <td class="text-bold-500 col-md-7">@schedule.schedule_description</td>
-                                                <td class=" col-md-3"> 
-                                                    <a class="btn btn-success" asp-action="EditSchedule" asp-controller="Schedule" asp-route-id="@schedule.id_schedule">Editar</a>
-                                                    <a class="btn btn-danger" asp-action="DeleteScheduleConfirmation" asp-controller="Schedule" asp-route-id="@schedule.id_schedule">Eliminar</a>
-                                                </td>
-                                            </tr>
-                                        }
-                                        
-                                    </tbody>
-                                </table>
+                                    }
 
-                                @section Scripts{
-                                    <script>
-                                        $(function(){
-                                            $("#reordenable").sortable();
-                                        })
-                                    </script>
-                                }
+                                </tbody>
+                            </table>
+                            @section Scripts{
+                                <script>
+                                    $(function() {
+                                        $("#reordenable").sortable();
+                                    })
+                                    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
+                                    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+                                        return new bootstrap.Tooltip(tooltipTriggerEl)
+                                    })
+                                </script>
+                            }
                             </div>
                         </div>
                     </div>
@@ -56,4 +61,4 @@
             </div>
         </div>
     </section>
-    <!-- Basic Tables end -->
+

@@ -4,50 +4,56 @@
 }
 
 
-    <!-- Basic Horizontal form layout section start -->
-    <section id="basic-horizontal-layouts">
-        <div class="row match-height justify-content-center">
-            <div class="col-md-8 col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Se esta borrando el horario @Model.schedule_name</h4>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-body">
-                            <form class="form form-horizontal" asp-controller="Schedule" asp-action="DeleteSchedule">
-                                
-                                <div class="form-body">
-                                    <input type="hidden" asp-for="id_schedule"/>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label class="form-label" asp-for="schedule_name">Nombre</label>
-                                        </div>
-                                        <div class="col-md-8 form-group">
-                                            <input type="text" readonly asp-for="schedule_name" class="form-control"
-                                                placeholder="Nombre de programa">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label asp-for="schedule_description">Descripción</label>
-                                        </div>
-                                        <div class="col-md-8 form-group">
-                                            <textarea type="text" readonly class="form-control" asp-for="schedule_description"
-                                                placeholder="Descripción"></textarea>
-                                        </div>
-                                        <div class="col-sm-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-danger me-1 mb-1">Borrar</button>
-                                            <a class="btn btn-info" asp-action="index">Cancelar</a>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </form>
-                                <!-- Basic Tables start -->
-    
+<!-- Basic Horizontal form layout section start -->
+<section id="basic-horizontal-layouts">
+    <div class="row match-height justify-content-center">
+        <div class="col-md-8 col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Se esta borrando el horario @Model.schedule_name</h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <form class="form form-horizontal" asp-controller="Schedule" asp-action="DeleteSchedule">
 
-                            @section Scripts{
-                                <partial name = "_ValidationScriptsPartial"/>
-                            }
-                        </div>
+                            <div class="form-body">
+                                <input type="hidden" asp-for="id_schedule" />
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="form-label" asp-for="schedule_name">Nombre</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <input type="text" readonly asp-for="schedule_name" class="form-control"
+                                               placeholder="Nombre de programa">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label asp-for="schedule_description">Descripción</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <textarea type="text" readonly class="form-control" asp-for="schedule_description"
+                                                  placeholder="Descripción"></textarea>
+                                    </div>
+                                    <div class="col-sm-12 d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-danger me-1 mb-1"
+                                        title="Borrar programa" data-bs-toggle="msg">Borrar</button>
+                                        <a class="btn btn-info" asp-action="index"
+                                        title="Cancelar" data-bs-toggle="msg">Cancelar</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                        <!-- Basic Tables start -->
+                        @section Scripts{
+                            <partial name="_ValidationScriptsPartial" />
+
+                        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
+                        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+                        return new bootstrap.Tooltip(tooltipTriggerEl)
+                        })
+
+                        }
+                        </div>  
                     </div>
                 </div>
             </div>

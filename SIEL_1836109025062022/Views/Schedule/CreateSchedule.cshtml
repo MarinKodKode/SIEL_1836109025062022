@@ -4,63 +4,69 @@
     ViewData["Title"] = "Crear un horario";
 }
 
-    <!-- Basic Horizontal form layout section start -->
-    <section id="basic-horizontal-layouts">
-        <div class="row match-height justify-content-center">
-            <div class="col-md-8 col-12">
-                <div class="card sombra">
-                    <div class="card-header">
-                        <h4 class="card-title">Crear un horario</h4>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-body">
-                            <form class="form form-horizontal" asp-controller="Schedule" asp-action="CreateSchedule">
-                                <div class="form-body">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label class="form-label" asp-for="schedule_name">Turno</label>
-                                        </div>
-                                        <div class="col-md-8 form-group">
-                                            <input type="text" asp-for="schedule_name"class="form-control"
-                                                placeholder="Ej.:Matutino, Vespertino, etc.">
-                                                <span asp-validation-for="schedule_name" class="text-danger"></span>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label asp-for="schedule_description">Descripción</label>
-                                        </div>
-                                        <div class="col-md-8 form-group">
-                                            <input type="text" class="form-control" asp-for="schedule_description"
-                                                placeholder="Ej. 8:00 Am - 10:00 AM"/>
-                                                <span asp-validation-for="schedule_description" class="text-danger"></span>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <label asp-for="schedule_level">Nivel</label>
-                                        </div>
-                                        <div class="col-md-8 form-group">
-                                                <select class="form-select" asp-for="schedule_level">
-                                                    @foreach (var level in Model.Levels)
-                                                    {
-                                                        <option value="@level.id_level">@level.level_name</option>
-                                                    }
-                                                </select>
-                                        </div>
-
-                                        <div class="col-sm-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary me-1 mb-1">Guardar</button>
-                                            
-                                            <a class="btn btn-danger" asp-action="index">Cancelar</a>
-                                        </div>
-                                        
+<!-- Basic Horizontal form layout section start -->
+<section id="basic-horizontal-layouts">
+    <div class="row match-height justify-content-center">
+        <div class="col-md-8 col-12">
+            <div class="card sombra">
+                <div class="card-header">
+                    <h4 class="card-title">Crear un horario</h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <form class="form form-horizontal" asp-controller="Schedule" asp-action="CreateSchedule">
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="form-label" asp-for="schedule_name">Turno</label>
                                     </div>
-                                </div>
-                            </form>
-                                <!-- Basic Tables start -->
-    
+                                    <div class="col-md-8 form-group">
+                                        <input type="text" asp-for="schedule_name" class="form-control"
+                                               placeholder="Ej.:Matutino, Vespertino, etc.">
+                                        <span asp-validation-for="schedule_name" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label asp-for="schedule_description">Descripción</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <input type="text" class="form-control" asp-for="schedule_description"
+                                               placeholder="Ej. 8:00 Am - 10:00 AM" />
+                                        <span asp-validation-for="schedule_description" class="text-danger"></span>
+                                    </div>
 
-                            @section Scripts{
-                                <partial name = "_ValidationScriptsPartial"/>
-                            }
+                                    <div class="col-md-4">
+                                        <label asp-for="schedule_level">Nivel</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <select class="form-select" asp-for="schedule_level">
+                                            @foreach (var level in Model.Levels)
+                                            {
+                                                <option value="@level.id_level">@level.level_name</option>
+                                            }
+                                        </select>
+                                    </div>
+
+                                    <div class="col-sm-12 d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary me-1 mb-1"
+                                        title="Guardar horario" data-bs-toggle="msg">Guardar</button>
+
+                                        <a class="btn btn-danger" asp-action="index"
+                                        title="Cancelar" data-bs-toggle="msg">Cancelar</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                        <!-- Basic Tables start -->
+                        @section Scripts{
+                            <partial name="_ValidationScriptsPartial" />
+
+                        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
+                        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+                        return new bootstrap.Tooltip(tooltipTriggerEl)
+                        })
+
+                        }
                         </div>
                     </div>
                 </div>
@@ -68,4 +74,3 @@
         </div>
     </section>
     <!-- // Basic Horizontal form layout section end -->
-
