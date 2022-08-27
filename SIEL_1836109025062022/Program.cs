@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -19,6 +18,7 @@ builder.Services.AddTransient<IStudentsRepository, StudentsRepository>();
 builder.Services.AddTransient<IInscriptionRepository, InscriptionRepository>();
 builder.Services.AddTransient<IAccountantRepository, AccountantRepository>();
 builder.Services.AddTransient<IStatusRepository, StatusIncriptionRepostitory>();
+builder.Services.AddTransient<IAnnouncementRepository, AnnouncementRepository>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<IUserStore<User>, UserStore>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
@@ -29,6 +29,7 @@ builder.Services.AddIdentityCore<User>(opciones =>
     opciones.Password.RequireLowercase = false;
     opciones.Password.RequireUppercase = false;
     opciones.Password.RequireNonAlphanumeric = false;
+    opciones.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+ ";
 }).AddErrorDescriber<ErrorMessagesIdentity>();
 builder.Services.AddAuthentication(options =>
 {

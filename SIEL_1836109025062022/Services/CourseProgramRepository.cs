@@ -11,6 +11,8 @@ namespace SIEL_1836109025062022.Services
         Task<bool> ExistsCourseProgram(string program_name);
         Task<IEnumerable<CourseProgram>> GetAllCoursePrograms();
         Task<CourseProgram> GetCourseProgramById(int id_program);
+        Task<string> GetCourseProgramNameById(int id_program);
+        Task<int> GetGraduatedProgram();
         Task UpdateCourseProgrma(CourseProgram courseProgram);
     }
     public class CourseProgramRepository : ICourseProgramRepository
@@ -21,7 +23,7 @@ namespace SIEL_1836109025062022.Services
             connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public  async Task CreateCourseProgram(CourseProgram courseProgram)
+        public async Task CreateCourseProgram(CourseProgram courseProgram)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             var id_program = await connection.QuerySingleAsync<int>(@"
@@ -29,7 +31,7 @@ namespace SIEL_1836109025062022.Services
                             values(@program_description, @program_name);
                             SELECT SCOPE_IDENTITY();",
                             courseProgram);
-            courseProgram.id_program = id_program; 
+            courseProgram.id_program = id_program;
         }
 
 
@@ -40,7 +42,7 @@ namespace SIEL_1836109025062022.Services
                                             select 1 
                                             from programs
                                             where program_name = @program_name;",
-                                            new { program_name});
+                                            new { program_name });
             return exists == 1;
         }
 
@@ -48,7 +50,7 @@ namespace SIEL_1836109025062022.Services
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             return await connection.QueryAsync<CourseProgram>(@"
-                                    select * from programs;") ;
+                                    select * from programs;");
         }
 
         public async Task UpdateCourseProgrma(CourseProgram courseProgram)
@@ -56,7 +58,7 @@ namespace SIEL_1836109025062022.Services
             using SqlConnection connection = new SqlConnection(connectionString);
             await connection.ExecuteAsync(@"UPDATE programs
                                             set program_name = @program_name, program_description = @program_description
-                                            where id_program = @id_program", 
+                                            where id_program = @id_program",
                                             courseProgram);
         }
         public async Task<CourseProgram> GetCourseProgramById(int id_program)
@@ -64,7 +66,7 @@ namespace SIEL_1836109025062022.Services
             using SqlConnection connection = new SqlConnection(connectionString);
             return await connection.QueryFirstOrDefaultAsync<CourseProgram>(@"
                          select * from programs where id_program = @id_program",
-                         new { id_program});
+                         new { id_program });
         }
 
         public async Task DeleteCourseProgramById(int id_program)
@@ -72,7 +74,23 @@ namespace SIEL_1836109025062022.Services
             using SqlConnection connection = new SqlConnection(connectionString);
             await connection.ExecuteAsync(@"
                              delete programs where id_program = @id_program",
-                             new { id_program});
+                             new { id_program });
+        }
+        public Task<string> GetCourseProgramNameById(int id_program)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            var program_name = connection.QueryFirstOrDefaultAsync<string>(@"
+                         select program_description from programs where id_program = @id_program",
+                         new { id_program });
+            return program_name;
+        }
+        public async Task<int> GetGraduatedProgram()
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            var id_program = await connection.QueryFirstOrDefaultAsync<int>(@"
+                         select id_program from programs 
+                            where program_name like '%gresados%'");
+            return id_program;
         }
     }
 }
