@@ -1,4 +1,76 @@
-﻿@model IEnumerable<Modality>
+﻿@model IEnumerable<IndexLevelsViewModel>
+@{
+    ViewData["Title"] = "Modalidades";
+}
+
+<section class="section">
+    <div class="row justify-content-center" id="basic-table">
+        <div class="col-12 col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title d-inline">Modalidades</h4>
+                    <a class="btn btn-info float-end mr-5" asp-action="CreateLevel" asp-controller="Levels">Crear nuevo nivel</a>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <p class="card-text fst-italic">
+                            Las modalidades están agrupadas por Programa de Estudios y a su vez por Niveles,
+                            puede asignar una modalidad a cada nivel deseado para tener un control adecuado de
+                            los procesos de reinscripción.
+                        </p>
+                        <div class="accordion acordeon-levels center justify-content-center">
+
+                            @foreach (var programa in Model)
+                            {
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="header-one">
+                                        @{
+                                            var id = programa.program.Replace(" ", "");
+                                            var dataBSTarget = "#" + id;
+
+                                        }
+                                        <button class="accordion-button " type="button" data-bs-toggle="collapse"
+                                            data-bs-target="@dataBSTarget">
+                                            <span class="me-3">
+                                                <span><strong>@programa.program</strong></span>
+                                                <span class="text-primary"> @programa.summary niveles</span>
+                                            </span>
+                                        </button>
+                                    </h2>
+
+                                    <div id="@id" class="accordion-collapse collapse">
+                                        <div>
+                                            <ul class="list-group">
+                                                @foreach (var item in programa.levels)
+                                                {
+                                                    <li class="list-group-item align-content-md-between">
+                                                        <span><strong>@item.level_name</strong></span>
+                                                        <div class="d-inline float-sm-end float-md-end">
+                                                            <a class="btn btn-sm btn-info" asp-action="EditLevel"
+                                                       asp-controller="Levels" asp-route-id="@item.id_level">Ver Modalidades <i class="bi bi-eye-slash-fill"></i></a>
+
+                                                        </div>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            }
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@*@model IEnumerable<Modality>
 @{
     ViewData["Title"] = "Modalidades";
 }
@@ -66,3 +138,4 @@
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
     </script>
+*@
