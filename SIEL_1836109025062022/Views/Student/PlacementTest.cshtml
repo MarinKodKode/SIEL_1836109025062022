@@ -1,14 +1,13 @@
 ﻿@model PlacementTest
 @{
     ViewData["Title"] = "Incripción para nuevo ingreso";
-    var isStudentJoined = false; 
+    var isStudentJoined = ViewBag.status;  
 }
 
-@if(!isStudentJoined){
+@if(isStudentJoined == 0){
  <div class="page-heading">
-            <h3>Registro para placement test</h3>
+    <h3>Registro para placement test</h3>
     </div>
-
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
@@ -56,8 +55,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-12 col-sm-12 col-lg-12 text-end">
-                                                <button type="submit" class="btn btn-outline-success" 
-                                                title="Registro Placement Test" data-bs-toggle="msg">
+                                                <button type="submit" class="btn btn-outline-success">
                                                     Registro Placement Test
                                                 </button>
                                             </div>
@@ -93,11 +91,3 @@ else
 {
   <partial name = "_StudentIsAlreadyJoined"/>  
 }
-
-<script>
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
-        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl)
-        })
-
-</script>

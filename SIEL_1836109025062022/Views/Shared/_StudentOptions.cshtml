@@ -1,0 +1,72 @@
+﻿@{
+}
+<li class="sidebar-item  has-sub">
+    <a class='sidebar-link'>
+        <i class="bi bi-bar-chart-fill"></i>
+        <span>Inicio Estudiante</span>
+    </a>
+    <ul class="submenu ">
+        <li class="submenu-item ">
+            <a asp-area="" asp-controller="Student" asp-action="Index">Mi Avance</a>
+        </li>
+        <li class="submenu-item ">
+            <a href="https://www.youtube.com/channel/UCUXpwMzV4Mx5lV_NbnY2Kcw/videos">Tutoriales del Curso</a>
+        </li>
+    </ul>
+</li>
+
+<li class="sidebar-item  has-sub">
+    <a class='sidebar-link'>
+        <i class="bi bi-person-badge-fill"></i>
+        <span>Inscripción</span>
+    </a>
+    <ul class="submenu ">
+        <li class="submenu-item ">
+            <a asp-area="" asp-controller="Student" asp-action="StudentInscription">Reinscripción</a>
+        </li>
+        <li class="submenu-item ">
+            <a asp-area="" asp-controller="Student" asp-action="PlacementTest">Placement Test</a>
+        </li>
+        <li class="submenu-item ">
+            <a asp-area="" asp-controller="Student" asp-action="NewJoining">Nuevo Ingreso</a>
+        </li>
+    </ul>
+</li>
+
+
+<li class="sidebar-item  ">
+    <a class='sidebar-link' asp-area="" asp-controller="Announcement" asp-action="AnnouncementList">
+        <i class="bi bi-file-earmark-medical-fill"></i>
+        <span>Convocatorias</span>
+    </a>
+</li>
+<li class="sidebar-item  ">
+    <a class="sidebar-link" asp-area="" asp-controller="Student" asp-action="StudentGetPaymentData">
+        <i class="bi bi-credit-card-2-front-fill"></i>
+        <span>Referencias de pago</span>
+    </a>
+</li>
+<li class="sidebar-item  ">
+    <a class="sidebar-link" asp-area="" asp-controller="Student" asp-action="StudentCurrentLevelElection">
+        <i class="bi bi-building"></i>
+        <span>Elección de nivel</span>
+    </a>
+</li>
+<li class="sidebar-item  ">
+    <a class="sidebar-link" asp-area="" asp-controller="Student" asp-action="StudentPersonalData">
+        <i class="bi bi-person"></i>
+        <span>Datos personales</span>
+    </a>
+</li>
+<li class="sidebar-item  ">
+    <a class="sidebar-link" href="https://ed.engdis.com//avatarisolution#/login" target="_blank">
+        <i class="bi bi-laptop-fill"></i>
+        <span>English Discoveries</span>
+    </a>
+</li>
+<li class="sidebar-item  ">
+    <a class="sidebar-link" href="https://wa.me/5215522461687" target="_blank">
+        <i class="bi bi-whatsapp"></i>
+        <span>Contácto</span>
+    </a>
+</li>

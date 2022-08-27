@@ -1,6 +1,7 @@
 ﻿@using SIEL_1836109025062022.Models.ViewModel
 @model AccountantAuthorizationViewModel
 @{
+    ViewData["Title"] = "Comprobantes de pago";
 }
 
 <section id="basic-horizontal-layouts">
@@ -54,11 +55,8 @@
                                         </div>
                                     </div>
                                     <div class="card-footer text-center">
-                                        <button type="submit" class="btn btn-info"
-                                        title="Verifique que los datos sean correctos antes de ser aprobardos." 
-                                        data-bs-toggle="msg">Guardar</button>
-                                        <a class="btn btn-danger" asp-action="index" title="Cancelar" data-bs-toggle="msg">
-                                            Cancelar</a>
+                                        <button type="submit" class="btn btn-info">Guardar</button>
+                                        <a class="btn btn-danger" asp-action="index">Cancelar</a>
                                     </div>
                                 </form>  
                             </div>
