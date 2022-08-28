@@ -7,5 +7,6 @@
         public string schedule_description { get; set; }
         public int schedule_level { get; set; }
         public int schedule_modality { get; set; }
+        public string modality_name { get; set; }
     }
 }

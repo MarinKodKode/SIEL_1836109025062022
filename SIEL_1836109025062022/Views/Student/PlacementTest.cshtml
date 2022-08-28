@@ -36,14 +36,27 @@
                                     
                                 <form class="form" asp-action="RegisterPlacementTest" asp-controller="Student" enctype="multipart/form-data" method="post">
                                     <input type="hidden" asp-for="insc_id_student">
+                                    <input type="hidden" asp-for="insc_id_course_program">
                                     <div class="row">
                                         <div class="col-sm-11 mb-1">
+                                            
+                                            <div class="col-md-4">
+                                                <label asp-for="insc_id_schedule">Horario deseado</label>
+                                            </div>
+                                            <div class="col-md-8 form-group">
+                                                <select asp-for="insc_id_schedule" class="form-select">
+                                                @foreach (var schedule in @Model.Schedules) 
+                                                {
+                                                        <option value="@schedule.id_schedule">@schedule.schedule_name</option>
+                                                    }
+                                                </select>
+                                            </div>
                                             <div class="input-group input-group-sm mb-3">
                                                 <div class="col-12">
                                                     <label class="col-form-label">Comprobante de pago English Discoveries</label>
                                                 </div>
                                                 <div class="col-12">
-                                                    <input asp-for="file_one" class="form-control"  type="file" value="upload">
+                                                    <input asp-for="file_one" class="form-control"  type="file" value="upload" accept="application/pdf" required>
                                                 </div>
                                             </div>
                                             <div class="input-group input-group-sm mb-3">
@@ -51,7 +64,7 @@
                                                     <label  class="col-form-label">Comprobante de pago Tecnológico </label>
                                                 </div>
                                                 <div class="col-12">
-                                                    <input asp-for="file_two" class="form-control"  type="file" value="upload">
+                                                    <input asp-for="file_two" class="form-control"  type="file" value="upload" accept="application/pdf" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-12 col-sm-12 col-lg-12 text-end">

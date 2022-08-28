@@ -1,0 +1,104 @@
+﻿@using SIEL_1836109025062022.Models.ViewModel
+@model IEnumerable<StudentList>
+@{
+    ViewData["Title"] = "Estudiantes";
+}
+
+
+
+        <div class="page-heading">
+            <h3>Bauchers de Pago</h3>
+        </div>
+        <section id="multiple-column-form">
+            <div class="row match-height">
+                <div class="row match-height">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Estudiantes</h4>
+                                <a class="btn btn-secondary" id="poste">Enviar al post</a>
+                                
+                            </div>
+
+                            <div col-md-6 col-sm-12>
+                                <div class="card-body">
+                                    <table class="table" id="table1">
+                                        <thead>
+                                            <tr>
+                                                <th>No. de control</th>
+                                                <th>Nombre(s)</th>
+                                                <th>Apelido(s)</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <label>@item.stdt_control_number</label>
+                                                    </td>
+                                                    <td>
+                                                        <label>@item.user_name</label>
+                                                    </td>
+                                                    <td>
+                                                        <label>@item.user_surname</label>
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-info mr-3" asp-controller="Accountant" asp-action="ApproveConfirmation" asp-route-id="@item.id_inscription">
+                                                            Ver comprobantes<i class="bi bi-eye-fill ms-2"></i></a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+               @section Scripts{
+                                <partial name = "_ValidationScriptsPartial"/>
+
+                                <script>
+
+                                    const data = {"institutionId": "5235225",
+                                    "studentUserName": "testing",
+                                    "studentFirstName": "testing",
+                                    "studentLastName": "testing",
+                                    "studentPassword": "12345",
+                                    "studentEmail": "testing@aaa.com",
+                                    "classId": "552250012"}
+
+
+                                    $(function(){
+                                        $("#poste").click(async function(){
+                                            console.log("Hola");
+                                            var settings = {
+                                              "url": "https://edapi.engdis.com/WebApi/External/InsertUser",
+                                              "method": "POST",
+                                              "timeout": 0,
+                                              "headers": {
+                                                "token": "EE7F349F-0F87-4A79-8607-04998F649C7B",
+                                                "Content-Type": "application/json"
+                                              },
+                                              "data": JSON.stringify({
+                                                "institutionId": "5235225",
+                                                "studentUserName": "2asss",
+                                                "studentFirstName": "apaaaaitest",
+                                                "studentLastName": "apitest",
+                                                "studentPassword": "12345",
+                                                "studentEmail": "apitest@aaa.com",
+                                                "classId": "552250012"
+                                              }),
+                                            };
+                                            $.ajax(settings).done(function (response) {
+                                              console.log(response);
+                                            });
+                                        });
+                                    });
+                                </script>
+                            }
+        </section>
+     

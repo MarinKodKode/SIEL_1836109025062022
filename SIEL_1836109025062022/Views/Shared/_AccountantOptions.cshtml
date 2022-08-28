@@ -9,19 +9,21 @@
     </a>
     <ul class="submenu ">
         <li class="submenu-item ">
-            <a asp-area="" asp-controller="Accountant" asp-action="Index" >Bouchers de pago pendientes</a>
+            <a asp-area="" asp-controller="Accountant" asp-action="Index" >Todos</a>
+
+            <a asp-area="" asp-controller="Accountant" asp-action="UnsolvedPayment" >Pendientes</a>
         </li> 
         <li class="submenu-item ">
-            <a asp-area="" asp-controller="Accountant" asp-action="Index" >Bouchers de pago autorizados</a>
+            <a asp-area="" asp-controller="Accountant" asp-action="AuthorizedPayment" >Autorizados</a>
         </li> 
         <li class="submenu-item ">
-            <a asp-area="" asp-controller="Accountant" asp-action="Index" >Bouchers de pago rechazados</a>
+            <a asp-area="" asp-controller="Accountant" asp-action="UnauthorizedPayment" >Rechazados</a>
         </li> 
         <li class="submenu-item ">
-            <a asp-area="" asp-controller="Accountant" asp-action="Index" >Bouchers de pago Placement Test</a>
+            <a asp-area="" asp-controller="Accountant" asp-action="PaymentPlacementTest" >Placement Test</a>
         </li> 
         <li class="submenu-item ">
-            <a asp-area="" asp-controller="Accountant" asp-action="Index" >Bouchers de pago Programa de Egresados</a>
+            <a asp-area="" asp-controller="Accountant" asp-action="PaymentGraduatedProgram" >Programa de Egresados</a>
         </li> 
     </ul>
 </li>

@@ -14,13 +14,15 @@ namespace SIEL_1836109025062022.Controllers
         private readonly IStatusRepository statusRepository;
         private readonly IUserRepository userRepository;
         private readonly ICredentialsRepository credentials;
+        private readonly ICourseProgramRepository courseProgramRepository;
 
         public AccountantController(IInscriptionRepository inscriptionRepository,
             IUserService userService,
             IAccountantRepository accountantRepository,
             IStatusRepository statusRepository,
             IUserRepository userRepository,
-            ICredentialsRepository credentials)
+            ICredentialsRepository credentials,
+            ICourseProgramRepository courseProgramRepository)
         {
             this.inscriptionRepository = inscriptionRepository;
             this.userService = userService;
@@ -28,6 +30,7 @@ namespace SIEL_1836109025062022.Controllers
             this.statusRepository = statusRepository;
             this.userRepository = userRepository;
             this.credentials = credentials;
+            this.courseProgramRepository = courseProgramRepository;
         }
 
         
@@ -40,11 +43,80 @@ namespace SIEL_1836109025062022.Controllers
             ViewData["role"] = urole;
             ViewData["picture"] = upicture;
             ViewData["role_name"] = urole_name;
-
             var model = await accountantRepository.GetInscriptionsRequests();
             return View(model);
         }
+        [HttpGet]
+        public async Task<IActionResult> PaymentGraduatedProgram()
+        {
+            var id_user = userService.GetUserId();
+            var urole = userRepository.GetUserRole(id_user);
+            var upicture = await userRepository.GetUserPicturePath(id_user);
+            var urole_name = await userRepository.GetUserRoleName(urole);
+            ViewData["role"] = urole;
+            ViewData["picture"] = upicture;
+            ViewData["role_name"] = urole_name;
+            var graduatedProgramId = await courseProgramRepository.GetGraduatedProgram();
+            var model = await accountantRepository.GetInscriptionsRequestsByProgramId(graduatedProgramId);
+            return View(model);
+        }
+        [HttpGet]
+        public async Task<IActionResult> UnsolvedPayment()
+        {
+            var id_user = userService.GetUserId();
+            var urole = userRepository.GetUserRole(id_user);
+            var upicture = await userRepository.GetUserPicturePath(id_user);
+            var urole_name = await userRepository.GetUserRoleName(urole);
+            ViewData["role"] = urole;
+            ViewData["picture"] = upicture;
+            ViewData["role_name"] = urole_name;
+            //var graduatedProgramId = await courseProgramRepository.GetGraduatedProgram();
+            var model = await accountantRepository.GetUnsolvedPayments();
+            return View(model);
+        }
+        [HttpGet]
+        public async Task<IActionResult> UnauthorizedPayment()
+        {
+            var id_user = userService.GetUserId();
+            var urole = userRepository.GetUserRole(id_user);
+            var upicture = await userRepository.GetUserPicturePath(id_user);
+            var urole_name = await userRepository.GetUserRoleName(urole);
+            ViewData["role"] = urole;
+            ViewData["picture"] = upicture;
+            ViewData["role_name"] = urole_name;
+            //var graduatedProgramId = await courseProgramRepository.GetGraduatedProgram();
+            var model = await accountantRepository.UnauthorizedPayments();
+            return View(model);
+        }
+        [HttpGet]
+        public async Task<IActionResult> AuthorizedPayment()
+        {
+            var id_user = userService.GetUserId();
+            var urole = userRepository.GetUserRole(id_user);
+            var upicture = await userRepository.GetUserPicturePath(id_user);
+            var urole_name = await userRepository.GetUserRoleName(urole);
+            ViewData["role"] = urole;
+            ViewData["picture"] = upicture;
+            ViewData["role_name"] = urole_name;
+            //var graduatedProgramId = await courseProgramRepository.GetGraduatedProgram();
+            var model = await accountantRepository.GetAuthorizedPayments();
+            return View(model);
+        }
 
+        [HttpGet]
+        public async Task<IActionResult> PaymentPlacementTest()
+        {
+            var id_user = userService.GetUserId();
+            var urole = userRepository.GetUserRole(id_user);
+            var upicture = await userRepository.GetUserPicturePath(id_user);
+            var urole_name = await userRepository.GetUserRoleName(urole);
+            ViewData["role"] = urole;
+            ViewData["picture"] = upicture;
+            ViewData["role_name"] = urole_name;
+            var placementProgramId = await courseProgramRepository.GetPlacementTestId();
+            var model = await accountantRepository.GetInscriptionsRequestsByProgramId(placementProgramId);
+            return View(model);
+        }
         [HttpGet]
         public async Task<IActionResult> ApproveConfirmation(int id)
         {
@@ -65,13 +137,11 @@ namespace SIEL_1836109025062022.Controllers
                 model.status = await statusRepository.GetStatusInscriptionList();
                 if (model is null)
                 {
-                    return RedirectToAction("Errore", "Home");
+                    return RedirectToAction("e404", "Home");
                 }
                 return View(model);
             }
         }
-
-
         [HttpPost]
         public async Task<IActionResult> ApproveInscription(Inscription inscription)
         {

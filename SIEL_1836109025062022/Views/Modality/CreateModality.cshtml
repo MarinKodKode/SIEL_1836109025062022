@@ -1,7 +1,8 @@
-﻿@using SIEL_1836109025062022.Models.ViewModel
-@model ModalityViewModel
+﻿@model Modality
 @{
     ViewData["Title"] = "Crear modalidad";
+       var level_name = ViewData["level_name"].ToString();   
+    var id_level = ViewData["id_level"].ToString(); 
 }
 
     <!-- Basic Horizontal form layout section start -->
@@ -10,7 +11,7 @@
             <div class="col-md-8 col-12">
                 <div class="card sombra">
                     <div class="card-header">
-                        <h4 class="card-title">Crear una nueva modalidad</h4>
+                        <h4 class="card-title">Crear una nueva modalidad para @level_name</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
@@ -45,12 +46,8 @@
                                             <label asp-for="modality_weeks_duration">Nivel asignado</label>
                                         </div>
                                         <div class="col-md-8 form-group">
-                                            <select asp-for="modality_level_id" class="form-select">
-                                                @foreach (var item in Model.Levels)
-                                                {
-                                                   <option value="@item.id_level">@item.level_name</option>
-                                                }
-                                            </select>
+                                            <input type="hidden" asp-for="modality_level_id" />
+                                            <input type="text" class="form-control" readonly value="@level_name"/>
                                         </div>
                                         <div class="col-sm-12 d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary me-1 sombra-1">Guardar</button>

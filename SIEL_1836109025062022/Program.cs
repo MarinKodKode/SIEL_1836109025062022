@@ -20,6 +20,7 @@ builder.Services.AddTransient<IInscriptionRepository, InscriptionRepository>();
 builder.Services.AddTransient<IAccountantRepository, AccountantRepository>();
 builder.Services.AddTransient<IStatusRepository, StatusIncriptionRepostitory>();
 builder.Services.AddTransient<IAnnouncementRepository, AnnouncementRepository>();
+builder.Services.AddTransient<IListRepository, ListRepository>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<IUserStore<User>, UserStore>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();

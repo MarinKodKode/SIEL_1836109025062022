@@ -13,6 +13,7 @@ namespace SIEL_1836109025062022.Services
         Task<bool> ExistsSchedule(Schedule schedule);
         Task<IEnumerable<Schedule>> GetAllSchedules();
         Task<IEnumerable<Schedule>> GetAllSchedulesByLevel(int id_level);
+        Task<IEnumerable<Schedule>> GetAllSchedulesByModality(int id);
         Task<Schedule> GetSchedulebyId(int id_schedule);
         Task UpdateSchedule(Schedule schedule);
     }
@@ -47,8 +48,18 @@ namespace SIEL_1836109025062022.Services
             using SqlConnection connection = new SqlConnection(connectionString);
             return await connection.QueryAsync<Schedule>(@"
                                     select * from schedules
+                                    inner join modalities on schedules.schedule_modality = modalities.id_modality
                                     where schedule_level = @id_level;",
                                     new { id_level });
+        }
+
+        public async Task<IEnumerable<Schedule>> GetAllSchedulesByModality(int id)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            return await connection.QueryAsync<Schedule>(@"
+                                    select * from schedules
+                                    where schedule_modality = @id;",
+                                    new { id });
         }
         public async Task<bool> ExistSchedule(string schedule_name, string schedule_description)
         {
@@ -95,7 +106,8 @@ namespace SIEL_1836109025062022.Services
                                             select 1 from schedules
                                             where schedule_name like @schedule_name
                                             and schedule_level = @schedule_level
-                                            AND schedule_description like @schedule_description;",
+                                            AND schedule_description like @schedule_description
+                                            AND schedule_modality like @schedule_modality;",
                                             schedule);
             return exists == 1;
         }
