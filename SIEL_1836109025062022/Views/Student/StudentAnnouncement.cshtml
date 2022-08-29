@@ -4,69 +4,73 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
-        <div class="page-heading">
-            <div class="page-title">
-                <div class="row">
-                    <div class="col-12 col-md-12 order-md-1 order-last">
-                        <h3>Convocatoria</h3>
-                        <p class="text-subtitle text-muted">En este apartado encontrarás la
-                            convocatoria por periodo disponible para el proceso de inscripción al curso.</p>
-                    </div>
-                </div>
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-12 order-md-1 order-last">
+                <h3>Convocatoria</h3>
+                <p class="text-subtitle text-muted">
+                    En este apartado encontrarás la
+                    convocatoria por periodo disponible para el proceso de inscripción al curso.
+                </p>
             </div>
-            <section id="multiple-column-form">
-                <div class="row match-height">
-                    <div class="col-xl-8 col-md-6 col-sm-12 pt-2">
-                       
-                            <section id="content-types">
-                                <div class="card-body-r">
-                                    <img src="~/assets/images/students.png" style="width:100%"> 
-                                </div>
-                            </section>     
-                    </div>
-                    <div class="col-xl-4 col-md-6 col-sm-12 pt-5">   
-                        <div class="card conv">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <center>
-                                            <h4 class="card-title">TECNM CAMPUS VILLAHERMOSA </h4>
-                                            <p class="card-text"> Coordinación de Lenguas Extranjeras (CLE)</p>
-                                            <p class="card-text"> Semestre Febrero-Junio 2022</p>
-                                            <h4 class="card-title">Verano Convocatoria Abierta </h4>
-                                            <p class="card-text"> Del 06 de Junio al 01 de Julio de 2022</p>
-                                            <p class="card-text"> Inicios de clases el 04 de Julio de 2022</p><br>                                        
-                                        
-                                            <div class="col-3 d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-primary me-1 mb-1"
-                                                title="Inscripción a la convocatoria vigente" data-bs-toggle="msg">Inscribirse</button>
-                                            </div>  
-                                        </center>
-                                    </div>
-                                </div>
-                            </div>
-                        @*<div class="card-body">
-                            <div class="badges">
-                                <div class="badge reference" >
-                                    <br><br>
-                                    <p class="card-text"> Ejemplo: 2030067802.</p>
-                                    <p class="card-text"> BANCOMER BBVA</p>
-                                    <p class="card-text"> NOMBRE: LOGGAN LTS S.A. de C.V.</p>
-                                    <p class="card-text"> NÚMERO DE CUENTA: 0118642273</p>
-                                    <p class="card-text"> CLABE INTERBANCARIA: 012680001186422731</p>
-                                    <p class="card-text"> PAGO: $650.00</p><br>
-                                </div>
-                            </div>
-                        </div>*@
-                    </div>
-                    
-                </div>
-            </section>
         </div>
+    </div>
+    <section id="multiple-column-form">
+        <div class="row match-height">
+            <div class="col-xl-8 col-md-6 col-sm-12 pt-2">
+
+                <section id="content-types">
+                    <div class="card-body-r">
+                        <img src="~/assets/images/students.png" style="width:100%">
+                    </div>
+                </section>
+            </div>
+            <div class="col-xl-4 col-md-6 col-sm-12 pt-5">
+                <div class="card conv">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <center>
+                                <h4 class="card-title">TECNM CAMPUS VILLAHERMOSA </h4>
+                                <p class="card-text"> Coordinación de Lenguas Extranjeras (CLE)</p>
+                                <p class="card-text"> Semestre Febrero-Junio 2022</p>
+                                <h4 class="card-title">Verano Convocatoria Abierta </h4>
+                                <p class="card-text"> Del 06 de Junio al 01 de Julio de 2022</p>
+                                <p class="card-text"> Inicios de clases el 04 de Julio de 2022</p><br>
+
+                                <div class="col-3 d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-primary me-1 mb-1"
+                                            title="Inscripción a la convocatoria vigente" data-bs-toggle="msg">
+                                        Inscribirse
+                                    </button>
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="card-body">
+                <div class="badges">
+                <div class="badge reference" >
+                <br><br>
+                <p class="card-text"> Ejemplo: 2030067802.</p>
+                <p class="card-text"> BANCOMER BBVA</p>
+                <p class="card-text"> NOMBRE: LOGGAN LTS S.A. de C.V.</p>
+                <p class="card-text"> NÚMERO DE CUENTA: 0118642273</p>
+                <p class="card-text"> CLABE INTERBANCARIA: 012680001186422731</p>
+                <p class="card-text"> PAGO: $650.00</p><br>
+                </div>
+                </div>
+                </div>*@
+            </div>
+
+        </div>
+    </section>
+</div>
 
 <script>
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
-        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl)
-        })
+    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
 
 </script>

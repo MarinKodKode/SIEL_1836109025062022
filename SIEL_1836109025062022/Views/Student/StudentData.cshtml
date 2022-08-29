@@ -208,7 +208,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="galleryModalTitle">Nivel</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
+                title="Cerrar" data-bs-toggle="msg">
                     <i data-feather="x"></i>
                 </button>
             </div>
@@ -245,8 +246,10 @@
                         </div>
                     </div>
                     <a class="carousel-control-prev" href="#Gallerycarousel" role="button" type="button"
-                       data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                       data-bs-slide="prev" title="Anterior" data-bs-toggle="msg">
+                        
+                       <span class="carousel-control-prev-icon" aria-hidden="true"
+                        title="Siguiente" data-bs-toggle="msg"></span>
                     </a>
                     <a class="carousel-control-next" href="#Gallerycarousel" role="button" data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
@@ -261,7 +264,6 @@
         </div>
     </div>
 </div>
-
 <script>
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
     var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {

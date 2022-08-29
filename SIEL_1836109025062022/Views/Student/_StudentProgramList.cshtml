@@ -27,91 +27,102 @@
                     <div class="card-header">
                         <h5 class="card-title">Mi avance</h5>
                     </div>
-                        <div class="card-body">
-                            <div class="row gallery">
+                    <div class="card-body">
+                        <div class="row gallery">
                             @foreach (var level in Model.levels)
                             {
                                 <div class="col-6 col-sm-6 col-lg-3 mt-2 mb-2" data-bs-toggle="modal"
-                                    data-bs-target="#modal_@level.id_level">
-                                        <a href="#">
-                                            <img class="w-100 active my-animation" src="@level.level_picture"
-                                                data-bs-target="#Gallerycarousel" data-bs-slide-to="0">
-                                        </a>
+                                 data-bs-target="#modal_@level.id_level">
+                                    <a href="#">
+                                        <img class="w-100 active my-animation" src="@level.level_picture"
+                                         data-bs-target="#Gallerycarousel" data-bs-slide-to="0">
+                                    </a>
                                 </div>
-
-                                <!--Modal start-->
-                            <div class="modal fade" id="modal_@level.id_level" tabindex="-1" role="dialog" aria-labelledby="galleryModalTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="galleryModalTitle">@level.level_name</h5>
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div id="Gallerycarousel_@level.id_level" class="carousel slide carousel-fade" data-bs-ride="carousel">
-                                                <div class="carousel-inner">
-                                                    <div class="carousel-item active">
-                                                        <div clas="card">
-                                                            <div class="card-content">
-                                                                <div class="card-body">
-                                                                    <center>
-                                                                        <h5 class="card-title">Descripción del Nivel</h5>
-                                                                        <p class="card-text-level">@level.level_description</p>
-                                                                    </center>
+                                <div class="modal fade" id="modal_@level.id_level" tabindex="-1" role="dialog" aria-labelledby="galleryModalTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="galleryModalTitle">@level.level_name</h5>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                                    title="Cerrar" data-bs-toggle="msg">
+                                                    Cerrar
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="Gallerycarousel_@level.id_level" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                                                    <div class="carousel-inner">
+                                                        <div class="carousel-item active">
+                                                            <div clas="card">
+                                                                <div class="card-content">
+                                                                    <div class="card-body">
+                                                                        <center>
+                                                                            <h5 class="card-title">Descripción del Nivel</h5>
+                                                                            <p class="card-text-level">@level.level_description</p>
+                                                                        </center>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="carousel-item">
-                                                        <div clas="card">
-                                                            <div class="card-content">
-                                                                <div class="card-body">
-                                                                    <center>
-                                                                        <h5 class="card-title">Calificaciones</h5>
-                                                                        
-                                                                        <h6 class="card-subtitle">Aún no cursas este nivel.</h6>
-                                                                        <p class="card-text">Finaliza el nivel en English Discoveries para poder ver tus calificaciones
-                                                                            reflejadas.
-                                                                        </p>
+                                                        <div class="carousel-item">
+                                                            <div clas="card">
+                                                                <div class="card-content">
+                                                                    <div class="card-body">
+                                                                        <center>
+                                                                            <h5 class="card-title">Calificaciones</h5>
 
-                                                                    </center>
+                                                                            <h6 class="card-subtitle">Aún no cursas este nivel.</h6>
+                                                                            <p class="card-text">
+                                                                                Finaliza el nivel en English Discoveries para poder ver tus calificaciones
+                                                                                reflejadas.
+                                                                            </p>
+
+                                                                        </center>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="carousel-item">
-                                                        <img class="d-block w-100" src="assets/images/levels/modal-dialog/edbooks.png">
-                                                        <div class="modal-footer-k text-center">
-                                                            <p class="card-text fst-italic small">Cuando comiences a cursar este nivel tu libro estará disponible.</p>
-                                                           
+                                                        <div class="carousel-item">
+                                                            <img class="d-block w-100" src="assets/images/levels/modal-dialog/edbooks.png">
+                                                            <div class="modal-footer-k text-center">
+                                                                <p class="card-text fst-italic small">Cuando comiences a cursar este nivel tu libro estará disponible.</p>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="carousel-item">
+                                                            <img class="d-block w-100" src="assets/images/levels/modal-dialog/producto_english_discovery.jpg">
+                                                            <div class="modal-footer-k text-center">
+                                                                <p class="card-text fst-italic small">Cuando hayas cursado y aprobado este nivel tu certificado estará disponible.</p>
+
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="carousel-item">
-                                                        <img class="d-block w-100" src="assets/images/levels/modal-dialog/producto_english_discovery.jpg">
-                                                        <div class="modal-footer-k text-center">
-                                                            <p class="card-text fst-italic small">Cuando hayas cursado y aprobado este nivel tu certificado estará disponible.</p>
-                                                            
-                                                        </div>
-                                                    </div>
+                                                    <a class="carousel-control-prev" href="#Gallerycarousel_@level.id_level" role="button" type="button"
+                                                   data-bs-slide="prev" title="anterior" data-bs-toggle="msg">
+                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                    </a>
+                                                    <a class="carousel-control-next" href="#Gallerycarousel_@level.id_level" role="button" data-bs-slide="next"
+                                                   title="siguiente" data-bs-toggle="msg">
+                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                    </a>
                                                 </div>
-                                                <a class="carousel-control-prev" href="#Gallerycarousel_@level.id_level" role="button" type="button"
-                                                    data-bs-slide="prev">
-                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                </a>
-                                                <a class="carousel-control-next" href="#Gallerycarousel_@level.id_level" role="button" data-bs-slide="next">
-                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                </a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!--End Modal-->
+                                <!--End Modal-->
                             }
-                            </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
+        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
 </div>
+
+
