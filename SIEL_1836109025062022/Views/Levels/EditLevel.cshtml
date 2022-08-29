@@ -3,57 +3,58 @@
     ViewData["Title"] = "Editar nivel";
 }
 
-    <!-- Basic Horizontal form layout section start -->
-    <section id="basic-horizontal-layouts">
-        <div class="row match-height justify-content-center">
-            <div class="col-md-8 col-sm-12 col-lg-8">
-                <div class="card sombra">
-                    <div class="card-header">
-                        <h4 class="card-title">Editar @Model.level_name</h4>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-body">
-                            <form class="form form-horizontal" asp-controller="Levels" asp-action="EditLevel">
-                                <input type="hidden" asp-for="id_level" readonly/>
-                                <input type="hidden" asp-for="level_id_program" readonly/>
-                                <div class="form-body">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label class="form-label" asp-for="level_name">Nombre</label>
-                                        </div>
-                                        <div class="col-md-8 form-group">
-                                            <input type="text" asp-for="level_name" class="form-control"
-                                                placeholder="Nombre de nivel">
-                                                <span asp-validation-for="level_name" class="text-danger"></span>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label asp-for="level_description">Descripción</label>
-                                        </div>
-                                        <div class="col-md-8 form-group">
-                                            <textarea type="text" class="form-control" asp-for="level_description"
-                                                placeholder="Descripción"></textarea>
-                                                <span asp-validation-for="level_description" class="text-danger"></span>
-                                        </div>
-                                        <div class="col-sm-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary me-1 sombra-1">Guardar</button>
-                                            <a class="btn btn-danger sombra-1" asp-action="index">Cancelar</a>
-                                        </div>
-                                        
+<!-- Basic Horizontal form layout section start -->
+<section id="basic-horizontal-layouts">
+    <div class="row match-height justify-content-center">
+        <div class="col-md-8 col-sm-12 col-lg-8">
+            <div class="card sombra">
+                <div class="card-header">
+                    <h4 class="card-title">Editar @Model.level_name</h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <form class="form form-horizontal" asp-controller="Levels" asp-action="EditLevel">
+                            <input type="hidden" asp-for="id_level" readonly />
+                            <input type="hidden" asp-for="level_id_program" readonly />
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="form-label" asp-for="level_name">Nombre</label>
                                     </div>
-                                </div>
-                            </form>
-                                <!-- Basic Tables start -->
-    
+                                    <div class="col-md-8 form-group">
+                                        <input type="text" asp-for="level_name" class="form-control"
+                                               placeholder="Nombre de nivel">
+                                        <span asp-validation-for="level_name" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label asp-for="level_description">Descripción</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <textarea type="text" class="form-control" asp-for="level_description"
+                                                  placeholder="Descripción"></textarea>
+                                        <span asp-validation-for="level_description" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-12 d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary me-1 sombra-1"
+                                        title="Guardar" data-bs-toggle="msg">Guardar</button>
 
-                            @section Scripts{
-                                <partial name = "_ValidationScriptsPartial"/>
-                            }
+                                        <a class="btn btn-danger sombra-1" asp-action="index"
+                                        title="Cancelar" data-bs-toggle="msg">Cancelar</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                        <!-- Basic Tables start -->
+                        @section Scripts{
+                            <partial name="_ValidationScriptsPartial" />
+                        }
                         </div>
                         <div class="card-footer">
                             <p class="small fst-italic">
                                 *Para matener la consistencia en los datos, el programa de un nivel no
-                                puede ser modificado, si desea modificar el programa de este nivel. 
-                                Deberá eliminar el nivel actual y crear uno nuevo asignado al programa 
+                                puede ser modificado, si desea modificar el programa de este nivel.
+                                Deberá eliminar el nivel actual y crear uno nuevo asignado al programa
                                 deseado.
                             </p>
                         </div>
@@ -66,12 +67,12 @@
                         <h4 class="card-title">Editar foto del nivel</h4>
                     </div>
                     <div class="card-body">
-                        <img src="@Model.level_picture" class="col-md-12"/>
+                        <img src="@Model.level_picture" class="col-md-12" />
                     </div>
                     <div class="card-footer">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#change-photo">
-                                    Editar foto
+                            data-bs-target="#change-photo">
+                            Editar foto
                         </button>
                     </div>
                 </div>
@@ -81,9 +82,9 @@
     <!-- // Basic Horizontal form layout section end -->
     <!--Default size Modal -->
     <div class="modal fade text-left" id="change-photo" tabindex="-1" role="dialog"
-        aria-labelledby="myModalLabel18" aria-hidden="true">
+     aria-labelledby="myModalLabel18" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-            role="document">
+         role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myModalLabel18">Cambiar foto de nivel</h4>
@@ -94,14 +95,15 @@
                 </div>
                 <div class="modal-body">
                     <form asp-controller="Levels" asp-action="UpdateLevelPicture" enctype="multipart/form-data" method="post">
-                        <input type="hidden" asp-for="id_level" readonly/>
+                        <input type="hidden" asp-for="id_level" readonly />
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <p class="card-text">Sube tu nueva imagen de nivel
+                                        <p class="card-text">
+                                            Sube tu nueva imagen de nivel
                                         </p>
-                                        <input asp-for="level_picture"  required accept="image/png, image/jpeg"  type="file" value="upload">
+                                        <input asp-for="level_picture" required accept="image/png, image/jpeg" type="file" value="upload">
                                     </div>
                                 </div>
                             </div>
@@ -110,15 +112,22 @@
                             <button type="button" class="btn btn-light-secondary"
                                 data-bs-dismiss="modal">
                                 <i class="bx bx-x d-block d-sm-none"></i>
-                                <span class="d-none d-sm-block">Cerrar</span>
+                                <span class="d-none d-sm-block" title="Cerrar" data-bs-toggle="msg">Cerrar</span>
                             </button>
-                            <button type="submit" class="btn btn-primary ml-1">
+                            <button type="submit" class="btn btn-primary ml-1"
+                            title="Actualizar" data-bs-toggle="msg">
                                 Actualizar
                             </button>
                         </div>
                     </form>
                 </div>
-                                            
+
             </div>
         </div>
     </div>
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
+        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>

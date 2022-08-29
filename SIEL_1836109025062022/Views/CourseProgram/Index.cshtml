@@ -9,7 +9,8 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title d-inline">Programas de estudio</h4>
-                    <a class="btn btn-info float-end mr-5" asp-action="CreateCourseProgram" asp-controller="CourseProgram">Crear programa de estudios</a>
+                    <a class="btn btn-info float-end mr-5" asp-action="CreateCourseProgram" asp-controller="CourseProgram"
+                       title="Crear programa" data-bs-toggle="msg">Crear programa de estudios</a>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
@@ -35,11 +36,11 @@
                                             <td class=" col-md-3">
                                                 <a class="btn btn-success" asp-action="EditCourseProgram"
                                                asp-controller="CourseProgram" asp-route-id="@program.id_program"
-                                                title="Editar" data-bs-toggle="msg">Editar</a>
+                                               title="Editar" data-bs-toggle="msg">Editar</a>
 
                                                 <a class="btn btn-danger" asp-action="DeleteCourseProgramConfirmation"
                                                asp-controller="CourseProgram" asp-route-id="@program.id_program"
-                                                title="Eliminar" data-bs-toggle="msg">Eliminar</a>
+                                               title="Eliminar" data-bs-toggle="msg">Eliminar</a>
                                             </td>
                                         </tr>
                                     }
