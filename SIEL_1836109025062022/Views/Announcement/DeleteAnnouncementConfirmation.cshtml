@@ -4,71 +4,75 @@
 }
 
 
-    <!-- Basic Horizontal form layout section start -->
-    <section id="basic-horizontal-layouts">
-        <div class="row match-height justify-content-center">
-            <div class="col-md-8 col-12">
-                <div class="card sombra">
-                    <div class="card-header">
-                        <h4 class="card-title">Se esta borrando el nivel @Model.announcement_name</h4>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-body">
-                            <form class="form form-horizontal" asp-controller="Announcement" asp-action="DeleteAnnouncement">
+<!-- Basic Horizontal form layout section start -->
+<section id="basic-horizontal-layouts">
+    <div class="row match-height justify-content-center">
+        <div class="col-md-8 col-12">
+            <div class="card sombra">
+                <div class="card-header">
+                    <h4 class="card-title">Se esta borrando el nivel @Model.announcement_name</h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <form class="form form-horizontal" asp-controller="Announcement" asp-action="DeleteAnnouncement">
 
-                                <div class="form-body">
-                                    <input type="hidden"  asp-for="id_announcement"/>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label class="form-label" asp-for="announcement_name">Nombre</label>
-                                        </div>
-                                        <div class="col-md-8 form-group">
-                                            <input type="text" readonly asp-for="announcement_name" class="form-control"
-                                                placeholder="Nombre de la convocatoria">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label asp-for="announcement_description">Descripción</label>
-                                        </div>
-                                        <div class="col-md-8 form-group">
-                                            <textarea type="text" readonly class="form-control" asp-for="announcement_description"
-                                                placeholder="Descripción"></textarea>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label asp-for="start_date">Fecha de inicio</label>
-                                        </div>
-                                        <div class="col-md-8 form-group">
-                                            <input type="datetime-local" class="form-control" readonly asp-for="start_date" name="@Model.start_date" />
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label asp-for="end_date">Fecha de cierre</label>
-                                        </div>
-                                        <div class="col-md-8 form-group">
-                                            <input type="datetime-local" class="form-control" readonly asp-for="end_date" name="@Model.end_date" />
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label asp-for="announcement_description">Descripción</label>
-                                        </div>
-                                        <div class="col-md-8 form-group">
-                                            <textarea type="text" readonly class="form-control" asp-for="notes"
-                                                placeholder="Descripción"></textarea>
-                                        </div>
-                                        <div class="col-sm-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-danger me-1 sombra-1">Borrar</button>
-                                            <a class="btn btn-primary sombra-1" asp-action="index">Cancelar</a>
-                                        </div>
-
+                            <div class="form-body">
+                                <input type="hidden" asp-for="id_announcement" />
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="form-label" asp-for="announcement_name">Nombre</label>
                                     </div>
+                                    <div class="col-md-8 form-group">
+                                        <input type="text" readonly asp-for="announcement_name" class="form-control"
+                                               placeholder="Nombre de la convocatoria">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label asp-for="announcement_description">Descripción</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <textarea type="text" readonly class="form-control" asp-for="announcement_description"
+                                                  placeholder="Descripción"></textarea>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label asp-for="start_date">Fecha de inicio</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <input type="datetime-local" class="form-control" readonly asp-for="start_date" name="@Model.start_date" />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label asp-for="end_date">Fecha de cierre</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <input type="datetime-local" class="form-control" readonly asp-for="end_date" name="@Model.end_date" />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label asp-for="announcement_description">Descripción</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <textarea type="text" readonly class="form-control" asp-for="notes"
+                                                  placeholder="Descripción"></textarea>
+                                    </div>
+                                    <div class="col-sm-12 d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-danger me-1 sombra-1" title="Borrar" data-bs-toggle="msg">Borrar</button>
+                                        <a class="btn btn-primary sombra-1" asp-action="index" title="Cancelar" data-bs-toggle="msg">Cancelar</a>
+                                    </div>
+
                                 </div>
-                            </form>
-                                <!-- Basic Tables start -->
-
-
-                            @section Scripts{
-                                <partial name = "_ValidationScriptsPartial"/>
-                            }
+                            </div>
+                        </form>
+                        <!-- Basic Tables start -->
+                        @section Scripts{
+                            <partial name="_ValidationScriptsPartial" />
+                        }
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
+        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>

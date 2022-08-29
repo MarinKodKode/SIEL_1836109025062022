@@ -55,8 +55,10 @@
                                         </div>
                                     </div>
                                     <div class="card-footer text-center">
-                                        <button type="submit" class="btn btn-info">Guardar</button>
-                                        <a class="btn btn-danger" asp-action="index">Cancelar</a>
+                                        <button type="submit" class="btn btn-info" title="Guardar" data-bs-toggle="msg"
+                                        >Guardar</button>
+                                        <a class="btn btn-danger" asp-action="index" title="Cancelar" data-bs-toggle="msg"
+                                        >Cancelar</a>
                                     </div>
                                 </form>  
                             </div>
@@ -88,4 +90,11 @@
 
 @section Scripts{
     <partial name = "_ValidationScriptsPartial"/>
+
+    <script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
+        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+</scri
 }

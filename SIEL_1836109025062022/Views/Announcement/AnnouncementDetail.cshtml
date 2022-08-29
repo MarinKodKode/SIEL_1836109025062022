@@ -5,65 +5,74 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
-        <div class="page-heading">
-            <div class="page-title">
-                <div class="row">
-                    <div class="col-12 col-md-12 order-md-1 order-last">
-                        <h3>Convocatoria</h3>
-                        <p class="text-subtitle text-muted">En este apartado encontrarás la
-                            convocatoria por periodo disponible para el proceso de inscripción al curso.</p>
-                    </div>
-                </div>
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-12 order-md-1 order-last">
+                <h3>Convocatoria</h3>
+                <p class="text-subtitle text-muted">
+                    En este apartado encontrarás la
+                    convocatoria por periodo disponible para el proceso de inscripción al curso.
+                </p>
             </div>
-            <section id="multiple-column-form">
-                <div class="row match-height">
-                    <div class="col-xl-7 col-md-6 col-sm-12 pt-2">
-                       
-                            <section id="content-types">
-                                <div class="card-body">
-                                    <img src="@Model.announcement_picture" style="width:100%"> 
-                                </div>
-                            </section>     
-                    </div>
-                    <div class="col-xl-5 col-md-6 col-sm-12">   
-                        <div class="card conv">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <center>
-                                            <h4 class="card-title">Avatari Solution</h4>
-                                            <p class="card-text"> Coordinación de Lenguas Extranjeras (CLE)</p>
-                                            <p class="card-text"> Semestre Septiembre 2022 - Enero 2023</p>
-                                            <h4 class="card-title">@Model.announcement_name</h4>
-                                            <p class="card-text">@Model.announcement_description</p>
-                                            <h4 class="card-title">Inicia</h4>
-                                            <p class="card-text">@Model.start_date.ToLongDateString()</p>
-                                            <h4 class="card-title">Termina</h4>
-                                            <p class="card-text">@Model.end_date.ToLongDateString()</p><br>  
-                                            <p class="card-text">
-                                            @Model.notes
-                                        </p>
-                                        </center>
-                                    </div>
-                                    <div class="card-footer text-center">
-                                        <a class="btn btn-primary center" asp-controller="Student" asp-action="StudentInscription">Inscribirme</a>
-                                    </div>
-                                </div>
-                            </div>
-                        @*<div class="card-body">
-                            <div class="badges">
-                                <div class="badge reference" >
-                                    <br><br>
-                                    <p class="card-text"> Ejemplo: 2030067802.</p>
-                                    <p class="card-text"> BANCOMER BBVA</p>
-                                    <p class="card-text"> NOMBRE: LOGGAN LTS S.A. de C.V.</p>
-                                    <p class="card-text"> NÚMERO DE CUENTA: 0118642273</p>
-                                    <p class="card-text"> CLABE INTERBANCARIA: 012680001186422731</p>
-                                    <p class="card-text"> PAGO: $650.00</p><br>
-                                </div>
-                            </div>
-                        </div>*@
-                    </div>
-                    
-                </div>
-            </section>
         </div>
+    </div>
+    <section id="multiple-column-form">
+        <div class="row match-height">
+            <div class="col-xl-7 col-md-6 col-sm-12 pt-2">
+
+                <section id="content-types">
+                    <div class="card-body">
+                        <img src="@Model.announcement_picture" style="width:100%">
+                    </div>
+                </section>
+            </div>
+            <div class="col-xl-5 col-md-6 col-sm-12">
+                <div class="card conv">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <center>
+                                <h4 class="card-title">Avatari Solution</h4>
+                                <p class="card-text"> Coordinación de Lenguas Extranjeras (CLE)</p>
+                                <p class="card-text"> Semestre Septiembre 2022 - Enero 2023</p>
+                                <h4 class="card-title">@Model.announcement_name</h4>
+                                <p class="card-text">@Model.announcement_description</p>
+                                <h4 class="card-title">Inicia</h4>
+                                <p class="card-text">@Model.start_date.ToLongDateString()</p>
+                                <h4 class="card-title">Termina</h4>
+                                <p class="card-text">@Model.end_date.ToLongDateString()</p><br>
+                                <p class="card-text">
+                                    @Model.notes
+                                </p>
+                            </center>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a class="btn btn-primary center" asp-controller="Student" asp-action="StudentInscription"
+                            title="Inscribirme" data-bs-toggle="msg">Inscribirme</a>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="card-body">
+                <div class="badges">
+                <div class="badge reference" >
+                <br><br>
+                <p class="card-text"> Ejemplo: 2030067802.</p>
+                <p class="card-text"> BANCOMER BBVA</p>
+                <p class="card-text"> NOMBRE: LOGGAN LTS S.A. de C.V.</p>
+                <p class="card-text"> NÚMERO DE CUENTA: 0118642273</p>
+                <p class="card-text"> CLABE INTERBANCARIA: 012680001186422731</p>
+                <p class="card-text"> PAGO: $650.00</p><br>
+                </div>
+                </div>
+                </div>*@
+            </div>
+
+        </div>
+    </section>
+</div>
+<script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
+    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+</script>
