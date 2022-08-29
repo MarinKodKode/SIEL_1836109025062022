@@ -1,46 +1,81 @@
 ﻿@{
     ViewData["Title"] = "Referencia Bancaria Curso Regular";
-}  
-    <div class="page-heading">
-            <h3>Referencias</h3>
+}
+<div class="page-heading">
+    <h3>Referencias</h3>
+</div>
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-12 order-md-1 order-last">
+                <p class="text-subtitle text-muted">
+                    Para realizar tu pago a English Discoveries, en motivo o concepto es necesario
+                    colocar tu numero de control seguido del numero 02. El pago solo se puede realizar en practicajas o transferencia
+                    interbancaria, recuerda que esta información es privada y no debe ser compartida con otras personas.
+                </p>
+            </div>
+        </div>
     </div>
-        <div class="page-heading">
-            <div class="page-title">
-                <div class="row">
-                    <div class="col-12 col-md-12 order-md-1 order-last">
-                        <p class="text-subtitle text-muted">Para realizar tu pago a English Discoveries, en motivo o concepto es necesario 
-                            colocar tu numero de control seguido del numero 02. El pago solo se puede realizar en practicajas o transferencia 
-                            interbancaria, recuerda que esta información es privada y no debe ser compartida con otras personas.</p>
-                    </div>
+
+    <section id="multiple-column-form">
+        <div class="row match-height">
+            <div class="col-xl-7 col-md-6 col-sm-12">
+                <div class="card sombra">
+                    <section id="content-types">
+                        <div class="card-body-r">
+                            <img class="" src="~/assets/images/payment.png" style="width:100%">
+                        </div>
+                    </section>
                 </div>
             </div>
+            <div class="col-xl-5 col-md-6 col-sm-12 pt-1">
+                <div class="card-body" id = "htmlContent">
+                    <div class="reference">
+                        <div class="reference text-center text-white">
+                            <br><br>
+                            <p class="card-text"> Ejemplo: 2030067802.</p>
+                            <p class="card-text"> BANCOMER BBVA</p>
+                            <p class="card-text"> NOMBRE: LOGGAN LTS S.A. de C.V.</p>
+                            <p class="card-text"> NÚMERO DE CUENTA: 0118642273</p>
+                            <p class="card-text"> CLABE INTERBANCARIA: 012680001186422731</p>
+                            <p class="card-text"> PAGO: $650.00</p><br>
+                        </div>
 
-            <section id="multiple-column-form">
-                <div class="row match-height">
-                    <div class="col-xl-7 col-md-6 col-sm-12">
-                        <div class="card sombra">
-                            <section id="content-types">
-                                <div class="card-body-r">
-                                    <img class="" src="~/assets/images/payment.png" style="width:100%"> 
-                                </div>
-                            </section>
-                        </div>
-                    </div>
-                    <div class="col-xl-5 col-md-6 col-sm-12 pt-1">                 
-                        <div class="card-body">
-                            <div class="reference">
-                                <div class="reference text-center text-white" >
-                                    <br><br>
-                                    <p class="card-text"> Ejemplo: 2030067802.</p>
-                                    <p class="card-text"> BANCOMER BBVA</p>
-                                    <p class="card-text"> NOMBRE: LOGGAN LTS S.A. de C.V.</p>
-                                    <p class="card-text"> NÚMERO DE CUENTA: 0118642273</p>
-                                    <p class="card-text"> CLABE INTERBANCARIA: 012680001186422731</p>
-                                    <p class="card-text"> PAGO: $650.00</p><br>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
-            </section>
+                <center>
+                    <a class="btn btn-primary" title="Descargar referencias" data-bs-toggle="msg"
+                        id="download">
+                    Descargar Referencias
+                </a>
+                </center>
+            </div>
         </div>
+    </section>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+
+<script>
+    function autoClick() {
+        $("#download").click();
+    }
+
+    $(document).ready(function() {
+        var element = $("#htmlContent");
+
+        $("#download").on('click', function() {
+
+            html2canvas(element, {
+                onrendered: function(canvas) {
+                    var imageData = canvas.toDataURL("image/jpg");
+                    var newData = imageData.replace(/^data:image\/jpg/, "data:application/octet-stream");
+                    $("#download").attr("download", "Referencias Pago.jpg").attr("href", newData);
+                }
+            });
+
+        });
+    });
+</script>
