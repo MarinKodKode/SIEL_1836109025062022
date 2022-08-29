@@ -35,9 +35,11 @@
                                     </div>
                                     <div class="col-sm-12 d-flex justify-content-end">
                                         <button type="submit" class="btn btn-danger me-1 mb-1"
-                                        title="Borrar programa" data-bs-toggle="msg">Borrar</button>
+                                                title="Borrar programa" data-bs-toggle="msg">
+                                            Borrar
+                                        </button>
                                         <a class="btn btn-info" asp-action="index"
-                                        title="Cancelar" data-bs-toggle="msg">Cancelar</a>
+                                           title="Cancelar" data-bs-toggle="msg">Cancelar</a>
                                     </div>
 
                                 </div>
@@ -53,10 +55,15 @@
                         })
 
                         }
-                        </div>  
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- // Basic Horizontal form layout section end -->
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
+        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
