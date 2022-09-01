@@ -47,22 +47,31 @@ namespace SIEL_1836109025062022.Controllers
                 user_id_institution =1,
                 user_id_role = 4,
             };
-            var resultado = await userManager.CreateAsync(user, password: model.user_hash_password);
-            if (resultado.Succeeded)
-
+            var isUser = await userRepository.ExistsUserEmail(model.user_personal_email);
+            if (!isUser)
             {
-                await signInManager.SignInAsync(user, isPersistent: true);
-                return RedirectToAction("Index", "Redirect");
-                
+                var resultado = await userManager.CreateAsync(user, password: model.user_hash_password);
+                if (resultado.Succeeded)
+
+                {
+                    await signInManager.SignInAsync(user, isPersistent: true);
+                    return RedirectToAction("Index", "Redirect");
+
+                }
+                else
+                {
+                    foreach (var error in resultado.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    return View(model);
+                }
             }
             else
             {
-                foreach (var error in resultado.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
                 return View(model);
             }
+            
         }
 
         [HttpGet]

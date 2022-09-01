@@ -16,6 +16,7 @@ namespace SIEL_1836109025062022.Services
         Task<string> GetUserRoleName(int id_role);
         Task UpdateUser(User user);
         Task UpdateUserProfilePicture(string file_path, int id_user);
+        Task<bool> ExistsUserEmail(string user_email);
     }
     public class UserRepository : IUserRepository
     {
@@ -115,5 +116,15 @@ namespace SIEL_1836109025062022.Services
             return path;
         }
 
+        public async Task<bool> ExistsUserEmail(string user_personal_email)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            var exists = await connection.QueryFirstOrDefaultAsync<int>(@"
+                                            select 1 
+                                            from users
+                                            where user_personal_email = @user_personal_email;",
+                                            new { user_personal_email });
+            return exists == 1;
+        }
     }
 }

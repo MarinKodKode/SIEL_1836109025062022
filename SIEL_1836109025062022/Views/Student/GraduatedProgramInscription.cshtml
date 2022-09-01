@@ -45,7 +45,7 @@
                                                     <label class="col-form-label">Modalidad</label>
                                                 </div>
                                                 <div class="col-md-9 form-group">
-                                                    <select class="form-select" asp-for="insc_id_modality">
+                                                    <select class="form-select" asp-for="insc_id_modality" required>
                                                         @foreach (var item in Model.Modalities)
                                                         {
                                                             <option value="@item.id_modality">@item.modality_name</option>
@@ -58,7 +58,7 @@
                                                     <label class="col-form-label">Horario</label>
                                                 </div>
                                                 <div class="col-md-9 form-group">
-                                                    <select class="form-select" asp-for="insc_id_schedule">
+                                                    <select class="form-select" asp-for="insc_id_schedule" required>
                                                         @foreach (var item in Model.Schedules)
                                                         {
                                                             <option value="@item.id_schedule">@item.schedule_name - @item.schedule_description</option>
@@ -71,7 +71,7 @@
                                                     <label class="col-form-label">Número de control</label>
                                                 </div>
                                                 <div class="col-md-9 form-group">
-                                                    <input asp-for="control_number" class="form-control" placeholder="Número de control">
+                                                    <input asp-for="control_number" type="number" required class="form-control" placeholder="Número de control">
                                                 </div>
                                             </div>
                                             <div class="input-group input-group-sm mb-3">
@@ -79,7 +79,7 @@
                                                     <label class="col-form-label">Comprobante de pago English Discoveries</label>
                                                 </div>
                                                 <div class="col-12">
-                                                    <input asp-for="file_one" class="form-control"  type="file" value="upload">
+                                                    <input asp-for="file_one" class="form-control" accept="application/pdf"  type="file" value="upload" required>
                                                 </div>
                                             </div>
                                             <div class="input-group input-group-sm mb-3">
@@ -87,7 +87,7 @@
                                                     <label  class="col-form-label">Comprobante de pago Tecnológico </label>
                                                 </div>
                                                 <div class="col-12">
-                                                    <input asp-for="file_two" class="form-control"  type="file" value="upload">
+                                                    <input asp-for="file_two" class="form-control" accept="application/pdf"  type="file" value="upload" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-12 col-sm-12 col-lg-12 text-end">

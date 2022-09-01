@@ -38,17 +38,14 @@
                                     <input type="hidden" asp-for="insc_id_student">
                                     <input type="hidden" asp-for="insc_id_course_program">
                                     <div class="row">
-                                        <div class="col-sm-11 mb-1">
-                                            
+                                        <div class="col-sm-12 mb-1 row">
                                             <div class="col-md-4">
                                                 <label asp-for="insc_id_schedule">Horario deseado</label>
                                             </div>
                                             <div class="col-md-8 form-group">
                                                 <select asp-for="insc_id_schedule" class="form-select">
                                                 @foreach (var schedule in @Model.Schedules) 
-                                                {
-                                                        <option value="@schedule.id_schedule">@schedule.schedule_name</option>
-                                                    }
+                                                {<option value="@schedule.id_schedule">@schedule.schedule_name | @schedule.schedule_description</option>}
                                                 </select>
                                             </div>
                                             <div class="input-group input-group-sm mb-3">

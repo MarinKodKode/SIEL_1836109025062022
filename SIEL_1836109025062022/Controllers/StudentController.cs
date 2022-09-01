@@ -41,6 +41,7 @@ namespace SIEL_1836109025062022.Controllers
             this.webHostEnvironment = webHostEnvironment;
             this.userRepository = userRepository;
         }
+       
         public async Task<IActionResult> Index()
         {
             var student_id = userService.GetUserId();
@@ -270,7 +271,7 @@ namespace SIEL_1836109025062022.Controllers
 
             if (student is null)
             {
-                return RedirectToAction("Index", "Student");
+                return RedirectToAction("Begin", "Student");
             }
             else
             {
