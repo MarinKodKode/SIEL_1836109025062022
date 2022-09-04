@@ -206,7 +206,8 @@ namespace SIEL_1836109025062022.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateLevelPicture(Level level)
         {
-            var level_name = level.level_name;
+            var _level = await levelsRepository.GetLevelById(level.id_level);
+            var level_name = _level.level_name;
             var db_path = await levelsRepository.GetLevelPicturePath(level.id_level);
             DeleteExistingFile(db_path);
 
@@ -217,14 +218,17 @@ namespace SIEL_1836109025062022.Controllers
                 (new System.IO.FileStream(fileName, System.IO.FileMode.Create));
             await levelsRepository.UpdateLevelPicture(file_name_db, level.id_level);
 
-            return RedirectToAction("StudentPersonalData", "Student");
+            return RedirectToAction("Index", "Levels");
 
         }
         public void DeleteExistingFile(string db_path)
         {
             string path = System.IO.Path.Combine(webHostEnvironment.ContentRootPath,
                 "wwwroot/" + db_path);
-            System.IO.File.Delete(path);
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+            }
         }
     }
 }

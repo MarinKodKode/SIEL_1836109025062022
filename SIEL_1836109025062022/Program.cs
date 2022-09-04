@@ -19,6 +19,7 @@ builder.Services.AddTransient<IInscriptionRepository, InscriptionRepository>();
 builder.Services.AddTransient<IAccountantRepository, AccountantRepository>();
 builder.Services.AddTransient<IStatusRepository, StatusIncriptionRepostitory>();
 builder.Services.AddTransient<IAnnouncementRepository, AnnouncementRepository>();
+builder.Services.AddTransient<IListRepository, ListRepository>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<IUserStore<User>, UserStore>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
@@ -37,6 +38,17 @@ builder.Services.AddAuthentication(options =>
     options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
     options.DefaultSignOutScheme = IdentityConstants.ApplicationScheme;
 }).AddCookie(IdentityConstants.ApplicationScheme);
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "MyAllowAllHeadersPolicy",
+        policy =>
+        {
+            //policy.WithOrigins("https://edapi.engdis.com")
+            policy.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
 
 var app = builder.Build();
 
@@ -52,6 +64,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+// Shows UseCors with CorsPolicyBuilder.
+app.UseCors("MyAllowAllHeadersPolicy");
 
 app.UseAuthentication();
 

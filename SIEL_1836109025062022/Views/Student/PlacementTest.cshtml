@@ -37,14 +37,26 @@
 
                             <form class="form" asp-action="RegisterPlacementTest" asp-controller="Student" enctype="multipart/form-data" method="post">
                                 <input type="hidden" asp-for="insc_id_student">
+                                <input type="hidden" asp-for="insc_id_course_program">
                                 <div class="row">
-                                    <div class="col-sm-11 mb-1">
+                                    <div class="col-sm-12 mb-1 row">
+                                        <div class="col-md-4">
+                                            <label asp-for="insc_id_schedule">Horario deseado</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <select asp-for="insc_id_schedule" class="form-select">
+                                                @foreach (var schedule in @Model.Schedules)
+                                                {
+                                                    <option value="@schedule.id_schedule">@schedule.schedule_name | @schedule.schedule_description</option>
+                                                }
+                                            </select>
+                                        </div>
                                         <div class="input-group input-group-sm mb-3">
                                             <div class="col-12">
                                                 <label class="col-form-label">Comprobante de pago English Discoveries</label>
                                             </div>
                                             <div class="col-12">
-                                                <input asp-for="file_one" class="form-control" type="file" value="upload">
+                                                <input asp-for="file_one" class="form-control" type="file" value="upload" accept="application/pdf" required>
                                             </div>
                                         </div>
                                         <div class="input-group input-group-sm mb-3">
@@ -52,12 +64,11 @@
                                                 <label class="col-form-label">Comprobante de pago Tecnológico </label>
                                             </div>
                                             <div class="col-12">
-                                                <input asp-for="file_two" class="form-control" type="file" value="upload">
+                                                <input asp-for="file_two" class="form-control" type="file" value="upload" accept="application/pdf" required>
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-lg-12 text-end">
-                                            <button type="submit" class="btn btn-outline-success"
-                                                title="Registrarme" data-bs-toggle="msg">
+                                            <button type="submit" class="btn btn-outline-success">
                                                 Registro Placement Test
                                             </button>
                                         </div>
@@ -81,6 +92,12 @@
                                             9 de Septiembre de 2022
                                         </span>
                                     </h5>
+
+                                </div>
+                                <div class="pt-3">
+                                    <button type="submit" class="btn btn-outline-warning">
+                                        Exámen Placement Test
+                                    </button>
                                 </div>
 
                             </div>
@@ -95,10 +112,3 @@ else
 {
     <partial name="_StudentIsAlreadyJoined" />
 }
-
-<script>
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
-    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
-</script>

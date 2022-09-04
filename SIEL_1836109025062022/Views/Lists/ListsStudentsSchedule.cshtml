@@ -1,0 +1,178 @@
+﻿@using SIEL_1836109025062022.Models.ViewModel
+@model IEnumerable<StudentList>
+@{
+    ViewData["Title"] = "Estudiantes";
+}
+
+
+
+<div class="page-heading">
+    <h3>Alumnos</h3>
+</div>
+
+<section>
+    <div class="multiple-column-form">
+        <div class="row match-height">
+            <div class="col-md-12 col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Datos de la clase</h4>
+
+                        <div class="card-content row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <label class="font-bold col-md-3">Nombre</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="font-bold col-md-3">Total alumnos</label>
+                                    <p class="col-md-8">1</p>
+                                </div>
+                                <div class="row">
+                                    <label class="font-bold col-md-3">Profesor asignado</label>
+                                    <div class="col-md-9">
+                                        <select class="form-select">
+                                            <option>Manuel</option>
+                                            <option>Karla</option>
+                                            <option>Jhonathan</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <label class="font-bold col-md-3">Nivel</label>
+                                    <p class="col-md-8">PR-BASICO 1</p>
+                                </div>
+                                <div class="row">
+                                    <label class="font-bold col-md-3">Modalidad</label>
+                                    <p class="col-md-8">Intensivo</p>
+                                </div>
+                                <div class="row">
+                                    <label class="font-bold col-md-3">Horario</label>
+                                    <p class="col-md-8">1</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                    </div>
+                    <div class="card-footer ">
+                        <div class="row">
+                            <h6 class="card-subtitle col-md-2">Accciones</h6>
+                            <div class="card-content">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <a class="btn btn-success">
+                                            Crear clase en English Discoveries
+                                        </a>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a class="btn btn-success">
+                                            Asignar estudiantes en English Discoveries
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="multiple-column-form">
+    <div class="row match-height">
+        <div class="row match-height">
+            <div class="col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Lista de estudiantes</h4>
+                    </div>
+
+                    <div col-md-6 col-sm-12>
+                        <div class="card-body">
+                            <table class="table" id="table1">
+                                <thead>
+                                    <tr>
+                                        <th>No. de control</th>
+                                        <th>Nombre(s)</th>
+                                        <th>Apelido(s)</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <label>@item.stdt_control_number</label>
+                                            </td>
+                                            <td>
+                                                <label>@item.user_name</label>
+                                            </td>
+                                            <td>
+                                                <label>@item.user_surname</label>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-info mr-3" asp-controller="Accountant" asp-action="ApproveConfirmation" asp-route-id="@item.id_inscription">
+                                                    Ver comprobantes<i class="bi bi-eye-fill ms-2"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @section Scripts{
+        <partial name="_ValidationScriptsPartial" />
+
+        <script>
+            const data = {
+                "institutionId": "5235225",
+                "studentUserName": "testing",
+                "studentFirstName": "testing",
+                "studentLastName": "testing",
+                "studentPassword": "12345",
+                "studentEmail": "testing@aaa.com",
+                "classId": "552250012"
+            }
+            $(function() {
+                $("#poste").click(async function() {
+                    console.log("Hola");
+
+                    var myHeaders = new Headers();
+                    myHeaders.append("token", "EE7F349F-0F87-4A79-8607-04998F649C7B");
+                    myHeaders.append("Content-Type", "application/json");
+                    var raw = JSON.stringify({
+                        "institutionId": '5235225',
+                        "studentUserName": 'gassaaas',
+                        "studentFirstName": 'apaaaaitest',
+                        "studentLastName": 'apitest',
+                        "studentPassword": '12345',
+                        "studentEmail": 'apitest@aaa.com',
+                        "classId": '552250012'
+                    });
+                    var requestOptions = {
+                        method: 'POST',
+                        headers: myHeaders,
+                        body: raw,
+                        redirect: 'follow'
+                    };
+                    fetch("https://edapi.engdis.com/WebApi/External/InsertUser", requestOptions)
+                        .then(response => response.text())
+                        .then(result => console.log(result))
+                        .catch(error => console.log('error', error));
+                });
+            });
+        </script>
+    }
+    </section>

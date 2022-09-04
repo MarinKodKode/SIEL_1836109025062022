@@ -13,6 +13,7 @@ namespace SIEL_1836109025062022.Services
         Task<CourseProgram> GetCourseProgramById(int id_program);
         Task<string> GetCourseProgramNameById(int id_program);
         Task<int> GetGraduatedProgram();
+        Task<int> GetPlacementTestId();
         Task UpdateCourseProgrma(CourseProgram courseProgram);
     }
     public class CourseProgramRepository : ICourseProgramRepository
@@ -92,5 +93,14 @@ namespace SIEL_1836109025062022.Services
                             where program_name like '%gresados%'");
             return id_program;
         }
+
+        public async Task<int> GetPlacementTestId()
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            var plm_Test = await connection.QueryFirstOrDefaultAsync<int>(@"
+                         select * from programs where program_name like '%ment test%';");
+            return plm_Test;
+        }
+
     }
 }

@@ -1,5 +1,68 @@
-﻿@{
-    ViewData["Title"] = "Reportes por Programa";
+﻿@model IEnumerable<ReportProgram>
+@{
+    ViewData["Title"] = "Reportes por Programas de Estudio";
 }
+<section class="section">
+    <div class="row justify-content-center" id="basic-table">
+        <div class="col-12 col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title d-inline">Reportes por Programas de Estudio</h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <p class="card-text">
+                            Listado de reportes por programas de estudio registrados en la institución
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table table-lg">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre programa</th>
+                                        <th>Descripción</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reordenable">
+                                    @foreach (var program in Model)
+                                    {
+                                        <tr>
+                                            <td class="text-bold-500 col-md-2">@program.program_name</td>
+                                            <td class="text-bold-500 col-md-7">@program.program_description</td>
+                                            <td class=" col-md-3">
+                                                <a class="btn btn-success" asp-action="ReportByProgramDetail"
+                                               asp-controller="ReportProgram" asp-route-id="@program.id_program"
+                                               title="Editar" data-bs-toggle="msg">Ver reporte</a>
+                                            </td>
+                                        </tr>
+                                    }
 
-<h1>Reportes por Programa</h1>
+                                </tbody>
+                            </table>
+
+                            @section Scripts{
+                                <script>
+                                    $(function() {
+                                        $("#reordenable").sortable();
+                                    })
+                                </script>
+
+                                <script>
+                                    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
+                                    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+                                        return new bootstrap.Tooltip(tooltipTriggerEl)
+                                    })
+                                </script>
+
+
+
+
+                            }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Basic Tables end -->

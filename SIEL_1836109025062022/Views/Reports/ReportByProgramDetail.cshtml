@@ -1,0 +1,61 @@
+﻿@model ReportProgram
+@{
+    ViewData["Title"] = "Alumnos del Programa Regular";
+}
+<section id="basic-horizontal-layouts">
+    <div class="row match-height justify-content-center">
+        <div class="col-md-8 col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Editar @Model.program_name</h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <form class="form form-horizontal" asp-controller="ReportProgram" asp-action="ReportByProgramDetail">
+                            <input type="hidden" asp-for="id_program" />
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="form-label" asp-for="program_name">Nombre</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <input type="text" asp-for="program_name" class="form-control"
+                                               placeholder="Nombre de programa">
+                                        <span asp-validation-for="program_name" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label asp-for="program_description">Descripción</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <textarea type="text" class="form-control" asp-for="program_description"
+                                                  placeholder="Descripción"></textarea>
+                                        <span asp-validation-for="program_description" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-12 d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary me-1 mb-1"
+                                                title="Guardar" data-bs-toggle="msg">
+                                            Guardar
+                                        </button>
+
+                                        <a class="btn btn-danger" asp-action="index"
+                                           title="Cancelar" data-bs-toggle="msg">Cancelar</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                        @section Scripts{
+                            <partial name="_ValidationScriptsPartial" />
+                            <script>
+                                var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
+                                var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+                                    return new bootstrap.Tooltip(tooltipTriggerEl)
+                                })
+                            </script>
+                        }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

@@ -9,8 +9,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title d-inline">Modalidades</h4>
-                    <a class="btn btn-info float-end mr-5" asp-action="CreateModality" asp-controller="Modality"
-                    title="Crear modalidad" data-bs-toggle="msg">Crear nueva modalidad</a>
+                    <a class="btn btn-info float-end mr-5" asp-action="CreateLevel" asp-controller="Levels">Crear nuevo nivel</a>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
@@ -48,8 +47,7 @@
                                                         <span><strong>@item.level_name</strong></span>
                                                         <div class="d-inline float-sm-end float-md-end">
                                                             <a class="btn btn-sm btn-info" asp-action="EditLevel"
-                                                       asp-controller="Levels" asp-route-id="@item.id_level"
-                                                            title="Ver modalidad" data-bs-toggle="msg">Ver Modalidades <i class="bi bi-eye-slash-fill"></i></a>
+                                                       asp-controller="Levels" asp-route-id="@item.id_level">Ver Modalidades <i class="bi bi-eye-slash-fill"></i></a>
 
                                                         </div>
                                                     </li>

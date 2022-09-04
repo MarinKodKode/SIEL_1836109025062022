@@ -72,7 +72,9 @@ namespace SIEL_1836109025062022.Services
                   where id_student=@id_student and id_user = @id_student",
                 new { id_student }
                 );
+
         }
+
 
         public async Task<StudentDataViewModel> GetStudentSchoolarData(int id_student)
         {
@@ -194,5 +196,23 @@ namespace SIEL_1836109025062022.Services
                                             new { id_student });
             return exists == 1;
         }
+
+        //-------------------------------metodo mostrar estudiantes por Programa
+        //public async Task<IEnumerable<Student>> ObtenerPorProgramaId(
+        //    ObtenerEstudiantesPorPrograma modelo)
+        //{
+        //    using var connection = new SqlConnection(connectionString);
+        //    return await connection.QueryAsync<Student>(
+        //                        @"select u.user_name, u.user_surname, s.stdt_control_number, p.program_name 
+        //                        from inscriptions  i
+        //                        inner join users u
+        //                        on u.id_user = i.insc_id_student
+        //                        inner join students s
+        //                        on s.id_student = i.insc_id_student
+        //                        inner join programs p
+        //                        on p.id_program = i.insc_id_course_program
+        //                        where i.insc_id_course_program = @insc_id_course_program
+        //                        order by s.stdt_control_number", modelo);
+        //}
     }
 }
