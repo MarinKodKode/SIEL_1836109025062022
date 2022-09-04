@@ -94,11 +94,23 @@
                                     </h5>
 
                                 </div>
-                                <div class="pt-3">
-                                    <button type="submit" class="btn btn-outline-warning">
-                                        Exámen Placement Test
-                                    </button>
-                                </div>
+
+                                <form id="SendForm" method="post" action="https://ed.engdis.com/PlacementTestEntry.aspx">
+                                    @*<input type="submit" value="Exámen Placement Test 2">*@
+
+                                    <div class="pt-3">
+                                        <button type="submit" formtarget="_blank" class="btn btn-outline-warning">
+                                            Exámen Placement Test 
+                                        </button>
+                                    </div>
+
+                                    <input type="hidden" name="IName" value="AS-Avatarisolution">
+                                    <input type="hidden" name="token" value="EE7F349F-0F87-4A79-8607-04998F649C7B">
+                                    <input type="hidden" name="UserName" value="pltq">
+                                    <input type="hidden" name="Language" value="English">
+                                    <input type="hidden" name="ReturnUrl" value="https://www.google.com.mx/">
+                                </form>
+
 
                             </div>
                         </center>
