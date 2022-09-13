@@ -16,6 +16,8 @@ builder.Services.AddTransient<ILevelsRepository, LevelsRepository>();
 builder.Services.AddTransient<IModalityRepository, ModalityRepository>();
 builder.Services.AddTransient<IScheduleRepository, ScheduleRepository>();
 builder.Services.AddTransient<IStudentsRepository, StudentsRepository>();
+builder.Services.AddTransient<ITeachersRepository, TeachersRepository>();
+builder.Services.AddTransient<IClassesRepository, ClassesRepository>();
 builder.Services.AddTransient<IInscriptionRepository, InscriptionRepository>();
 builder.Services.AddTransient<IAccountantRepository, AccountantRepository>();
 builder.Services.AddTransient<IStatusRepository, StatusIncriptionRepostitory>();
@@ -76,5 +78,9 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+IWebHostEnvironment env = app.Environment;
+Rotativa.AspNetCore.RotativaConfiguration.Setup(env.WebRootPath,"../Rotativa/Windows");
+
 
 app.Run();

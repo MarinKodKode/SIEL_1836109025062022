@@ -85,7 +85,11 @@ namespace SIEL_1836109025062022.Services
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             return await connection.QueryFirstOrDefaultAsync<Schedule>(@"
-                         select * from schedules where id_schedule = @id_schedule",
+                         select * from schedules
+                            inner join levels on levels.id_level = schedules.schedule_level
+                            inner join modalities on modalities.id_modality = schedules.schedule_modality
+                            inner join programs on levels.level_id_program = programs.id_program
+                            where id_schedule = @id_schedule",
                          new { id_schedule });
         }
 
@@ -111,5 +115,7 @@ namespace SIEL_1836109025062022.Services
                                             schedule);
             return exists == 1;
         }
+
+        
     }
 }

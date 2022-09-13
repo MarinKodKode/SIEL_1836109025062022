@@ -1,0 +1,90 @@
+﻿@using SIEL_1836109025062022.Models.Classes
+@model ClassCreateViewModel
+@{
+    ViewData["Title"] = "Crear clase";
+}
+    <section id="basic-horizontal-layouts">
+        <div class="row match-height justify-content-center">
+            <div class="col-md-8 col-12">
+                <div class="card sombra">
+                    <div class="card-header">
+                        <h4 class="card-title">Crear una nueva clase</h4>
+                        <div>
+                        <label class="font-bold">Programa de estudios: </label><label>@Model.program_name</label>
+                        </div>
+                        <div>
+                        <label class="font-bold">Nivel: </label><label>@Model.level_name</label>
+                        </div>
+                        <div>
+                        <label class="font-bold">Horario: </label><label>@Model.schedule_name</label>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <form class="form form-horizontal" asp-controller="Classes" asp-action="CreateClass" enctype="multipart/form-data" method="post">
+                                <div class="form-body">
+                                    <div class="row">
+                                        <input type="hidden" asp-for="group_id_schedule" value="@Model.id_schedule"></input>
+                                        <div class="col-md-4">
+                                            <label class="form-label" asp-for="group_name">Nombre</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <input type="text" asp-for="group_name"class="form-control"
+                                                placeholder="Ej.: RB100A, IB200B, II500C">
+                                                <span asp-validation-for="group_name" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label asp-for="group_id_responsable">Encargado</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <select asp-for="group_id_responsable" class="form-select">
+                                                @foreach (var item in Model.Adm_Institution)
+                                                {
+                                                    <option value="@item.id_user"> @item.user_name @item.user_surname</option>
+                                                }
+                                            </select>
+                                            <span asp-validation-for="group_id_teacher" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label asp-for="group_id_teacher">Profesor asignado</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <select asp-for="group_id_teacher" class="form-select">
+                                                @foreach (var item in Model.Teachers)
+                                                {
+                                                    <option value="@item.id_user"> @item.user_name @item.user_surname</option>
+                                                }
+                                            </select>
+                                            <span asp-validation-for="group_id_teacher" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label" asp-for="group_name">Asignar a:</label>
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <input type="number" asp-for="studentsAssigned"class="form-control"
+                                                value="@Model.noClassCount">
+                                                <span asp-validation-for="studentsAssigned" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <label class="form-label" asp-for="group_name">de @Model.inscrptions_count estudiantes</label>
+                                        </div>
+                                        <div class="col-sm-12 d-flex justify-content-end">
+                                            <button type="submit" class="sombra-1 btn btn-primary me-1">Guardar</button>
+                                            
+                                            <a class="btn btn-danger sombra-1" asp-action="index">Cancelar</a>
+                                        </div>
+
+                                        
+                                    </div>
+                                </div>
+                            </form>
+                             @section Scripts{
+                                  <partial name="_ValidationScriptsPartial"/>
+                              }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- // Basic Horizontal form layout section end -->

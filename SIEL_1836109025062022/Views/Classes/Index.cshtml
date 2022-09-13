@@ -1,0 +1,72 @@
+﻿@using SIEL_1836109025062022.Models.Classes
+@model IEnumerable<ClassCreateViewModel>
+@{
+    ViewData["Title"] = "Clases";
+}
+        <section id="multiple-column-form">
+            <div class="row match-height">
+                <div class="row match-height">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="card sombra">
+                            <div class="card-header">
+                                <h3 class="card-title d-inline">Clases de la institución</h3>
+                            </div>
+
+                            <div col-md-6 col-sm-12>
+                                <div class="card-body">
+                                    <table class="table" id="table1">
+                                        <thead>
+                                            <tr>
+                                                <th>Clase</th>
+                                                <th>Nivel</th>
+                                                <th>Modalidad</th>
+                                                <th>Horario</th>
+                                                <th>Facilitador</th>
+                                                <th>Alumnos</th>
+
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td class="text-bold-500 col-md-1">
+                                                        <small>@item.group_name</small>
+                                                    </td>
+                                                    <td class="text-bold-500 col-md-2">
+                                                        <small>@item.level_name</small>
+                                                    </td>
+                                                    <td class="text-bold-500 col-md-1">
+                                                        <small>@item.modality_name</small>
+                                                     
+                                                    </td>
+                                                    
+                                                    <td class="text-bold-500 col-md-2">
+                                                        <small>@item.schedule_description</small>
+                                                    </td>
+                                                    <td class="text-bold-500 col-md-2">
+                                                        <small>@item.user_name @item.user_surname </small>
+                                                    </td>
+                                                    <td class="text-bold-500 col-md-1">
+                                                        <small>@item.id_class</small>
+                                                    </td>
+                                                    <td class="text-bold-500 col-md-2">
+                                                        <a class="btn btn-sm btn-success" asp-action="EditClass"
+                                                         asp-controller="Classes" asp-route-id="@item.id_class"><i class="bi bi-pencil-fill"></i></a>
+                                                         <a class="btn btn-sm btn-danger" asp-action="DeleteClassConfirmation"
+                                                         asp-controller="Classes" asp-route-id="@item.id_class"><i class="bi bi-trash3-fill"></i></a>
+                                                         <a class="btn btn-sm btn-light-info" asp-action="GetStudentsJoinedToClass"
+                                                         asp-controller="Classes" asp-route-id="@item.id_class"><i class="bi bi-eye-fill"></i></a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>

@@ -135,6 +135,7 @@ namespace SIEL_1836109025062022.Controllers
                 ViewData["role"] = credential.id_role;
                 ViewData["picture"] = credential.path_image;
                 ViewData["role_name"] = credential.role_name;
+                ViewData["id"] = id;
                 var students = await listRepository.GetStudentsListBySchedule(id);
                 var model = students;
                 return View(model);

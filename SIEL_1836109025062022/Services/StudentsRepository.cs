@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
 using SIEL_1836109025062022.Models;
+using SIEL_1836109025062022.Models.ViewModel;
 
 namespace SIEL_1836109025062022.Services
 {
@@ -14,6 +15,8 @@ namespace SIEL_1836109025062022.Services
         Task<string> GetStudentControlNumber(int id_student);
         Task<int> GetStudentProgramId(int id_student);
         Task<StudentDataViewModel> GetStudentSchoolarData(int id_student);
+        Task<IEnumerable<StudentSchoolarInformation>> GetStudentsInformation();
+        Task<IEnumerable<StudentSchoolarInformation>> GetStudentsInformationByIdClass(int id);
         Task<Student> GetStudentUserById(int id_student);
         Task<bool> IsStudent(int id_student);
         Task<bool> IsStudentCoursing(int id_student);
@@ -194,7 +197,35 @@ namespace SIEL_1836109025062022.Services
                                             new { id_student });
             return exists == 1;
         }
-    
-        
+        public async Task<IEnumerable<StudentSchoolarInformation>> GetStudentsInformation()
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            return await connection.QueryAsync<StudentSchoolarInformation>(@"
+                            select * from students
+                            inner join users on users.id_user = students.id_student
+                            inner join inscriptions on inscriptions.insc_id_student = students.id_student
+                            inner join schedules on schedules.id_schedule = inscriptions.insc_id_schedule
+                            inner join modalities on modalities.id_modality = schedules.schedule_modality
+                            inner join levels on levels.id_level = modalities.modality_level_id
+                            inner join programs on programs.id_program = levels.level_id_program
+                            inner join classes on students.stdt_id_class = classes.id_class;");
+        }
+
+        public async Task<IEnumerable<StudentSchoolarInformation>> GetStudentsInformationByIdClass(int id)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            return await connection.QueryAsync<StudentSchoolarInformation>(@"
+                            select * from students
+                            inner join users on users.id_user = students.id_student
+                            inner join inscriptions on inscriptions.insc_id_student = students.id_student
+                            inner join schedules on schedules.id_schedule = inscriptions.insc_id_schedule
+                            inner join modalities on modalities.id_modality = schedules.schedule_modality
+                            inner join levels on levels.id_level = modalities.modality_level_id
+                            inner join programs on programs.id_program = levels.level_id_program
+                            inner join classes on students.stdt_id_class = classes.id_class
+                            where stdt_id_class = @id;",
+                            new { id });
+        }
+
     }
 }

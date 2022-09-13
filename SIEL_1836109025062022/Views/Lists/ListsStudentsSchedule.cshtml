@@ -2,6 +2,7 @@
 @model IEnumerable<StudentList>
 @{
     ViewData["Title"] = "Estudiantes";
+    var id  = ViewData["id"]; 
 }
 
 
@@ -9,82 +10,6 @@
         <div class="page-heading">
             <h3>Alumnos</h3>
         </div>
-
-        <section>
-            <div class="multiple-column-form">
-                <div class="row match-height">
-                    <div class="col-md-12 col-sm-12 col-lg-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Datos de la clase</h4>
-
-                                <div class="card-content row">
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <label class="font-bold col-md-3">Nombre</label>
-                                            <div class="col-md-9">
-                                                <input type="text" class="form-control"/>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <label class="font-bold col-md-3">Total alumnos</label>
-                                            <p class="col-md-8">1</p>
-                                        </div>
-                                        <div class="row">
-                                            <label class="font-bold col-md-3">Profesor asignado</label>
-                                            <div class="col-md-9">
-                                                <select class="form-select">
-                                                    <option>Manuel</option>
-                                                    <option>Karla</option>
-                                                    <option>Jhonathan</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <label class="font-bold col-md-3">Nivel</label>
-                                            <p class="col-md-8">PR-BASICO 1</p>
-                                        </div>
-                                        <div class="row">
-                                            <label class="font-bold col-md-3">Modalidad</label>
-                                            <p class="col-md-8">Intensivo</p>
-                                        </div>
-                                        <div class="row">
-                                            <label class="font-bold col-md-3">Horario</label>
-                                            <p class="col-md-8">1</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                
-                            </div>
-                            <div class="card-footer ">
-                                <div class="row">
-                                    <h6 class="card-subtitle col-md-2">Accciones</h6>
-                                    <div class="card-content">
-                                        <div class="row">
-                                           <div class="col-md-6">
-                                               <a class="btn btn-success">
-                                                   Crear clase en English Discoveries
-                                               </a>
-                                           </div>
-                                           <div class="col-md-6">
-                                               <a class="btn btn-success">
-                                                   Asignar estudiantes en English Discoveries
-                                               </a>
-                                           </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section id="multiple-column-form">
             <div class="row match-height">
                 <div class="row match-height">
@@ -92,6 +17,10 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Lista de estudiantes</h4>
+                                <div>
+                                    <a class="btn btn-primary" asp-controller="Classes" asp-action="CreateClass" asp-route-id="@id" >Crear clases</a>
+                                    <a class="btn btn-primary" id="api" >Crear clases</a>
+                                </div>
                             </div>
 
                             <div col-md-6 col-sm-12>
@@ -102,7 +31,8 @@
                                                 <th>No. de control</th>
                                                 <th>Nombre(s)</th>
                                                 <th>Apelido(s)</th>
-                                                <th>Acciones</th>
+                                                <th>Telefono</th>
+                                                <th>Clase</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -119,8 +49,10 @@
                                                         <label>@item.user_surname</label>
                                                     </td>
                                                     <td>
-                                                        <a class="btn btn-info mr-3" asp-controller="Accountant" asp-action="ApproveConfirmation" asp-route-id="@item.id_inscription">
-                                                            Ver comprobantes<i class="bi bi-eye-fill ms-2"></i></a>
+                                                        <label>@item.user_phone_1</label>
+                                                    </td>
+                                                    <td>
+                                                    @if (@item.stdt_id_class !=0){ <label>@item.group_name</label>}else{<label>Sin clase</label>}
                                                     </td>
                                                 </tr>
                                             }
@@ -147,7 +79,7 @@
 
 
                                     $(function(){
-                                        $("#poste").click(async function(){
+                                        $("#api").click(async function(){
                                             console.log("Hola");
                                            
                                             var myHeaders = new Headers();
@@ -156,11 +88,11 @@
 
                                             var raw =JSON.stringify({
                                                           "institutionId": '5235225',
-                                                          "studentUserName": 'gassaaas',
-                                                          "studentFirstName": 'apaaaaitest',
-                                                          "studentLastName": 'apitest',
+                                                          "studentUserName": 'test001',
+                                                          "studentFirstName": 'Student',
+                                                          "studentLastName": 'Test',
                                                           "studentPassword": '12345',
-                                                          "studentEmail": 'apitest@aaa.com',
+                                                          "studentEmail": 'student@test.com',
                                                           "classId": '552250012'
                                                         });
 

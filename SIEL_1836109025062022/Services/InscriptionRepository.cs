@@ -11,6 +11,8 @@ namespace SIEL_1836109025062022.Services
     {
        
         Task ApproveInscription(int id_student, int id_inscription, int insc_status);
+        Task<int> CountInscriptionByIdSchedule(int id_schedule);
+        Task<int> CountInscriptionByIdScheduleWithNoClass(int id_schedule);
         Task<IEnumerable<Inscription>> GetInscriptionList();
         Task<AccountantAuthorizationViewModel> GetInscriptionRequestById(int id_inscription);
         Task<CurriculumAdvance> GetLastCourseTaken(int id_student);
@@ -119,6 +121,32 @@ namespace SIEL_1836109025062022.Services
                             inner join users on students.id_student = users.id_user
                             where inscriptions.id_inscription = @id_inscription;",
                          new { id_inscription });
+        }
+
+        public async Task<int> CountInscriptionByIdSchedule(int id_schedule)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            var inscriptions_count = await connection.QuerySingleAsync<int>(
+                @"select count(id_inscription)
+                    from inscriptions
+                    where insc_id_schedule = @id_schedule
+                    and insc_status = 2",
+                new { id_schedule });
+            return inscriptions_count;
+        }
+
+        public async Task<int> CountInscriptionByIdScheduleWithNoClass(int id_schedule)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            var inscriptions_count = await connection.QuerySingleAsync<int>(
+                @"select count(id_inscription)
+                    from inscriptions
+                    inner join students on students.id_student = inscriptions.insc_id_student
+                    where insc_id_schedule = @id_schedule
+                    and insc_status = 2
+                    and stdt_id_class is null",
+                new { id_schedule });
+            return inscriptions_count;
         }
     }
 }

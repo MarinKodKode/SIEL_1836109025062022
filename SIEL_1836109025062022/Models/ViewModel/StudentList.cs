@@ -29,5 +29,7 @@
         public DateTime insc_date_time { get; set; }
         public int insc_institution { get; set; } = 1;
         public int insc_status { get; set; }
+
+        public string group_name { get; set; } 
     }
 }
