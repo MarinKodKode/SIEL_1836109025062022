@@ -8,6 +8,7 @@ namespace SIEL_1836109025062022.Models
         //[DataType(DataType.Text)]
         public string user_name { get; set; }
         [Required(ErrorMessage = "El apellido de usuario es requerido")]
+        [RegularExpression(@"^[a-zA-Z0-9'' ']+$", ErrorMessage = "Los acentos y las 'ñ' no están permitidos, escribe tus datos sin acentos o remplaza la 'ñ' por una n")]
         public string user_surname { get; set; }
         [Required(ErrorMessage = "El correo de usuario es requerido")]
         

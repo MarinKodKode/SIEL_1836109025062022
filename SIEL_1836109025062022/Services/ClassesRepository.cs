@@ -62,7 +62,7 @@ namespace SIEL_1836109025062022.Services
                                             from students
                                             inner join inscriptions 
                                             on inscriptions.insc_id_student = students.id_student
-                                            where insc_status = 2 and insc_id_schedule = @group_id_schedule and stdt_id_class = 4",
+                                            where insc_status = 2 and insc_id_schedule = @group_id_schedule and (stdt_id_class = 4 OR stdt_id_class IS NULL)",
                                             myNewClass);
         }
         public async Task<ClassCreateViewModel> GetClassById(int id_class)

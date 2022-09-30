@@ -32,7 +32,6 @@ namespace SIEL_1836109025062022.Services
                             SELECT  * FROM STUDENTS 
                             inner join inscriptions on inscriptions.insc_id_student = students.id_student
                             INNER JOIN USERS on users.id_user = students.id_student
-                            inner join classes on classes.group_id_schedule = inscriptions.insc_id_schedule 
                             where insc_id_schedule = @id and insc_status = 2;",
                             new { id });
         }

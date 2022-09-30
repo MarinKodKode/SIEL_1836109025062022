@@ -2,7 +2,7 @@
 @model IEnumerable<StudentSchoolarInformation>
 @{
     ViewData["Title"] = "Estudiantes";
-    var id  = ViewData["id"]; 
+    var id_class  = ViewData["id_class"]; 
 }
 
 
@@ -17,11 +17,9 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Lista de estudiantes</h4>
-                                <a class="btn btn-primary" asp-controller="Classes" asp-action="PrintStudentsList" asp-route-id="18">Imprimir lista</a>
-                                <div>
-                                    <a class="btn btn-primary" asp-controller="Classes" asp-action="CreateClass" asp-route-id="@id" >Crear clases</a>
-                                    <a class="btn btn-primary" id="api" >Crear clases</a>
-                                </div>
+                                <a class="btn btn-primary" asp-controller="Classes" asp-action="PrintStudentsList" asp-route-id="@id_class">Imprimir lista</a>
+                                <a class="btn btn-success" asp-controller="Classes" asp-action="PAI" asp-route-id="@id_class">Enviar a TMS <i class="bi bi-check ms-1"></i></a>
+                                
                             </div>
 
                             <div col-md-6 col-sm-12>
@@ -33,7 +31,7 @@
                                                 <th>Nombre(s)</th>
                                                 <th>Apelido(s)</th>
                                                 <th>Telefono</th>
-                                                <th>Clase</th>
+                                                <th>Correo</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -53,7 +51,7 @@
                                                         <label>@item.user_phone_1</label>
                                                     </td>
                                                     <td>
-                                                    @if (@item.stdt_id_class !=0){ <label>@item.group_name</label>}else{<label>Sin clase</label>}
+                                                    <label>@item.user_normalized_email_i</label>
                                                     </td>
                                                 </tr>
                                             }

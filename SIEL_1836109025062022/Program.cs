@@ -41,17 +41,7 @@ builder.Services.AddAuthentication(options =>
     options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
     options.DefaultSignOutScheme = IdentityConstants.ApplicationScheme;
 }).AddCookie(IdentityConstants.ApplicationScheme);
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: "MyAllowAllHeadersPolicy",
-        policy =>
-        {
-            //policy.WithOrigins("https://edapi.engdis.com")
-            policy.AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        });
-});
+
 
 var app = builder.Build();
 
@@ -68,8 +58,6 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// Shows UseCors with CorsPolicyBuilder.
-app.UseCors("MyAllowAllHeadersPolicy");
 
 app.UseAuthentication();
 

@@ -191,6 +191,7 @@ namespace SIEL_1836109025062022.Controllers
                 ViewData["role"] = credential.id_role;
                 ViewData["picture"] = credential.path_image;
                 ViewData["role_name"] = credential.role_name;
+                ViewData["id_class"] = id;
                 var studentsJoinedToClass = await studentsRepository.GetStudentsInformationByIdClass(id);
                 var model = studentsJoinedToClass;
                 return View("StudentsJoinedToClass",model);
@@ -210,7 +211,7 @@ namespace SIEL_1836109025062022.Controllers
                 ViewData["role_name"] = credential.role_name;
                 var studentsJoinedToClass = await studentsRepository.GetStudentsInformationByIdClass(id);
                 var model = studentsJoinedToClass;
-                return new ViewAsPdf("PrintStudentsList")
+                return new ViewAsPdf("PrintStudentsList", model)
                 {
 
                     FileName = $"Testing Rotativa.pdf",

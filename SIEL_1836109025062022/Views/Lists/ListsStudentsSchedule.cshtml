@@ -19,7 +19,8 @@
                                 <h4 class="card-title">Lista de estudiantes</h4>
                                 <div>
                                     <a class="btn btn-primary" asp-controller="Classes" asp-action="CreateClass" asp-route-id="@id" >Crear clases</a>
-                                    <a class="btn btn-primary" id="api" >Crear clases</a>
+                                    <a class="btn btn-primary" id="api" >Crear clases en TMS</a>
+                                    <a class="btn btn-danger" asp-controller="Classes" asp-action="CloseSchedule"asp-route-id="@id"  >Cerrar horario<i class="bi bi-x-circle ms-1"></i></a>
                                 </div>
                             </div>
 
@@ -65,51 +66,8 @@
                 </div>
             </div>
                @section Scripts{
-                                <partial name = "_ValidationScriptsPartial"/>
-
-                                <script>
-
-                                    const data = {"institutionId": "5235225",
-                                    "studentUserName": "testing",
-                                    "studentFirstName": "testing",
-                                    "studentLastName": "testing",
-                                    "studentPassword": "12345",
-                                    "studentEmail": "testing@aaa.com",
-                                    "classId": "552250012"}
-
-
-                                    $(function(){
-                                        $("#api").click(async function(){
-                                            console.log("Hola");
-                                           
-                                            var myHeaders = new Headers();
-                                            myHeaders.append("token", "EE7F349F-0F87-4A79-8607-04998F649C7B");
-                                            myHeaders.append("Content-Type", "application/json");
-
-                                            var raw =JSON.stringify({
-                                                          "institutionId": '5235225',
-                                                          "studentUserName": 'test001',
-                                                          "studentFirstName": 'Student',
-                                                          "studentLastName": 'Test',
-                                                          "studentPassword": '12345',
-                                                          "studentEmail": 'student@test.com',
-                                                          "classId": '552250012'
-                                                        });
-
-                                            var requestOptions = {
-                                              method: 'POST',
-                                              headers: myHeaders,
-                                              body: raw,
-                                              redirect: 'follow'
-                                            };
-
-                                            fetch("https://edapi.engdis.com/WebApi/External/InsertUser", requestOptions)
-                                              .then(response => response.text())
-                                              .then(result => console.log(result))
-                                              .catch(error => console.log('error', error));
-                                        });
-                                    });
-                                </script>
+                    <partial name = "_ValidationScriptsPartial"/>
+                    <script src="~/assets/js/API/post_data.js" asp-append-version="true"></script>
                             }
         </section>
      
