@@ -73,14 +73,14 @@ namespace SIEL_1836109025062022.Controllers
                 
 
 
-                if (isAnnouncementConcluded)
+                if (!isAnnouncementConcluded)
                 {
                     ViewBag.status = isAnnouncementConcluded;
                 }
-                //else
-                //{
-                //    ViewBag.status = isAnnouncementConcluded;
-                //}
+                else
+                {
+                    ViewBag.status = isAnnouncementConcluded;
+                }
 
                 return View(model);
             }
