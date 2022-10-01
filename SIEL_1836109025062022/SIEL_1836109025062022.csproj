@@ -19,6 +19,7 @@
     <Folder Include="wwwroot\EdPaymentFiles\" />
     <Folder Include="wwwroot\InstitutionPaymentFiles\" />
     <Folder Include="wwwroot\LevelsPictures\" />
+    <Folder Include="wwwroot\SystemPictures\AnnouncementPictures\" />
     <Folder Include="wwwroot\UsersPictures\" />
   </ItemGroup>
 
