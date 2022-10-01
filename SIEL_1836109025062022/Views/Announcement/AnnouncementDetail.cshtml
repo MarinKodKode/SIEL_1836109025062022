@@ -1,10 +1,14 @@
 ﻿@model AnnouncementCreationViewModel
 @{
     ViewData["Title"] = "Detalles de convocatoria";
+    var isAnnouncementConcluded = ViewBag.status;
+
 }
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
+@if (!isAnnouncementConcluded)
+{
 <div class="page-heading">
     <div class="page-title">
         <div class="row">
@@ -70,6 +74,11 @@
         </div>
     </section>
 </div>
+}
+else
+{
+    <partial name = "_NoAnnouncement"/>
+}
 <script>
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
     var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {

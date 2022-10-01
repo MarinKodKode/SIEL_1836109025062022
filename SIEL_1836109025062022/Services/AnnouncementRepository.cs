@@ -6,6 +6,7 @@ namespace SIEL_1836109025062022.Services
 {
     public interface IAnnouncementRepository
     {
+        Task<bool> ExistsAnnouncementConcluded(int id_announcement);
         Task CreateAnnouncement(AnnouncementCreationViewModel announcement);
         Task DeleteAnnouncementById(int id_announcement);
         Task<bool> ExistsAnnouncement(AnnouncementCreationViewModel announcement);
@@ -13,6 +14,7 @@ namespace SIEL_1836109025062022.Services
         Task<AnnouncementCreationViewModel> GetAnnouncementById(int id_announcement);
         Task<IEnumerable<Announcement>> GetAnnouncements();
         Task UpdateAnnouncement(AnnouncementCreationViewModel announcement);
+        Task<int> ExistsAnnouncementConcludedInt(int id_announcement);
     }
     public class AnnouncementRepository : IAnnouncementRepository
     {
@@ -59,6 +61,24 @@ namespace SIEL_1836109025062022.Services
                                             announcement);
             return exists == 1;
         }
+        public async Task<bool> ExistsAnnouncementConcluded(int id_announcement)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            var exists = await connection.QueryFirstOrDefaultAsync<int>(@"
+                                                           select 1 
+                                                           from announcements 
+                                                           where end_date < GETDATE();", new { id_announcement });
+            return exists == 1;
+        }
+        public async Task<int> ExistsAnnouncementConcludedInt(int id_announcement)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            var exists = await connection.QueryFirstOrDefaultAsync<int>(@"
+                                                           select 1 
+                                                           from announcements 
+                                                           where end_date < GETDATE();", new { id_announcement });
+            return exists;
+        }
 
         public async Task<bool> ExistsAnnouncementById(int id)
         {
@@ -88,5 +108,6 @@ namespace SIEL_1836109025062022.Services
                              new { id_announcement });
         }
 
+        
     }
 }
