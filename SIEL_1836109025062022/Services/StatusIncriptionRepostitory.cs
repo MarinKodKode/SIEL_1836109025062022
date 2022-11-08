@@ -1,4 +1,6 @@
 ﻿using Dapper;
+using MySql.Data.MySqlClient;
+using SIEL_1836109025062022.Data;
 using SIEL_1836109025062022.Models;
 using System.Data.SqlClient;
 
@@ -10,17 +12,27 @@ namespace SIEL_1836109025062022.Services
     }
     public class StatusIncriptionRepostitory : IStatusRepository
     {
-        private readonly string connectionString;
-        public StatusIncriptionRepostitory(IConfiguration configuration)
+        // private readonly string connectionString;
+        private readonly MySQLConfiguration connectionString;
+        public StatusIncriptionRepostitory(MySQLConfiguration _connectionString)
         {
-            connectionString = configuration.GetConnectionString("DefaultConnection");
+            connectionString = _connectionString;
+        }
+
+        protected MySqlConnection MSconnection()
+        {
+            return new MySqlConnection(connectionString.ConnectionString);
         }
 
         public async Task<IEnumerable<StatusIncription>> GetStatusInscriptionList()
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            //using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             return await connection.QueryAsync<StatusIncription>
-                (@"select top 3 * from status_inscription where id_status != 1;");
+                (@"SELECT *
+                    FROM status_inscription
+                    WHERE  id_status != 1
+                    LIMIT 3;");
         }
     }
 }

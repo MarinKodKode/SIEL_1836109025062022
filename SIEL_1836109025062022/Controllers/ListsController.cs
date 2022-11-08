@@ -16,6 +16,7 @@ namespace SIEL_1836109025062022.Controllers
         private readonly IModalityRepository modalityRepository;
         private readonly IScheduleRepository scheduleRepository;
         private readonly IListRepository listRepository;
+        private readonly IStudentsRepository studentsRepository;
 
         public ListsController(ILevelsRepository levelsRepository,
             ICourseProgramRepository courseProgramRepository,
@@ -24,7 +25,8 @@ namespace SIEL_1836109025062022.Controllers
             ICredentialsRepository credentials,
             IModalityRepository modalityRepository,
             IScheduleRepository scheduleRepository,
-            IListRepository listRepository)
+            IListRepository listRepository,
+            IStudentsRepository studentsRepository)
         {
             this.levelsRepository = levelsRepository;
             this.courseProgramRepository = courseProgramRepository;
@@ -34,6 +36,7 @@ namespace SIEL_1836109025062022.Controllers
             this.modalityRepository = modalityRepository;
             this.scheduleRepository = scheduleRepository;
             this.listRepository = listRepository;
+            this.studentsRepository = studentsRepository;
         }
         //INDEX SECURED
         public async Task<IActionResult> Index()
@@ -137,6 +140,46 @@ namespace SIEL_1836109025062022.Controllers
                 ViewData["role_name"] = credential.role_name;
                 ViewData["id"] = id;
                 var students = await listRepository.GetStudentsListBySchedule(id);
+                var model = students;
+                return View(model);
+            }
+        }
+
+        public async Task<IActionResult> AllAuthorizedStudents()
+        {
+            var student_id = userService.GetUserId();
+            var credential = new Credential();
+            credential = await credentials.GetCredentials(student_id);
+            if (credential.id_role != 1 && credential.id_role != 2)
+            {
+                return RedirectToAction("e404", "Home");
+            }
+            else
+            {
+                ViewData["role"] = credential.id_role;
+                ViewData["picture"] = credential.path_image;
+                ViewData["role_name"] = credential.role_name;
+                var students = await studentsRepository.GetAllAuthorizedStudents();
+                var model = students;
+                return View(model);
+            }
+        }
+
+        public async Task<IActionResult> StudentsWithActiveClasses()
+        {
+            var student_id = userService.GetUserId();
+            var credential = new Credential();
+            credential = await credentials.GetCredentials(student_id);
+            if (credential.id_role != 1 && credential.id_role != 2)
+            {
+                return RedirectToAction("e404", "Home");
+            }
+            else
+            {
+                ViewData["role"] = credential.id_role;
+                ViewData["picture"] = credential.path_image;
+                ViewData["role_name"] = credential.role_name;
+                var students = await listRepository.GetStudentsWithActiveClasses();
                 var model = students;
                 return View(model);
             }

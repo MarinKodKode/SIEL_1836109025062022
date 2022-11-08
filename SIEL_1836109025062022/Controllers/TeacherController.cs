@@ -105,7 +105,7 @@ namespace SIEL_1836109025062022.Controllers
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
-                    return RedirectToAction("WhereDoYouGo","Home");
+                    return RedirectToAction("WhereDoYouGo", "Home");
                 }
             }
             else
@@ -113,6 +113,117 @@ namespace SIEL_1836109025062022.Controllers
                 return RedirectToAction("e404", "Home");
             }
 
+        }
+        [HttpGet]
+        public async Task<IActionResult> TeacherGroups()
+        {
+            var user_id = userService.GetUserId();
+            var credential = new Credential();
+            credential = await credentials.GetCredentials(user_id);
+
+            if (credential.id_role != 3)
+            {
+                return RedirectToAction("e404", "Home");
+            }
+            else
+            {
+                //Credentials
+                ViewData["role"] = credential.id_role;
+                ViewData["picture"] = credential.path_image;
+                ViewData["role_name"] = credential.role_name;
+                var model = await teachersRepository.GetTeachersClasses(user_id);
+                return View(model);
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> ClassesAssignedToTeacher(int id)
+        {
+            var user_id = userService.GetUserId();
+            var credential = new Credential();
+            credential = await credentials.GetCredentials(user_id);
+
+            if (credential.id_role != 1 && credential.id_role != 2)
+            {
+                return RedirectToAction("e404", "Home");
+            }
+            else
+            {
+                //Credentials
+                ViewData["role"] = credential.id_role;
+                ViewData["picture"] = credential.path_image;
+                ViewData["role_name"] = credential.role_name;
+                var model = await teachersRepository.GetTeachersClasses(id);
+                User teacher_name = await userRepository.GetUserById(id);
+                var view_teacher_name = teacher_name.user_name;
+                var view_teacher_surname = teacher_name.user_surname;
+                ViewData["teacher_name"] = view_teacher_name + " " +view_teacher_surname;
+                var numberOfActiveClasses = await teachersRepository.GetTeacherActiveClasses(id);
+                ViewData["numberOfActiveClasses"] = numberOfActiveClasses;
+                var numberOfActiveStudents = await teachersRepository.GetTeacherActiveStudents(id);
+                ViewData["numberOfActiveStudents"] = numberOfActiveStudents;
+                return View(model);
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> TeacherPersonalData(int id)
+        {
+            var user_id = userService.GetUserId();
+            var credential = new Credential();
+            credential = await credentials.GetCredentials(user_id);
+
+            if (credential.id_role != 1 && credential.id_role != 2)
+            {
+                return RedirectToAction("e404", "Home");
+            }
+            else
+            {
+                //Credentials
+                ViewData["role"] = credential.id_role;
+                ViewData["picture"] = credential.path_image;
+                ViewData["role_name"] = credential.role_name;
+                var model = await teachersRepository.GetTeacherData(id);
+                return View(model);
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> TeacherTrainingSection()
+        {
+            var user_id = userService.GetUserId();
+            var credential = new Credential();
+            credential = await credentials.GetCredentials(user_id);
+
+            if (credential.id_role != 3)
+            {
+                return RedirectToAction("e404", "Home");
+            }
+            else
+            {
+                //Credentials
+                ViewData["role"] = credential.id_role;
+                ViewData["picture"] = credential.path_image;
+                ViewData["role_name"] = credential.role_name;
+                return View();
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> TeacherResources()
+        {
+            var user_id = userService.GetUserId();
+            var credential = new Credential();
+            credential = await credentials.GetCredentials(user_id);
+
+            if (credential.id_role != 3)
+            {
+                return RedirectToAction("e404", "Home");
+            }
+            else
+            {
+                //Credentials
+                ViewData["role"] = credential.id_role;
+                ViewData["picture"] = credential.path_image;
+                ViewData["role_name"] = credential.role_name;
+                return View();
+            }
         }
 
     }

@@ -16,7 +16,9 @@
     SIEL
   </title>
   <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
   <!-- Nucleo Icons -->
   <link href="~/assets2/css/nucleo-icons.css" rel="stylesheet" />
   <link href="~/assets2/css/nucleo-svg.css" rel="stylesheet" />
@@ -26,6 +28,11 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="~/assets2/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
 </head>
+<style>
+.bg-gradient-danger{
+    color:;
+}
+</style>
 
 <body class="">
   <div class="container position-sticky z-index-sticky top-0">
@@ -58,7 +65,7 @@
                         <label class="form-check-label" asp-for="Rememberme">Recuerdame</label>
                     </div>
                     <div class="text-center">
-                      <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0"> <a class="text-white"> Entrar</a> </button>
+                      <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0" style="background-color:#9D2449;"> <a class="text-white"> Entrar</a> </button>
                     </div>
                   </form>
                   @section Scripts{
@@ -74,9 +81,9 @@
               </div>
             </div>
             <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
-              <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style="background-image: url('https://cdn.primedia.co.za/primedia-broadcasting/image/upload/c_limit,fl_progressive,q_80,w_700/uxxkzzthfpea05vmprkg.jpg');
+              <div class="position-relative bg-gradient-info h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style="background-image: url('https://cdn.primedia.co.za/primedia-broadcasting/image/upload/c_limit,fl_progressive,q_80,w_700/uxxkzzthfpea05vmprkg.jpg');
           background-size: cover;">
-                <span class="mask bg-gradient-primary opacity-6"></span>
+                <span class="mask bg-gradient-info opacity-6"></span>
                 <h3 class="mt-5 text-white font-weight-bolder position-relative">English Discoveries</h3>
                 <h6 class="text-white position-relative">La solución óptima para la enseñanza del idioma inglés.</h6>
               </div>

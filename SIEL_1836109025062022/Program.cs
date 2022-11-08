@@ -1,13 +1,16 @@
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Identity;
 using SIEL_1836109025062022.Models;
 using SIEL_1836109025062022.Services;
+using SIEL_1836109025062022.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var mySQLConfiguration = new MySQLConfiguration(builder.Configuration.GetConnectionString("DefaultConnection"));
+builder.Services.AddSingleton(mySQLConfiguration);
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ICredentialsRepository, Credentials>();

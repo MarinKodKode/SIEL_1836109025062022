@@ -14,6 +14,7 @@
                         <div class="card-body">
                             <form class="form form-horizontal" asp-controller="Announcement" asp-action="EditAnnouncement" enctype="multipart/form-data" method="post">
                                 <div class="form-body">
+                                    <input type="hidden" asp-for="id_announcement" readonly/>
                                     <div class="row">
                                         <input type="hidden" asp-for="id_announcement" value="@Model.id_announcement" name="@Model.id_announcement" />
                                         <div class="col-md-4">

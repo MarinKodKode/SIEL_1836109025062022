@@ -26,7 +26,34 @@
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
     <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
     
-
+    <style>
+        .btn-primary{
+            background-color:#621132 !important;
+        }
+        .btn-secondary{
+             background-color:#9D2449!important;
+        }
+        .btn-info{
+             background-color:#6F7271!important;
+        }
+        .btn-succes{
+             background-color:#235B4E!important;
+        }
+        .btn-danger{
+             background-color:#B38E5D!important;
+        }
+        .accordion-button{
+            background-color : #d4c19c;
+            color:black;
+        }
+        .accordion-button:not(.collapsed){
+            background-color : #d4c19c;
+            color:black;
+        }
+        .text-primary{
+            color:white !important;
+        }
+    </style>
 
 </head>
 <body>
@@ -36,7 +63,7 @@
             <div class="sidebar-header position-relative">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="logo">
-                        <a href="index.html"><img src="~/assets/images/logo/logo-edi.png" alt="Logo" srcset=""></a>
+                        <a href="#"><img src="~/assets/images/logo/itvh2.png" alt="Logo" style="height: 5.5rem;"></a>
                     </div>
                     <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--system-uicons" width="20" height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 21 21"><g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 14.5c2.219 0 4-1.763 4-3.982a4.003 4.003 0 0 0-4-4.018c-2.219 0-4 1.781-4 4c0 2.219 1.781 4 4 4zM4.136 4.136L5.55 5.55m9.9 9.9l1.414 1.414M1.5 10.5h2m14 0h2M4.135 16.863L5.55 15.45m9.899-9.9l1.414-1.415M10.5 19.5v-2m0-14v-2" opacity=".3"></path><g transform="translate(-210 -1)"><path d="M220.5 2.5v2m6.5.5l-1.5 1.5"></path><circle cx="220.5" cy="11.5" r="4"></circle><path d="m214 5l1.5 1.5m5 14v-2m6.5-.5l-1.5-1.5M214 18l1.5-1.5m-4-5h2m14 0h2"></path></g></g></svg>
@@ -78,10 +105,15 @@
         </div>
     </div>
     <div id="main" class="pt-1">
-    <header class="mb-3">
-                    <nav class="navbar navbar-expand navbar-light ">
-                    <div class="container-fluid">
-                        <div class="collapse navbar-collapse align-content-md-between" id="navbarSupportedContent ">
+    <header class="mb-3" style="
+    margin-left: -80px;
+    background-color: #621133;
+    margin-top: -10px;
+    margin-right: -50px;
+">
+                    <nav class="navbar navbar-expand navbar-primary">
+                    <div class="container-fluid" style="margin-right:50px">
+                        <div class="collapse navbar-collapse align-content-md-between"  id="navbarSupportedContent ">
                             
                             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             </ul>
@@ -90,8 +122,8 @@
                                 <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="user-menu d-flex">
                                         <div class="user-name text-end me-3">
-                                            <h6 class="mb-0 text-gray-600">@User.Identity.Name</h6>
-                                            <p class="mb-0 text-sm text-gray-600">@role_name </p>
+                                            <h6 class="mb-0 text-white">@User.Identity.Name</h6>
+                                            <p class="mb-0 text-sm text-white">@role_name </p>
                                         </div>
                                         <div class="user-img d-flex align-items-center">
                                             <div class="avatar avatar-md">
@@ -104,7 +136,7 @@
                                                
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" style="min-width: 11rem;">
                                     <li>
-                                        <h6 class="dropdown-header">Hola @User.Identity.Name</h6>
+                                        <h6 class="dropdown-header" >Hola @User.Identity.Name</h6>
                                     </li>
                                     <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-person me-2"></i>Mis datos</a></li>
                                     <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-building me-2"></i>

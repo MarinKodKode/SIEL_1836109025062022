@@ -2,7 +2,8 @@
 @model IEnumerable<StudentSchoolarInformation>
 @{
     ViewData["Title"] = "Estudiantes";
-    var id_class  = ViewData["id_class"]; 
+    var id_class  = ViewData["id_class"];
+    var id_role = int.Parse(ViewData["role"].ToString());
 }
 
 
@@ -18,8 +19,9 @@
                             <div class="card-header">
                                 <h4 class="card-title">Lista de estudiantes</h4>
                                 <a class="btn btn-primary" asp-controller="Classes" asp-action="PrintStudentsList" asp-route-id="@id_class">Imprimir lista</a>
+                                @if(id_role == 1 || id_role == 2 ){
                                 <a class="btn btn-success" asp-controller="Classes" asp-action="PAI" asp-route-id="@id_class">Enviar a TMS <i class="bi bi-check ms-1"></i></a>
-                                
+                                }
                             </div>
 
                             <div col-md-6 col-sm-12>

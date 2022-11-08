@@ -1,0 +1,64 @@
+﻿@using SIEL_1836109025062022.Models.Classes
+@model IEnumerable<ClassCreateViewModel>
+@{
+    ViewData["Title"] = "Clases asignadas a facilitador";
+    var teacher_name  = ViewData["teacher_name"]; 
+    var numberOfActiveClasses = ViewData["numberOfActiveClasses"]; 
+    var numberOfActiveStudents = ViewData["numberOfActiveStudents"]; 
+}
+        <section id="multiple-column-form">
+            <div class="row match-height">
+                <div class="row match-height">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title d-inline">Facilitador: @teacher_name</h4>
+                                <div class="card sombra mt-3">
+                                    <div class="mt-1">
+                                        <label>Número de clases activas asignadas:</label>
+                                        <label class="font-bold">  @numberOfActiveClasses <i class="bi bi-archive-fill"></i></label>
+                                    </div>
+                                    <div class="mt-2 mb-3">
+                                    <label>Número de alumnos en clases activas:</label>
+                                    <label class="font-bold">  @numberOfActiveStudents <i class="bi bi-people-fill"></i></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div col-md-6 col-sm-12>
+                                <div class="card-body">
+                                    <table class="table" id="table1">
+                                        <thead>
+                                            <tr>
+                                                <th>Clase</th>
+                                                <th>Horario</th>
+                                                <th>Alumnos</th>
+                                                <th>Nivel</th>
+                                                <th>Modalidad</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                    <td>@item.group_name</td>
+                                                    <td>@item.schedule_description</td>
+                                                    <td>@item.nstudents</td>
+                                                    <td>@item.level_name</td>
+                                                    <td>@item.modality_name</td>
+                                                </tr>
+                                                }
+                                             
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+               @section Scripts{
+                                <partial name = "_ValidationScriptsPartial"/>
+                                <script>$(document).ready(function(){$('[data-toggle="tooltip"]').tooltip();});</script>
+               }
+        </section> 

@@ -3,6 +3,7 @@
     public class ClassCreateViewModel : Class
     {
         //General data
+        public int nstudents { get; set; }
         public int inscrptions_count { get; set; }
         public int noClassCount { get; set; }
         public IEnumerable<User> Teachers { get; set; }

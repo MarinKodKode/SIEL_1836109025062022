@@ -94,7 +94,8 @@
                 <div class="text-center">
                   <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Registrarse</button>
                 </div>
-                <p class="text-sm mt-3 mb-0">Ya tienes una cuenta? <a href="javascript:;" class="text-dark font-weight-bolder">Inicia sesión</a></p>
+                <p class="text-sm mt-3 mb-0">Ya tienes una cuenta? 
+                    <a asp-controller="User" asp-action="Login" class="text-dark font-weight-bolder">Inicia sesión</a></p>
               </form>
               @section Scripts{
                   <partial name="_ValidationScriptsPartial"/>

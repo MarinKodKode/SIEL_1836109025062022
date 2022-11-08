@@ -1,6 +1,7 @@
 ﻿@model AnnouncementCreationViewModel
 @{
     ViewData["Title"] = "Detalles de convocatoria";
+    var role  = int.Parse(ViewData["role"].ToString()); 
 }
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
@@ -44,24 +45,14 @@
                                         </p>
                                         </center>
                                     </div>
-                                    <div class="card-footer text-center">
+                        @if(role == 3)
+                        {
+                           <div class="card-footer text-center">
                                         <a class="btn btn-primary center" asp-controller="Student" asp-action="StudentInscription">Inscribirme</a>
-                                    </div>
-                                </div>
+                                    </div>      
+                        }
+                        </div>
                             </div>
-                        @*<div class="card-body">
-                            <div class="badges">
-                                <div class="badge reference" >
-                                    <br><br>
-                                    <p class="card-text"> Ejemplo: 2030067802.</p>
-                                    <p class="card-text"> BANCOMER BBVA</p>
-                                    <p class="card-text"> NOMBRE: LOGGAN LTS S.A. de C.V.</p>
-                                    <p class="card-text"> NÚMERO DE CUENTA: 0118642273</p>
-                                    <p class="card-text"> CLABE INTERBANCARIA: 012680001186422731</p>
-                                    <p class="card-text"> PAGO: $650.00</p><br>
-                                </div>
-                            </div>
-                        </div>*@
                     </div>
                     
                 </div>

@@ -192,6 +192,17 @@ namespace SIEL_1836109025062022.Controllers
             ViewData["role_name"] = urole_name;
             return View("StudentGetPaymentData");
         }
+        public async Task<IActionResult> StudentInstitutionPayments()
+        {
+            var id = userService.GetUserId();
+            var urole = userRepository.GetUserRole(id);
+            var upicture = await userRepository.GetUserPicturePath(id);
+            var urole_name = await userRepository.GetUserRoleName(urole);
+            ViewData["role"] = urole;
+            ViewData["picture"] = upicture;
+            ViewData["role_name"] = urole_name;
+            return View("StudentInstitutionPayments");
+        }
         [HttpGet]
         public async Task<IActionResult> PaymentDataProgram()
         {
@@ -659,6 +670,19 @@ namespace SIEL_1836109025062022.Controllers
             //var modalities = await modalityRepository.GetAllModalitiesByLevel(schedule_level);
             return Ok(schedules);
         }
+        [HttpGet]
+        public async Task<IActionResult> directions_for_institution_payment(){
+            var id = userService.GetUserId();
+            var urole = userRepository.GetUserRole(id);
+            var upicture = await userRepository.GetUserPicturePath(id);
+            var urole_name = await userRepository.GetUserRoleName(urole);
+            ViewData["role"] = urole;
+            ViewData["picture"] = upicture;
+            ViewData["role_name"] = urole_name;
+            return View();  
+        }
+          
+        
     }
 
 }

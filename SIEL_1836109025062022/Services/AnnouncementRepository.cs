@@ -1,4 +1,6 @@
 ﻿using Dapper;
+using MySql.Data.MySqlClient;
+using SIEL_1836109025062022.Data;
 using SIEL_1836109025062022.Models;
 using System.Data.SqlClient;
 
@@ -16,41 +18,47 @@ namespace SIEL_1836109025062022.Services
     }
     public class AnnouncementRepository : IAnnouncementRepository
     {
-        private readonly string connectionString;
-        public AnnouncementRepository(IConfiguration configuration)
+        // private readonly string connectionString;
+        private readonly MySQLConfiguration connectionString;
+        public AnnouncementRepository(MySQLConfiguration _connectionString)
         {
-            connectionString = configuration.GetConnectionString("DefaultConnection");
+            connectionString = _connectionString;
+        }
+
+        protected MySqlConnection MSconnection()
+        {
+            return new MySqlConnection(connectionString.ConnectionString);
         }
 
         public async Task<IEnumerable<Announcement>> GetAnnouncements()
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             return await connection.QueryAsync<Announcement>
                 (@"select * from announcements;");
         }
 
         public async Task CreateAnnouncement(AnnouncementCreationViewModel announcement)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             var id_announcement = await connection.QuerySingleAsync<int>(@"
                                  insert into announcements(announcement_name, announcement_description,
                                              announcement_picture,start_date,end_date,notes)
                                  values(@announcement_name,@announcement_description,@announcement_picture,
-                                        FORMAT(@start_date, 'yyyy-MM-ddTHH:mm:ss'),@end_date,@notes);
-                                 select SCOPE_IDENTITY();",
+                                        @start_date,@end_date,@notes);
+                                 select LAST_INSERT_ID();",
                                  announcement);
             announcement.id_announcement = id_announcement;
         }
         public async Task<AnnouncementCreationViewModel> GetAnnouncementById(int id_announcement)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             return await connection.QueryFirstOrDefaultAsync<AnnouncementCreationViewModel>(@"select * from announcements 
                                                                  where id_announcement = @id_announcement",
                                                                  new { id_announcement });
         }
         public async Task<bool> ExistsAnnouncement(AnnouncementCreationViewModel announcement)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             var exists = await connection.QueryFirstOrDefaultAsync<int>(@"
                                             select 1 from announcements
                                             where announcement_name like @announcement_name
@@ -62,7 +70,7 @@ namespace SIEL_1836109025062022.Services
 
         public async Task<bool> ExistsAnnouncementById(int id)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             var exists = await connection.QueryFirstOrDefaultAsync<int>(@"
                                             select 1 from announcements
                                             where id_announcement = @id;",
@@ -71,20 +79,20 @@ namespace SIEL_1836109025062022.Services
         }
         public async Task UpdateAnnouncement(AnnouncementCreationViewModel announcement)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             await connection.ExecuteAsync(@"update announcements
                                             set announcement_name = @announcement_name, 
                                             announcement_description = @announcement_description,
                                             start_date = @start_date, end_date = @end_date,
                                             notes = @notes
-                                            where id_announcement = 1",
+                                            where id_announcement = @id_announcement",
                                             announcement);
         }
         public async Task DeleteAnnouncementById(int id_announcement)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             await connection.ExecuteAsync(@"
-                             delete announcements where id_announcement = @id_announcement",
+                             delete from announcements where id_announcement = @id_announcement",
                              new { id_announcement });
         }
 

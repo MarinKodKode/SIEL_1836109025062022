@@ -1,4 +1,6 @@
 ﻿using Dapper;
+using MySql.Data.MySqlClient;
+using SIEL_1836109025062022.Data;
 using SIEL_1836109025062022.Models.ViewModel;
 using System.Data.SqlClient;
 
@@ -14,15 +16,21 @@ namespace SIEL_1836109025062022.Services
     }
     public class AccountantRepository : IAccountantRepository
     {
-        private readonly string connectionString;
-        public AccountantRepository(IConfiguration configuration)
+        // private readonly string connectionString;
+        private readonly MySQLConfiguration connectionString;
+        public AccountantRepository(MySQLConfiguration _connectionString)
         {
-            connectionString = configuration.GetConnectionString("DefaultConnection");
+            connectionString = _connectionString;
+        }
+
+        protected MySqlConnection MSconnection()
+        {
+            return new MySqlConnection(connectionString.ConnectionString);
         }
 
         public async Task<IEnumerable<AccountantAuthorizationViewModel>> GetInscriptionsRequests()
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             return await connection.QueryAsync<AccountantAuthorizationViewModel>
                 (@"select * from inscriptions
                     inner join students on students.id_student = inscriptions.insc_id_student
@@ -30,7 +38,7 @@ namespace SIEL_1836109025062022.Services
         }
         public async Task<IEnumerable<AccountantAuthorizationViewModel>> GetInscriptionsRequestsByProgramId(int id_program)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             return await connection.QueryAsync<AccountantAuthorizationViewModel>
                 (@"select * from inscriptions
                     inner join students on students.id_student = inscriptions.insc_id_student
@@ -40,7 +48,7 @@ namespace SIEL_1836109025062022.Services
         }
         public async Task<IEnumerable<AccountantAuthorizationViewModel>> GetUnsolvedPayments()
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             return await connection.QueryAsync<AccountantAuthorizationViewModel>
                 (@"select * from inscriptions
                     inner join students on students.id_student = inscriptions.insc_id_student
@@ -49,7 +57,7 @@ namespace SIEL_1836109025062022.Services
         }
         public async Task<IEnumerable<AccountantAuthorizationViewModel>> UnauthorizedPayments()
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             return await connection.QueryAsync<AccountantAuthorizationViewModel>
                 (@"select * from inscriptions
                     inner join students on students.id_student = inscriptions.insc_id_student
@@ -58,7 +66,7 @@ namespace SIEL_1836109025062022.Services
         }
         public async Task<IEnumerable<AccountantAuthorizationViewModel>> GetAuthorizedPayments()
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             return await connection.QueryAsync<AccountantAuthorizationViewModel>
                 (@"select * from inscriptions
                     inner join students on students.id_student = inscriptions.insc_id_student

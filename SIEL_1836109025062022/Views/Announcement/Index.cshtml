@@ -43,7 +43,7 @@
                                                         <label>@item.end_date.ToShortDateString()</label>
                                                     </td>
                                                     <td class="text-bold-500 col-md-3">
-                                                        <a class="btn btn-info sombra-1" asp-controller="Accountant" asp-action="ApproveConfirmation" asp-route-id="@item.id_announcement">
+                                                        <a class="btn btn-info sombra-1" asp-controller="Announcement" asp-action="AnnouncementDetail" asp-route-id="@item.id_announcement">
                                                         <i class="bi bi-eye-fill"></i></a>
                                                         <a class="btn btn-success sombra-1" asp-controller="Announcement" asp-action="EditAnnouncement" asp-route-id="@item.id_announcement">
                                                         <i class="bi bi-pencil-fill"></i></a>

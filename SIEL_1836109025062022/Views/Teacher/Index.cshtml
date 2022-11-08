@@ -26,8 +26,6 @@
                                                 <th>Telefono</th>
                                                 <th>Correo</th>
                                                 <th>Correo I.</th>
-                                                <th>Grupos</th>
-                                                <th>Alumnos</th>
                                                 <th>Acciones</th>
 
                                             </tr>
@@ -52,14 +50,8 @@
                                                     <label>@item.user_institution_email</label>
                                                     </td>
                                                     <td>
-                                                    <label>8</label>
-                                                    </td>
-                                                    <td>
-                                                    <label>126</label>
-                                                    </td>
-                                                    <td>
-                                                    <a class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Ver detalle"><i class="bi bi-eye"></i></a>
-                                                    <a class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Ver grupos asignados"><i class="bi bi-people-fill"></i></a>
+                                                    <a asp-controller="teacher" asp-action="teacherpersonaldata" asp-route-id="@item.id_user" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Ver detalle" ><i class="bi bi-eye"></i></a>
+                                                    <a asp-controller="teacher" asp-action="ClassesAssignedToTeacher" asp-route-id="@item.id_user" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Ver grupos asignados"><i class="bi bi-people-fill"></i></a>
                                                     </td>
                                                 </tr>
                                             }

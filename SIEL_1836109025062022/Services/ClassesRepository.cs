@@ -1,4 +1,6 @@
 ﻿using Dapper;
+using MySql.Data.MySqlClient;
+using SIEL_1836109025062022.Data;
 using SIEL_1836109025062022.Models.Classes;
 using System.Data.SqlClient;
 
@@ -16,15 +18,22 @@ namespace SIEL_1836109025062022.Services
     }
     public class ClassesRepository : IClassesRepository
     {
-        private readonly string connectionString;
-        public ClassesRepository(IConfiguration configuration)
+        // private readonly string connectionString;
+        private readonly MySQLConfiguration connectionString;
+        public ClassesRepository(MySQLConfiguration _connectionString)
         {
-            connectionString = configuration.GetConnectionString("DefaultConnection");
+            connectionString = _connectionString;
         }
+
+        protected MySqlConnection MSconnection()
+        {
+            return new MySqlConnection(connectionString.ConnectionString);
+        }
+
 
         public async Task<int> CreateClass(ClassCreateViewModel myNewClass)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             var id_class = await connection.QuerySingleAsync<int>(@"
                                  insert into classes
                                         (	classes.group_name,
@@ -37,14 +46,14 @@ namespace SIEL_1836109025062022.Services
 	                                        @group_id_responsable,
                                             @group_id_teacher,
                                             @group_id_schedule);
-                                        select SCOPE_IDENTITY();",
+                                        SELECT LAST_INSERT_ID();",
                                  myNewClass);
             myNewClass.id_class = id_class;
             return id_class;
         }
         public async Task<IEnumerable<ClassCreateViewModel>> GetClasses()
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             return await connection.QueryAsync<ClassCreateViewModel>(@"
                             select *
                             from classes
@@ -57,17 +66,20 @@ namespace SIEL_1836109025062022.Services
 
         public async Task AssignClassToStudents(ClassCreateViewModel myNewClass)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
-            await connection.ExecuteAsync(@"update top(@studentsAssigned) students set stdt_id_class = @assignedClass 
-                                            from students
+            var connection = MSconnection();
+            await connection.ExecuteAsync(@"update students 
                                             inner join inscriptions 
                                             on inscriptions.insc_id_student = students.id_student
-                                            where insc_status = 2 and insc_id_schedule = @group_id_schedule and (stdt_id_class = 4 OR stdt_id_class IS NULL)",
+                                            set stdt_id_class = @assignedClass 
+                                            where insc_status = 2 and insc_id_schedule = @group_id_schedule 
+                                            and (stdt_id_class = 4 OR stdt_id_class IS NULL)
+                                            ORDER BY students.id_student
+                                            LIMIT @studentsAssigned;",
                                             myNewClass);
         }
         public async Task<ClassCreateViewModel> GetClassById(int id_class)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             return await connection.QueryFirstOrDefaultAsync<ClassCreateViewModel>
                 (@"select *
                     from classes
@@ -81,7 +93,7 @@ namespace SIEL_1836109025062022.Services
         }
         public async Task UpdateClass(ClassCreateViewModel class_to_update)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             await connection.ExecuteAsync(@"update classes 
                                             set group_name = @group_name,                                        
                                             group_id_responsable = @group_id_responsable,
@@ -92,7 +104,7 @@ namespace SIEL_1836109025062022.Services
 
         public async Task ResetClassToStudents(int class_to_reset)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             await connection.ExecuteAsync(@"update students 
                                             set stdt_id_class = null
                                             where stdt_id_class=@class_to_reset",
@@ -101,8 +113,8 @@ namespace SIEL_1836109025062022.Services
 
         public async Task DeleteClass(int class_to_delete)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
-            await connection.ExecuteAsync(@"delete classes 
+            var connection = MSconnection();
+            await connection.ExecuteAsync(@"delete from classes 
                                             where id_class=@class_to_delete",
                                             new { class_to_delete });
         }

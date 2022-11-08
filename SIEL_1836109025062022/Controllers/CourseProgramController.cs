@@ -61,14 +61,23 @@ namespace SIEL_1836109025062022.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCourseProgram(CourseProgram courseProgram)
         {
+            var user_id = userService.GetUserId();
+            var credential = new Credential();
+            credential = await credentials.GetCredentials(user_id);
             if (!ModelState.IsValid)
             {
+                ViewData["role"] = credential.id_role;
+                ViewData["picture"] = credential.path_image;
+                ViewData["role_name"] = credential.role_name;
                 return View();
             }
             var existePrograma = await courseProgramRepository.ExistsCourseProgram(courseProgram.program_name);
 
             if (existePrograma)
             {
+                ViewData["role"] = credential.id_role;
+                ViewData["picture"] = credential.path_image;
+                ViewData["role_name"] = credential.role_name;
                 ModelState.AddModelError(nameof(courseProgram.program_name), 
                     "Ya hay un programa con el mismo nombre");
                 return View();

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SIEL_1836109025062022.Models;
+using SIEL_1836109025062022.Models.Credentials;
 using SIEL_1836109025062022.Services;
 
 namespace SIEL_1836109025062022.Controllers
@@ -13,18 +14,21 @@ namespace SIEL_1836109025062022.Controllers
         private readonly IUserService userService;
         private readonly IUserRepository userRepository;
         private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly ICredentialsRepository credentials;
 
         public UserController(UserManager<User> userManager,
             SignInManager<User> signInManager,
             IUserService userService,
             IUserRepository userRepository,
-            IWebHostEnvironment webHostEnvironment)
+            IWebHostEnvironment webHostEnvironment,
+            ICredentialsRepository credentials)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.userService = userService;
             this.userRepository = userRepository;
             this.webHostEnvironment = webHostEnvironment;
+            this.credentials = credentials;
         }
         public IActionResult Register()
         {
@@ -109,6 +113,7 @@ namespace SIEL_1836109025062022.Controllers
             return RedirectToAction("Login");
         }
         [HttpPost]
+        //This method works only for the student module
         public async Task<IActionResult> UpdateUser(StudentDataViewModel user)
         {
             await userRepository.UpdateUser(user);
@@ -116,8 +121,13 @@ namespace SIEL_1836109025062022.Controllers
         }
 
         [HttpPost]
+        //Method only available for user key #4 or student
         public async Task<IActionResult> UpdateUserProfilePicture(StudentDataViewModel user)
         {
+            var user_id = userService.GetUserId();
+            var credential = new Credential();
+            credential = await credentials.GetCredentials(user_id);
+
             var id_user = userService.GetUserId();
             var db_path = await userRepository.GetUserProfilePicturePath(id_user) ;
              DeleteExistingFile(db_path);
@@ -128,8 +138,18 @@ namespace SIEL_1836109025062022.Controllers
             await user.file_user_profile_picture.CopyToAsync
                 (new System.IO.FileStream(fileName, System.IO.FileMode.Create));
             await userRepository.UpdateUserProfilePicture(file_name_db, id_user);
+            if(credential.id_role == 4)
+            {
+                return RedirectToAction("StudentPersonalData", "Student");
+            }else if(credential.id_role == 3)
+            {
+                return RedirectToAction("TeacherGroups", "Teacher");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Levels");
+            }
             
-            return RedirectToAction("StudentPersonalData", "Student");
 
         }
 
@@ -141,6 +161,35 @@ namespace SIEL_1836109025062022.Controllers
             {
                 System.IO.File.Delete(path);
             }
+        }
+    
+        [HttpGet]
+        public async Task<IActionResult> UserPersonalData()
+        {
+            var user_id = userService.GetUserId();
+            var credential = new Credential();
+            credential = await credentials.GetCredentials(user_id);
+            //User key #4 is student, a method for data update has been already defined
+            if (credential.id_role != 1 && credential.id_role != 2 && credential.id_role != 3 && credential.id_role != 5)
+            {
+                return RedirectToAction("e404", "Home");
+            }
+            else
+            {
+                //Credentials
+                ViewData["role"] = credential.id_role;
+                ViewData["picture"] = credential.path_image;
+                ViewData["role_name"] = credential.role_name;
+                var model =await userRepository.GetUserById(user_id);
+                return View(model);
+            }
+        }
+        [HttpPost]
+        //This method works only for the student module
+        public async Task<IActionResult> UpdateUserPersonalData(User user)
+        {
+            await userRepository.UpdateUser(user);
+            return RedirectToAction("TeacherGroups", "Teacher");
         }
     }
 }

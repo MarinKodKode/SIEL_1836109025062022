@@ -1,0 +1,56 @@
+﻿@using SIEL_1836109025062022.Models.Classes
+@model IEnumerable<ClassCreateViewModel>
+@{
+    ViewData["Title"] = "Profesores";
+}
+        <section id="multiple-column-form">
+            <div class="row match-height">
+                <div class="row match-height">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title d-inline">Hi teacher!</h4>
+                            </div>
+                            <div col-md-6 col-sm-12>
+                                <div class="card-body">
+                                    <table class="table" id="table1">
+                                        <thead>
+                                            <tr>
+                                                <th>Clase</th>
+                                                <th>Horario</th>
+                                                <th>Alumnos</th>
+                                                <th>Nivel</th>
+                                                <th>Modalidad</th>
+                                                <th>Acciones</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <td>@item.group_name</td>
+                                                    <td>@item.schedule_description</td>
+                                                    <td>34</td>
+                                                    <td>@item.level_name</td>
+                                                    <td>@item.modality_name</td>
+                                                    <td>
+                                                    <a class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Ver alumnos" asp-controller="Classes" asp-action="GetStudentsJoinedToClass" asp-route-id="@item.id_class"><i class="bi bi-people-fill"></i></a>
+                                                    <a class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Cargar calificaciones"><i class="bi bi-file-earmark-bar-graph-fill"></i></a>
+                                                    <a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Cerrar clase"><i class="bi bi-lock-fill"></i></a>
+                                                    </td>
+                                                }
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+               @section Scripts{
+                                <partial name = "_ValidationScriptsPartial"/>
+                                <script>$(document).ready(function(){$('[data-toggle="tooltip"]').tooltip();});</script>
+               }
+        </section> 

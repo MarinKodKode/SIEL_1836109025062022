@@ -185,7 +185,7 @@ namespace SIEL_1836109025062022.Controllers
             var student_id = userService.GetUserId();
             var credential = new Credential();
             credential = await credentials.GetCredentials(student_id);
-            if (credential.id_role != 1 && credential.id_role != 2) { return RedirectToAction("e404", "Home"); }
+            if (credential.id_role != 1 && credential.id_role != 2 && credential.id_role != 3) { return RedirectToAction("e404", "Home"); }
             else
             {
                 ViewData["role"] = credential.id_role;
@@ -203,7 +203,7 @@ namespace SIEL_1836109025062022.Controllers
             var student_id = userService.GetUserId();
             var credential = new Credential();
             credential = await credentials.GetCredentials(student_id);
-            if (credential.id_role != 1 && credential.id_role != 2) { return RedirectToAction("e404", "Home"); }
+            if (credential.id_role != 1 && credential.id_role != 2 && credential.id_role != 3) { return RedirectToAction("e404", "Home"); }
             else
             {
                 ViewData["role"] = credential.id_role;
