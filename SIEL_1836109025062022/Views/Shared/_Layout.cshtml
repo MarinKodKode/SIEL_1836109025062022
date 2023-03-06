@@ -1,20 +1,20 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<User> SignInManager
 @{
-    var role = int.Parse(ViewData["role"].ToString());
-    var picture = ViewData["picture"].ToString();
-    var role_name = ViewData["role_name"].ToString();
+   var role = int.Parse(ViewData["role"].ToString());        
+   var picture  = ViewData["picture"].ToString();        
+   var role_name = ViewData["role_name"].ToString();        
 }
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"]</title>
     <link rel="apple-touch-icon" sizes="76x76" href="~/assets2/img/impl.png">
     <link rel="icon" type="image/png" href="~/assets2/img/impl.png">
-
+    
     <link rel="stylesheet" href="~/css/pages/pagina_no_inscrito.css">
     <link rel="stylesheet" href="~/assets/css/main/app.css" asp-append-version="true">
     <link rel="stylesheet" href="~/assets/css/main/app-dark.css" asp-append-version="true">
@@ -25,153 +25,154 @@
     <link rel="stylesheet" href="~/assets/css/pages/filepond.css">
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
     <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
-
-
+    
+    <style>
+        .btn-primary{
+            background-color:#621132 !important;
+        }
+        .btn-secondary{
+             background-color:#9D2449!important;
+        }
+        .btn-info{
+             background-color:#6F7271!important;
+        }
+        .btn-succes{
+             background-color:#235B4E!important;
+        }
+        .btn-danger{
+             background-color:#B38E5D!important;
+        }
+        .accordion-button{
+            background-color : #d4c19c;
+            color:black;
+        }
+        .accordion-button:not(.collapsed){
+            background-color : #d4c19c;
+            color:black;
+        }
+        .text-primary{
+            color:white !important;
+        }
+    </style>
 
 </head>
 <body>
-    <div id="app">
-
-        @*<header class="mb-5">
-            <a class="burger-btn d-block d-xl-none" href="#">
-                <i class="bi bi-justify fs-3"></i>
-            </a>
-        </header>*@
-
-        <div id="sidebar" class="active">
-            <div class="sidebar-wrapper active">
-                <div class="sidebar-header position-relative">
-
-
-
-
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="logo">
-                            <a href="index.html"><img src="~/assets/images/logo/Lgan1.png" alt="Logo" srcset=""></a>
+        <div id="app">
+    <div id="sidebar" class="active">
+         <div class="sidebar-wrapper active">
+            <div class="sidebar-header position-relative">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="logo">
+                        <a href="#"><img src="~/assets/images/logo/itvh2.png" alt="Logo" style="height: 5.5rem;"></a>
+                    </div>
+                    <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--system-uicons" width="20" height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 21 21"><g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 14.5c2.219 0 4-1.763 4-3.982a4.003 4.003 0 0 0-4-4.018c-2.219 0-4 1.781-4 4c0 2.219 1.781 4 4 4zM4.136 4.136L5.55 5.55m9.9 9.9l1.414 1.414M1.5 10.5h2m14 0h2M4.135 16.863L5.55 15.45m9.899-9.9l1.414-1.415M10.5 19.5v-2m0-14v-2" opacity=".3"></path><g transform="translate(-210 -1)"><path d="M220.5 2.5v2m6.5.5l-1.5 1.5"></path><circle cx="220.5" cy="11.5" r="4"></circle><path d="m214 5l1.5 1.5m5 14v-2m6.5-.5l-1.5-1.5M214 18l1.5-1.5m-4-5h2m14 0h2"></path></g></g></svg>
+                        <div class="form-check form-switch fs-6">
+                            <input class="form-check-input  me-0" type="checkbox" id="toggle-dark" >
+                            <label class="form-check-label" ></label>
                         </div>
-                        <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--system-uicons" width="20" height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 21 21"><g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 14.5c2.219 0 4-1.763 4-3.982a4.003 4.003 0 0 0-4-4.018c-2.219 0-4 1.781-4 4c0 2.219 1.781 4 4 4zM4.136 4.136L5.55 5.55m9.9 9.9l1.414 1.414M1.5 10.5h2m14 0h2M4.135 16.863L5.55 15.45m9.899-9.9l1.414-1.415M10.5 19.5v-2m0-14v-2" opacity=".3"></path><g transform="translate(-210 -1)"><path d="M220.5 2.5v2m6.5.5l-1.5 1.5"></path><circle cx="220.5" cy="11.5" r="4"></circle><path d="m214 5l1.5 1.5m5 14v-2m6.5-.5l-1.5-1.5M214 18l1.5-1.5m-4-5h2m14 0h2"></path></g></g></svg>
-                            <div class="form-check form-switch fs-6">
-                                <input class="form-check-input  me-0" type="checkbox" id="toggle-dark">
-                                <label class="form-check-label"></label>
-                            </div>
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--mdi" width="20" height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="m17.75 4.09l-2.53 1.94l.91 3.06l-2.63-1.81l-2.63 1.81l.91-3.06l-2.53-1.94L12.44 4l1.06-3l1.06 3l3.19.09m3.5 6.91l-1.64 1.25l.59 1.98l-1.7-1.17l-1.7 1.17l.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95l2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85c-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14c.4-.4.82-.76 1.27-1.08c.75-.53 1.93.36 1.85 1.19c-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82c-2.81 3.14-2.7 7.96.31 10.98c3.02 3.01 7.84 3.12 10.98.31Z"></path></svg>
-                        </div>
-                        <div class="sidebar-toggler  x">
-                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
-                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--mdi" width="20" height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="m17.75 4.09l-2.53 1.94l.91 3.06l-2.63-1.81l-2.63 1.81l.91-3.06l-2.53-1.94L12.44 4l1.06-3l1.06 3l3.19.09m3.5 6.91l-1.64 1.25l.59 1.98l-1.7-1.17l-1.7 1.17l.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95l2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85c-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14c.4-.4.82-.76 1.27-1.08c.75-.53 1.93.36 1.85 1.19c-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82c-2.81 3.14-2.7 7.96.31 10.98c3.02 3.01 7.84 3.12 10.98.31Z"></path></svg>
+                    </div>
+                    <div class="sidebar-toggler  x">
+                        <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
                     </div>
                 </div>
+            </div>
+            <div class="sidebar-menu">
+                <ul class="menu">
+                    <li class="sidebar-title">Menu </li>
 
-                <div class="sidebar-menu">
-                    <ul class="menu">
-
-                        <li class="sidebar-title">Menu </li>
-
-                        <!------------------------Acciones de estudiante------------------------>
-                        @if (role == 2 || role == 1)
-                        {
-                            <partial name="_AdminInstOptions" />
-                            <partial name="_AccountantOptions" />
-                            <partial name="_TeacherOptions" />
-                        }
-                        else if (role == 3)
-                        {
-                            <partial name="_TeacherOptions" />
-                        }
-                        else if (role == 4)
-                        {
-                            <partial name="_StudentOptions" />
-                        }
-                        else if (role == 5)
-                        {
-                            <partial name="_AccountantOptions" />
-                        }
-                    </ul>
-
-                </div>
+                    <!------------------------Acciones de estudiante------------------------>
+                        
+                            @if(role == 2 || role == 1)
+                            {
+                               <partial name = "_AdminInstOptions" /> 
+                               <partial name = "_AccountantOptions" />
+                               <partial name = "_TeacherOptions" />
+                            }
+                            else if(role ==  3){
+                                <partial name = "_TeacherOptions" />
+                            }else if(role == 4)
+                            {
+                                <partial name = "_StudentOptions" />
+                            }else if(role == 5)
+                            {
+                                <partial name = "_AccountantOptions" />
+                            }
+                </ul>
+                
             </div>
         </div>
-        <div id="main" class="pt-1">
-
-            <header class="mb-3">
-                <a class="burger-btn d-block d-xl-none" href="#">
-                    <i class="bi bi-justify fs-3"></i>
-                </a>
-            </header>
-
-            <header class="mb-3">
-                <nav class="navbar navbar-expand navbar-light ">
-                    <div class="container-fluid">
-                        <div class="collapse navbar-collapse align-content-md-between" id="navbarSupportedContent ">
-
+    </div>
+    <div id="main" class="pt-1">
+    <header class="mb-3" style="
+    margin-left: -80px;
+    background-color: #621133;
+    margin-top: -10px;
+    margin-right: -50px;
+">
+                    <nav class="navbar navbar-expand navbar-primary">
+                    <div class="container-fluid" style="margin-right:50px">
+                        <div class="collapse navbar-collapse align-content-md-between"  id="navbarSupportedContent ">
+                            
                             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             </ul>
-
+                            
                             <div class="dropdown">
                                 <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="user-menu d-flex">
                                         <div class="user-name text-end me-3">
-                                            <h6 class="mb-0 text-gray-600">@User.Identity.Name</h6>
-                                            <p class="mb-0 text-sm text-gray-600">@role_name </p>
+                                            <h6 class="mb-0 text-white">@User.Identity.Name</h6>
+                                            <p class="mb-0 text-sm text-white">@role_name </p>
                                         </div>
                                         <div class="user-img d-flex align-items-center">
                                             <div class="avatar avatar-md">
                                                 <img src="@picture">
                                             </div>
-                                        </div>
+                                        </div>       
                                     </div>
                                 </a>
-
-
+                                
+                                               
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" style="min-width: 11rem;">
                                     <li>
-                                        <h6 class="dropdown-header">Hola @User.Identity.Name</h6>
+                                        <h6 class="dropdown-header" >Hola @User.Identity.Name</h6>
                                     </li>
                                     <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-person me-2"></i>Mis datos</a></li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="icon-mid bi bi-building me-2"></i>
-                                            Inscripción
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="icon-mid bi bi-credit-card-2-front-fill me-2"></i>
-                                            Referencias
-                                        </a>
-                                    </li>
+                                    <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-building me-2"></i>
+                                            Inscripción</a></li>
+                                    <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-credit-card-2-front-fill me-2"></i>
+                                            Referencias</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
                                     <li>
-                                        <form class="form-control" asp-controller="User" asp-action="Logout">
-                                            <button type="submit">
-                                                <span class="dropdown-item">
-                                                    <i class="icon-mid bi bi-box-arrow-left me-2"></i> Cerrar sesión
-                                                </span>
-                                            </button>
+                                        <form class="form-control" asp-controller="User"  asp-action="Logout">
+                                        <button type="submit">
+                                            <span class="dropdown-item" ><i
+                                                class="icon-mid bi bi-box-arrow-left me-2"></i> Cerrar sesión</span>
+                                        </button>
                                         </form>
-                                    </li>
-
+                                    </li>    
+                                    
                                 </ul>
                             </div>
                         </div>
                     </div>
-                </nav>
-            </header>
+                    </nav>
+    </header>
 
-            <div class="container">
-                <main role="main" class="pb-3">
-                    @RenderBody()
-                </main>
-            </div>
-            <footer class="border-top footer text-muted">
-                <div class="container">
-                    &copy; 2022 - SIEL_1836109025062022
-                </div>
-            </footer>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - SIEL_1836109025062022
         </div>
+    </footer>
+    </div>
     </div>
     <script src="~/js/app.js"></script>
     <script src="~/js/pages/dashboard.js"></script>
@@ -183,309 +184,6 @@
     <script src="~/assets/plugin/components/moment/moment.min.js"></script>
     <script src="~/assets/plugin/components/moment/moment-timezone-with-data.min.js"></script>
     <script src="~/assets/js/extensions/datatables.js"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-
-
-
-@*@using Microsoft.AspNetCore.Identity
-
-@inject SignInManager<User> SignInManager
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"]</title>
-
-
-    <link rel="stylesheet" href="~/css/pages/pagina_no_inscrito.css">
-    <link rel="stylesheet" href="~/assets/css/main/app.css" asp-append-version="true">
-    <link rel="stylesheet" href="~/assets/css/main/app-dark.css" asp-append-version="true">
-    <link rel="shortcut icon" href="~/images/lodgo/favicon.svg" type="image/x-icon">
-    <link rel="shortcut icon" href="~/images/lodgo/favicon.png" type="image/png">
-    <link rel="stylesheet" href="~/css/shared/iconly.css" asp-append-version="true">
-    <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true">
-    <link rel="stylesheet" href="~/assets/css/pages/filepond.css">
-
-
-
-</head>
-<body>
-    <div id="app">
-        <div id="sidebar" class="active">
-            <div class="sidebar-wrapper active">
-                <div class="sidebar-header position-relative">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="logo">
-                            <a href="index.html"><img style="width: 125px; height: 74px;"
-                                src="~/assets/images/logo/LogoSMAS.png">
-                            </a>
-                        </div>
-                        <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--system-uicons" width="20" height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 21 21"><g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 14.5c2.219 0 4-1.763 4-3.982a4.003 4.003 0 0 0-4-4.018c-2.219 0-4 1.781-4 4c0 2.219 1.781 4 4 4zM4.136 4.136L5.55 5.55m9.9 9.9l1.414 1.414M1.5 10.5h2m14 0h2M4.135 16.863L5.55 15.45m9.899-9.9l1.414-1.415M10.5 19.5v-2m0-14v-2" opacity=".3"></path><g transform="translate(-210 -1)"><path d="M220.5 2.5v2m6.5.5l-1.5 1.5"></path><circle cx="220.5" cy="11.5" r="4"></circle><path d="m214 5l1.5 1.5m5 14v-2m6.5-.5l-1.5-1.5M214 18l1.5-1.5m-4-5h2m14 0h2"></path></g></g></svg>
-                            <div class="form-check form-switch fs-6">
-                                <input class="form-check-input  me-0" type="checkbox" id="toggle-dark">
-                                <label class="form-check-label"></label>
-                            </div>
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--mdi" width="20" height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="m17.75 4.09l-2.53 1.94l.91 3.06l-2.63-1.81l-2.63 1.81l.91-3.06l-2.53-1.94L12.44 4l1.06-3l1.06 3l3.19.09m3.5 6.91l-1.64 1.25l.59 1.98l-1.7-1.17l-1.7 1.17l.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95l2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85c-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14c.4-.4.82-.76 1.27-1.08c.75-.53 1.93.36 1.85 1.19c-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82c-2.81 3.14-2.7 7.96.31 10.98c3.02 3.01 7.84 3.12 10.98.31Z"></path></svg>
-                        </div>
-                        <div class="sidebar-toggler  x">
-                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="sidebar-menu">
-                    <ul class="menu">
-                        <li class="sidebar-title">Menu</li>
-
-                        <!------------------------Acciones de estudiante------------------------>
-                        <li class="sidebar-item  has-sub">
-                            <a class='sidebar-link'>
-                                <i class="bi bi-bar-chart-fill"></i>
-                                <span>Inicio</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a asp-area="" asp-controller="Student" asp-action="Index">Mi Avance</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="https://www.youtube.com/channel/UCUXpwMzV4Mx5lV_NbnY2Kcw/videos">Tutoriales del Curso</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!------------------------INICIA ITEM DESPLEGABLE------------------------>
-
-
-                        <li class="sidebar-item  ">
-                            <a class='sidebar-link' asp-area="" asp-controller="Student" asp-action="StudentAnnouncement">
-                                <i class="bi bi-file-earmark-medical-fill"></i>
-                                <span>Convocatorias</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  ">
-                            <a class="sidebar-link" asp-area="" asp-controller="Student" asp-action="StudentGetPaymentData">
-                                <i class="bi bi-credit-card-2-front-fill"></i>
-                                <span>Referencias de pago</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  ">
-                            <a class="sidebar-link" asp-area="" asp-controller="Student" asp-action="StudentInscription">
-                                <i class="bi bi-building"></i>
-                                <span>Incripción</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  ">
-                            <a class="sidebar-link" asp-area="" asp-controller="Student" asp-action="StudentPersonalData">
-                                <i class="bi bi-person"></i>
-                                <span>Datos personales</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item  ">
-                            <a class="sidebar-link" href="https://ed.engdis.com//avatarisolution#/login" target="_blank">
-                                <i class="bi bi-laptop-fill"></i>
-                                <span>English Discoveries</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item  ">
-                            <a class="sidebar-link" href="https://wa.me/5215522461687" target="_blank">
-                                <i class="bi bi-whatsapp"></i>
-                                <span>Contácto Loogan Lts.</span>
-                            </a>
-                        </li>
-                        <!------------------------Acciones de administrador------------------------>
-                        <li class="sidebar-title">Administrador</li>
-                        <li class="sidebar-item  has-sub">
-                            <a class='sidebar-link'>
-                                <i class="bi bi-person-badge-fill"></i>
-                                <span>Administrador</span>
-                            </a>
-                            <ul class="submenu">
-                                <li class="submenu-item ">
-                                    <a class="sidebar-link" asp-area="" asp-controller="CourseProgram" asp-action="Index">Programas</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a class="sidebar-link" asp-area="" asp-controller="Levels" asp-action="Index">Niveles</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a class="sidebar-link" asp-area="" asp-controller="Schedule" asp-action="Index">Horarios</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a class="sidebar-link" asp-area="" asp-controller="Teacher" asp-action="Index">Profesores</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a class="sidebar-link" asp-area="" asp-controller="Modality" asp-action="Index">Modalidades</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a class="sidebar-link" asp-area="" asp-controller="Convocation" asp-action="Index">Convocatorias</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!------------------------INICIA ITEM DESPLEGABLE------------------------>
-                        <li class="sidebar-title">Contabilidad</li>
-
-                        <!------------------------Acciones de auxiliar contable------------------------>
-                        <li class="sidebar-item  has-sub">
-                            <a class='sidebar-link'>
-                                <i class="bi bi-bar-chart-fill"></i>
-                                <span>Contabilidad</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a asp-area="" asp-controller="Accountant" asp-action="Index">Bouchers de pago</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!------------------------INICIA ITEM DESPLEGABLE------------------------>
-                        <!------------------------INICIA ITEM DESPLEGABLE------------------------>
-                        <li class="sidebar-title">Facilitador</li>
-
-                        <!------------------------Acciones de auxiliar contable------------------------>
-                        <li class="sidebar-item  has-sub">
-                            <a class='sidebar-link'>
-                                <i class="bi bi-bar-chart-fill"></i>
-                                <span>Facilitador</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a asp-area="" asp-controller="Boucher" asp-action="Index">Estudiantes</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!------------------------INICIA ITEM DESPLEGABLE------------------------>
-
-                        <!------------------------INICIA REPORTES------------------------>
-                        <li class="sidebar-title">Reportes</li>
-
-                        <!------------------------Despliegue Reportes------------------------>
-                        <li class="sidebar-item  has-sub">
-                            <a class='sidebar-link'>
-                                <i class="bi bi-bar-chart-fill"></i>
-                                <span>Reportes</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a asp-area="" asp-controller="Boucher" asp-action="Index">Reportes por Programa</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a asp-area="" asp-controller="Boucher" asp-action="Index">Reportes por Modalidad</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a asp-area="" asp-controller="Boucher" asp-action="Index">Reportes por Nivel</a>
-                                </li>
-                            </ul>
-
-                        </li>
-
-
-                        <!------------------------TERMINA REPORTES------------------------>
-
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div id="main" class="pt-1">
-            <header class="mb-3">
-                <a href="#" class="burger-btn d-block d-xl-none">
-                    <i class="bi bi-justify fs-3"></i>
-                </a>
-                <nav class="navbar navbar-expand navbar-light ">
-                    <div class="container-fluid">
-                        <div class="collapse navbar-collapse align-content-md-between" id="navbarSupportedContent ">
-
-                            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            </ul>
-
-                            <div class="dropdown">
-                                <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <div class="user-menu d-flex">
-                                        <div class="user-name text-end me-3">
-
-                                            <h6 class="mb-0 text-gray-600">@User.Identity.Name</h6>
-                                            <p class="mb-0 text-sm text-gray-600">Estudiante</p>
-                                        </div>
-                                        <div class="user-img d-flex align-items-center">
-                                            <div class="avatar avatar-md">
-                                                <img src="~/assets/images/4853433.png">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-
-
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" style="min-width: 11rem;">
-                                    <li>
-                                        <h6 class="dropdown-header">Hola @User.Identity.Name</h6>
-                                    </li>
-                                    <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-person me-2"></i>Mis datos</a></li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="icon-mid bi bi-building me-2"></i>
-                                            Inscripción
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="icon-mid bi bi-credit-card-2-front-fill me-2"></i>
-                                            Referencias
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <form class="form-control" asp-controller="User" asp-action="Logout">
-                                            <button type="submit">
-                                                <span class="dropdown-item">
-                                                    <i class="icon-mid bi bi-box-arrow-left me-2"></i> Cerrar sesión
-                                                </span>
-                                            </button>
-                                        </form>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-            </header>
-
-            <div class="container">
-                <main role="main" class="pb-3">
-                    @RenderBody()
-                </main>
-            </div>
-            <footer class="border-top footer text-muted">
-                <div class="container">
-                    &copy; 2022 - SIEL_1836109025062022 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                </div>
-            </footer>
-        </div>
-    </div>
-    <script src="~/js/app.js"></script>
-    <script src="~/js/pages/dashboard.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/assets/js/extensions/filepond.js"></script>
-    <script src="~/assets/plugin/components/moment/moment.min.js"></script>
-    <script src="~/assets/plugin/components/moment/moment-timezone-with-data.min.js"></script>
-    <script src="~/assets/js/extensions/datatables.js"></script>
-    <!-- spanish language (es) -->
-    <script src="~/assets/plugin/whatsapp-chat-support.js"></script>
-
-    @await RenderSectionAsync("Scripts", required: false)
-    <script>
-        $('#button-w').whatsappChatSupport({
-            defaultMsg: '',
-        });
-    </script>
-</body>
-</html>
-*@

@@ -30,6 +30,10 @@ namespace SIEL_1836109025062022.Controllers
             {
                 return RedirectToAction("Index", "Levels");
             }
+            else if (role == 3)
+            {
+                return RedirectToAction("TeacherGroups", "Teacher");
+            }
             else
             {
                 return RedirectToAction("e404", "Home");

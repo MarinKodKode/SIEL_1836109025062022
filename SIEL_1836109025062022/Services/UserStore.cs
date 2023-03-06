@@ -13,7 +13,7 @@ namespace SIEL_1836109025062022.Services
         }
         public async Task<IdentityResult> CreateAsync(User user, CancellationToken cancellationToken)
         {
-            user.id_user = await userRepository.CreateUser(user);   
+            user.id_user = await userRepository.CreateUser(user);
             return IdentityResult.Success;
         }
 
@@ -24,7 +24,7 @@ namespace SIEL_1836109025062022.Services
 
         public void Dispose()
         {
-            
+
         }
 
         public async Task<User> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
@@ -39,7 +39,7 @@ namespace SIEL_1836109025062022.Services
 
         public async Task<User> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
-            return await userRepository.GetUserByEmail(normalizedUserName); 
+            return await userRepository.GetUserByEmail(normalizedUserName);
         }
 
         public Task<string> GetEmailAsync(User user, CancellationToken cancellationToken)

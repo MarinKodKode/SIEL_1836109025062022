@@ -62,7 +62,6 @@ namespace SIEL_1836109025062022.Controllers
             var credential = new Credential();
             credential = await credentials.GetCredentials(student_id);
             var announcement = await announcementRepository.ExistsAnnouncementById(id);
-            var isAnnouncementConcluded = await announcementRepository.ExistsAnnouncementConcluded(id);
 
             if (announcement)
             {
@@ -70,25 +69,12 @@ namespace SIEL_1836109025062022.Controllers
                 ViewData["picture"] = credential.path_image;
                 ViewData["role_name"] = credential.role_name;
                 var model = await announcementRepository.GetAnnouncementById(id);
-                
-
-
-                if (!isAnnouncementConcluded)
-                {
-                    ViewBag.status = isAnnouncementConcluded;
-                }
-                else
-                {
-                    ViewBag.status = isAnnouncementConcluded;
-                }
-
                 return View(model);
             }
             else
             {
                 return RedirectToAction("e404", "Home");
             }
-            
         }
 
 

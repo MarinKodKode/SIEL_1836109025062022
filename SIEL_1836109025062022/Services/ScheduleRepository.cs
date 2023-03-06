@@ -1,4 +1,6 @@
 ﻿using Dapper;
+using MySql.Data.MySqlClient;
+using SIEL_1836109025062022.Data;
 using SIEL_1836109025062022.Models;
 using SIEL_1836109025062022.Models.ViewModel;
 using System.Data.SqlClient;
@@ -20,32 +22,41 @@ namespace SIEL_1836109025062022.Services
     public class ScheduleRepository : IScheduleRepository
     {
 
-        private readonly string connectionString;
-        public ScheduleRepository(IConfiguration configuration)
+        // private readonly string connectionString;
+        private readonly MySQLConfiguration connectionString;
+        public ScheduleRepository(MySQLConfiguration _connectionString)
         {
-            connectionString = configuration.GetConnectionString("DefaultConnection");
+            connectionString = _connectionString;
+        }
+
+        protected MySqlConnection MSconnection()
+        {
+            return new MySqlConnection(connectionString.ConnectionString);
         }
 
         public async Task CreateSchedule(Schedule schedule)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            //using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             var id_schedule = await connection.QuerySingleAsync<int>(@"insert into schedules (schedule_name, schedule_description, schedule_level,schedule_modality)
                                 values (@schedule_name,@schedule_description, @schedule_level,@schedule_modality); 
-                                SELECT SCOPE_IDENTITY();",
+                                SELECT LAST_INSERT_ID();",
                                 schedule);
             schedule.id_schedule = id_schedule;
         }
 
         public async Task<IEnumerable<Schedule>> GetAllSchedules()
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            //using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             return await connection.QueryAsync<Schedule>(@"
                                     select * from schedules;");
         }
 
         public async Task<IEnumerable<Schedule>> GetAllSchedulesByLevel(int id_level)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            //using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             return await connection.QueryAsync<Schedule>(@"
                                     select * from schedules
                                     inner join modalities on schedules.schedule_modality = modalities.id_modality
@@ -55,7 +66,8 @@ namespace SIEL_1836109025062022.Services
 
         public async Task<IEnumerable<Schedule>> GetAllSchedulesByModality(int id)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            //using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             return await connection.QueryAsync<Schedule>(@"
                                     select * from schedules
                                     where schedule_modality = @id;",
@@ -63,7 +75,8 @@ namespace SIEL_1836109025062022.Services
         }
         public async Task<bool> ExistSchedule(string schedule_name, string schedule_description)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            // using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             var exists = await connection.QueryFirstOrDefaultAsync<int>(@"
                                             select 1 
                                             from schedule
@@ -74,7 +87,8 @@ namespace SIEL_1836109025062022.Services
 
         public async Task UpdateSchedule(Schedule schedule)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            //using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             await connection.ExecuteAsync(@"UPDATE schedules
                                             set schedule_name = @schedule_name, schedule_description = @schedule_description
                                             where id_schedule = @id_schedule",
@@ -83,15 +97,21 @@ namespace SIEL_1836109025062022.Services
 
         public async Task<Schedule> GetSchedulebyId(int id_schedule)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            // using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             return await connection.QueryFirstOrDefaultAsync<Schedule>(@"
-                         select * from schedules where id_schedule = @id_schedule",
+                         select * from schedules
+                            inner join levels on levels.id_level = schedules.schedule_level
+                            inner join modalities on modalities.id_modality = schedules.schedule_modality
+                            inner join programs on levels.level_id_program = programs.id_program
+                            where id_schedule = @id_schedule",
                          new { id_schedule });
         }
 
         public async Task DeleteScheduleById(int id_schedule)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            // using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             await connection.ExecuteAsync(@"
                              delete schedules where id_schedule = @id_schedule",
                              new { id_schedule });
@@ -101,7 +121,8 @@ namespace SIEL_1836109025062022.Services
 
         public async Task<bool> ExistsSchedule(Schedule schedule)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            //using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             var exists = await connection.QueryFirstOrDefaultAsync<int>(@"
                                             select 1 from schedules
                                             where schedule_name like @schedule_name
@@ -111,5 +132,7 @@ namespace SIEL_1836109025062022.Services
                                             schedule);
             return exists == 1;
         }
+
+
     }
 }

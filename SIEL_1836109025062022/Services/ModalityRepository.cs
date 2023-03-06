@@ -1,4 +1,6 @@
 ﻿using Dapper;
+using MySql.Data.MySqlClient;
+using SIEL_1836109025062022.Data;
 using SIEL_1836109025062022.Models;
 using SIEL_1836109025062022.Models.ViewModel;
 using System.Data.SqlClient;
@@ -20,20 +22,26 @@ namespace SIEL_1836109025062022.Services
     }
     public class ModalityRepository : IModalityRepository
     {
-        private readonly string connectionString;
-        public ModalityRepository(IConfiguration configuration)
+        //COnfiguration for connection with MySql Server
+        // private readonly string connectionString;
+        private readonly MySQLConfiguration connectionString;
+        public ModalityRepository(MySQLConfiguration _connectionString)
         {
-            connectionString = configuration.GetConnectionString("DefaultConnection");
+            connectionString = _connectionString;
         }
 
+        protected MySqlConnection MSconnection()
+        {
+            return new MySqlConnection(connectionString.ConnectionString);
+        }
         //CRUD OPERATIONS
         public async Task CreateModality(Modality modality)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             var id_modality = await connection.QuerySingleAsync<int>
                 (@"insert into modalities (modality_name,modality_description,modality_weeks_duration,modality_order,modality_level_id)
                  values(@modality_name,@modality_description, @modality_weeks_duration, @modality_order,@modality_level_id);
-                 SELECT SCOPE_IDENTITY();",
+                 SELECT LAST_INSERT_ID()",
                  modality);
             modality.id_modality = id_modality;
 
@@ -41,7 +49,7 @@ namespace SIEL_1836109025062022.Services
 
         public async Task<IEnumerable<Modality>> GetAllModalities()
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             return await connection.QueryAsync<Modality>(@"
                                     select * from modalities
                                     inner join levels 
@@ -51,7 +59,7 @@ namespace SIEL_1836109025062022.Services
         }
         public async Task<IEnumerable<Modality>> GetAllModalitiesByLevel(int id_level)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             return await connection.QueryAsync<Modality>(@"
                                     select * from modalities
                                     where modality_level_id = @id_level;",
@@ -59,7 +67,7 @@ namespace SIEL_1836109025062022.Services
         }
         public async Task<Modality> GetModalityById(int id_modality)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             return await connection.QueryFirstOrDefaultAsync<Modality>(@"
                          select * from modalities where id_modality = @id_modality",
                          new { id_modality });
@@ -68,7 +76,7 @@ namespace SIEL_1836109025062022.Services
 
         public async Task<ModalityDetailViewModel> GetModalityLevelById(int id_modality)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             return await connection.QueryFirstOrDefaultAsync<ModalityDetailViewModel>(@"
                          select * from modalities
                             inner join levels 
@@ -78,14 +86,14 @@ namespace SIEL_1836109025062022.Services
         }
         public async Task DeleteModalityById(int id_modality)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             await connection.ExecuteAsync(@"
-                             delete modalities where id_modality = @id_modality",
+                             delete FROM modalities where id_modality = @id_modality",
                              new { id_modality });
         }
         public async Task UpdateModality(Modality modality)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             await connection.ExecuteAsync(@"update modalities
                                             set modality_name = @modality_name,
                                             modality_description = @modality_description,
@@ -96,7 +104,7 @@ namespace SIEL_1836109025062022.Services
         //VALIDATIONS
         public async Task<bool> ExistsModality(Modality modality)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             var exists = await connection.QueryFirstOrDefaultAsync<int>(@"
                                             select 1 from modalities
                                             where modality_name like @modality_name

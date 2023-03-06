@@ -3,51 +3,27 @@
 <li class="sidebar-title">Contabilidad</li>
 
 <li class="sidebar-item  has-sub">
-    <a class='sidebar-link'>
+    <a class='sidebar-link' >
         <i class="bi bi-bar-chart-fill"></i>
         <span>Contabilidad</span>
     </a>
     <ul class="submenu ">
         <li class="submenu-item ">
-            <a asp-area="" asp-controller="Accountant" asp-action="Index">Bouchers de pago pendientes</a>
-        </li>
+            <a asp-area="" asp-controller="Accountant" asp-action="Index" >Todos</a>
+
+            <a asp-area="" asp-controller="Accountant" asp-action="UnsolvedPayment" >Pendientes</a>
+        </li> 
         <li class="submenu-item ">
-            <a asp-area="" asp-controller="Accountant" asp-action="Index">Bouchers de pago autorizados</a>
-        </li>
+            <a asp-area="" asp-controller="Accountant" asp-action="AuthorizedPayment" >Autorizados</a>
+        </li> 
         <li class="submenu-item ">
-            <a asp-area="" asp-controller="Accountant" asp-action="Index">Bouchers de pago rechazados</a>
-        </li>
+            <a asp-area="" asp-controller="Accountant" asp-action="UnauthorizedPayment" >Rechazados</a>
+        </li> 
         <li class="submenu-item ">
-            <a asp-area="" asp-controller="Accountant" asp-action="Index">Bouchers de pago Placement Test</a>
-        </li>
+            <a asp-area="" asp-controller="Accountant" asp-action="PaymentPlacementTest" >Placement Test</a>
+        </li> 
         <li class="submenu-item ">
-            <a asp-area="" asp-controller="Accountant" asp-action="Index">Bouchers de pago Programa de Egresados</a>
-        </li>
+            <a asp-area="" asp-controller="Accountant" asp-action="PaymentGraduatedProgram" >Programa de Egresados</a>
+        </li> 
     </ul>
-
-
-
 </li>
-
-<li class="sidebar-item  has-sub">
-    <a class='sidebar-link'>
-        <i class="bi bi-bar-chart-fill"></i>
-        <span>Reportes</span>
-    </a>
-    <ul class="submenu ">
-        <li class="submenu-item ">
-            <a asp-area="" asp-controller="Reports" asp-action="ReportsByProgram">Reportes por Programa</a>
-        </li>
-        <li class="submenu-item ">
-            <a asp-area="" asp-controller="Modality" asp-action="Index">Reportes por Modalidad</a>
-        </li>
-        <li class="submenu-item ">
-            <a asp-area="" asp-controller="Levels" asp-action="Index">Reportes por Nivel</a>
-        </li>
-        <li class="submenu-item ">
-            <a asp-area="" asp-controller="Schedule" asp-action="Index">Reportes por Horario</a>
-        </li>
-    </ul>
-
-</li>
-

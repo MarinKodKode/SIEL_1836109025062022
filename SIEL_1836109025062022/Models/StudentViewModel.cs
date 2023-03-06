@@ -22,7 +22,7 @@ namespace SIEL_1836109025062022.Models
         public int stdt_id_class { get; set; }
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [DataType(DataType.Password)]
-        public string stdt_hash_password { get; set; } =  "Sindatos";
+        public string stdt_hash_password { get; set; } = "Sindatos";
         public int stdt_id_program { get; set; }
         public int stdt_age { get; set; }
         public string stdt_normalized_i_email { get; set; } = "Sindatos";

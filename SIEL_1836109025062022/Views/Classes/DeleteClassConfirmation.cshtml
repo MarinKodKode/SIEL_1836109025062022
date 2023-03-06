@@ -1,0 +1,53 @@
+﻿@using SIEL_1836109025062022.Models.Classes
+@model ClassCreateViewModel
+@{
+    ViewData["Title"] = "Eliminar clase";
+}
+    <section id="basic-horizontal-layouts">
+        <div class="row match-height justify-content-center">
+            <div class="col-md-8 col-12">
+                <div class="card sombra">
+                    <div class="card-header">
+                        <h4 class="card-title">Eliminar clase @Model.group_name</h4>
+                        <div>
+                        <label class="font-bold">Programa de estudios: @Model.program_name </label><label></label>
+                        </div>
+                        <div>
+                        <label class="font-bold">Nivel: </label><label>@Model.level_name</label>
+                        </div>
+                        <div>
+                        <label class="font-bold">Horario: </label><label>@Model.schedule_name @Model.schedule_description</label>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <form class="form form-horizontal" asp-controller="Classes" asp-action="DeleteClass" enctype="multipart/form-data" method="post">
+                                <div class="form-body">
+                                    <div class="row">
+                                        <input type="hidden" asp-for="id_class"/>
+                                        <div class="col-md-4">
+                                            <label class="form-label" asp-for="group_name">Nombre: </label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <input type="text" asp-for="group_name"class="form-control">
+                                            <span asp-validation-for="group_name" class="text-danger"></span>
+                                        </div>
+                                        
+                                        <div class="col-sm-12 d-flex justify-content-end">
+                                            <button type="submit" class="sombra-1 btn btn-primary me-1">Eliminar</button>
+                                            
+                                            <a class="btn btn-danger sombra-1" asp-action="index">Cancelar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                             @section Scripts{
+                                  <partial name="_ValidationScriptsPartial"/>
+                              }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- // Basic Horizontal form layout section end -->

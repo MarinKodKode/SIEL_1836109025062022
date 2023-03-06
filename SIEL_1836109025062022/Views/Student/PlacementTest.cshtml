@@ -1,13 +1,12 @@
 ﻿@model PlacementTest
 @{
     ViewData["Title"] = "Incripción para nuevo ingreso";
-    var isStudentJoined = ViewBag.status;
+    var isStudentJoined = ViewBag.status;  
 }
 
-@if (isStudentJoined == 0)
-{
-    <div class="page-heading">
-        <h3>Registro para placement test</h3>
+@if(isStudentJoined == 0){
+ <div class="page-heading">
+    <h3>Registro para placement test</h3>
     </div>
     <div class="page-heading">
         <div class="page-title">
@@ -26,101 +25,79 @@
     </div>
     <section id="multiple-column-form">
 
-        <div class="row match-height">
-            <div class="col-md-7 col-sm-12">
-                <div class="card sombra">
-                    <div class="card-header">
-                        <h4 class="card-title">Sube tus comprobantes de pago</h4>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-body">
-
-                            <form class="form" asp-action="RegisterPlacementTest" asp-controller="Student" enctype="multipart/form-data" method="post">
-                                <input type="hidden" asp-for="insc_id_student">
-                                <input type="hidden" asp-for="insc_id_course_program">
-                                <div class="row">
-                                    <div class="col-sm-12 mb-1 row">
-                                        <div class="col-md-4">
-                                            <label asp-for="insc_id_schedule">Horario deseado</label>
-                                        </div>
-                                        <div class="col-md-8 form-group">
-                                            <select asp-for="insc_id_schedule" class="form-select">
-                                                @foreach (var schedule in @Model.Schedules)
-                                                {
-                                                    <option value="@schedule.id_schedule">@schedule.schedule_name | @schedule.schedule_description</option>
-                                                }
-                                            </select>
-                                        </div>
-                                        <div class="input-group input-group-sm mb-3">
-                                            <div class="col-12">
-                                                <label class="col-form-label">Comprobante de pago English Discoveries</label>
+            <div class="row match-height">
+                <div class="col-md-7 col-sm-12">
+                    <div class="card sombra">
+                        <div class="card-header">
+                            <h4 class="card-title">Sube tus comprobantes de pago</h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-body">
+                                    
+                                <form class="form" asp-action="RegisterPlacementTest" asp-controller="Student" enctype="multipart/form-data" method="post">
+                                    <input type="hidden" asp-for="insc_id_student">
+                                    <input type="hidden" asp-for="insc_id_course_program">
+                                    <div class="row">
+                                        <div class="col-sm-12 mb-1 row">
+                                            <div class="col-md-4">
+                                                <label asp-for="insc_id_schedule">Horario deseado</label>
                                             </div>
-                                            <div class="col-12">
-                                                <input asp-for="file_one" class="form-control" type="file" value="upload" accept="application/pdf" required>
+                                            <div class="col-md-8 form-group">
+                                                <select asp-for="insc_id_schedule" class="form-select">
+                                                @foreach (var schedule in @Model.Schedules) 
+                                                {<option value="@schedule.id_schedule">@schedule.schedule_name | @schedule.schedule_description</option>}
+                                                </select>
                                             </div>
-                                        </div>
-                                        <div class="input-group input-group-sm mb-3">
-                                            <div class="col-12">
-                                                <label class="col-form-label">Comprobante de pago Tecnológico </label>
+                                            <div class="input-group input-group-sm mb-3">
+                                                <div class="col-12">
+                                                    <label class="col-form-label">Comprobante de pago English Discoveries</label>
+                                                </div>
+                                                <div class="col-12">
+                                                    <input asp-for="file_one" class="form-control"  type="file" value="upload" accept="application/pdf" required>
+                                                </div>
                                             </div>
-                                            <div class="col-12">
-                                                <input asp-for="file_two" class="form-control" type="file" value="upload" accept="application/pdf" required>
+                                            <div class="input-group input-group-sm mb-3">
+                                                <div class="col-12">
+                                                    <label  class="col-form-label">Comprobante de pago Tecnológico </label>
+                                                </div>
+                                                <div class="col-12">
+                                                    <input asp-for="file_two" class="form-control"  type="file" value="upload" accept="application/pdf" required>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-12 col-sm-12 col-lg-12 text-end">
-                                            <button type="submit" class="btn btn-outline-success">
-                                                Registro Placement Test
-                                            </button>
+                                            <div class="col-md-12 col-sm-12 col-lg-12 text-end">
+                                                <button type="submit" class="btn btn-outline-success">
+                                                    Registro Placement Test
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-5 col-md-6 col-sm-12 sombra">
+                    <div class="card">
+                        <div class="card-content">
+                            <center>
+                                <div class="card-body">
+
+                                    <h5 class="card-title">Fechas de aplicación</h5><br>
+                                    <div class="badges">
+                                        <h5><span class="badge bg-info">
+                                            9 de Septiembre de 2022</span>
+                                        </h5>
+                                    </div>
+
                                 </div>
-                            </form>
+                            </center>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-5 col-md-6 col-sm-12 sombra">
-                <div class="card">
-                    <div class="card-content">
-                        <center>
-                            <div class="card-body">
-
-                                <h5 class="card-title">Fechas de aplicación</h5><br>
-                                <div class="badges">
-                                    <h5>
-                                        <span class="badge bg-info">
-                                            9 de Septiembre de 2022
-                                        </span>
-                                    </h5>
-
-                                </div>
-
-                                <form id="SendForm" method="post" action="https://ed.engdis.com/PlacementTestEntry.aspx">
-                                    @*<input type="submit" value="Exámen Placement Test 2">*@
-
-                                    <div class="pt-3">
-                                        <button type="submit" formtarget="_blank" class="btn btn-outline-warning">
-                                            Exámen Placement Test 
-                                        </button>
-                                    </div>
-
-                                    <input type="hidden" name="IName" value="AS-Avatarisolution">
-                                    <input type="hidden" name="token" value="EE7F349F-0F87-4A79-8607-04998F649C7B">
-                                    <input type="hidden" name="UserName" value="pltq">
-                                    <input type="hidden" name="Language" value="English">
-                                    <input type="hidden" name="ReturnUrl" value="https://www.google.com.mx/">
-                                </form>
-
-
-                            </div>
-                        </center>
-                    </div>
-                </div>
-            </div>
-        </div>
     </section>
-}
+    }
 else
 {
-    <partial name="_StudentIsAlreadyJoined" />
+  <partial name = "_StudentIsAlreadyJoined"/>  
 }

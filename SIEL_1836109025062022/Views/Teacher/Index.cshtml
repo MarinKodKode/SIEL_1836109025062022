@@ -1,148 +1,70 @@
-﻿@{
+﻿@using SIEL_1836109025062022.Models.Teacher
+@model IEnumerable<Teacher>
+@{
     ViewData["Title"] = "Profesores";
 }
 
-<div class="page-heading">
-    <h3>Alta de Docentes</h3>
-</div>
 
-<div class="page-heading">
-    <div class="page-title">
-        <div class="row">
-            <div class="col-12 col-md-12 order-md-1 order-last">
-                <p class="text-subtitle text-muted">
-                    Registro de docentes. Los campos marcados con asterisco (*)
-                    son obligatorios.
-                </p>
-            </div>
-        </div>
-    </div>
-
-
-
-
-    <section id="multiple-column-form">
-        <div class="row match-height">
-            <!--------------------------------------Inicia Card Datos del Docente -------------------------------------->
-            <section id="basic-vertical-layouts">
+       
+        <section id="multiple-column-form">
+            <div class="row match-height">
                 <div class="row match-height">
-                    <div class="col-md-9 col-12">
-                        <div class="card sombra">
-                            <div class="card-content">
-                                <div class="card-body">
-                                    <form class="form form-vertical">
-                                        <div class="form-body">
-
-
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <div class="form-group">
-                                                        <label for="first-name-vertical">Nombre(s) *</label>
-                                                        <input type="text"
-                                                               class="form-control">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-6">
-                                                    <div class="form-group">
-                                                        <label for="contact-info-vertical">
-                                                            Correo Electrónico
-                                                            Personal *
-                                                        </label>
-                                                        <input type="email"
-                                                               class="form-control">
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="col-6">
-                                                    <div class="form-group">
-                                                        <label for="email-id-vertical">Apellidos *</label>
-                                                        <input type="text"
-                                                               class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="col-6">
-                                                    <div class="form-group">
-                                                        <label for="password-vertical">
-                                                            Correo Electrónico
-                                                            Institucional *
-                                                        </label>
-                                                        <input type="email"
-                                                               class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="col-6">
-                                                    <div class="form-group">
-                                                        <label for="password-vertical">Teléfono 1 *</label>
-                                                        <input type="text"
-                                                               class="form-control">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-6">
-                                                    <div class="form-group">
-                                                        <label for="password-vertical">
-                                                            Institución de
-                                                            Procedencia
-                                                            *
-                                                        </label>
-                                                        <input type="text"
-                                                               class="form-control">
-                                                    </div>
-                                                </div>
-
-
-
-                                                <div class="col-6">
-                                                    <div class="form-group">
-                                                        <label fr="password-vertical">Teléfono 2 </label>
-                                                        <input type="text"
-                                                               class="form-control">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-------------------------------------Termina Card Datos del Docente -------------------------------------->
-                    <!---------------------------------------Inicia Card Foto de Perfil ---------------------------------------->
-                    <div class="col-xl-3 col-md-6 col-sm-12">
+                    <div class="col-md-12 col-sm-12">
                         <div class="card">
-                            <div class="card-content">
-                                <img src="https://images.squarespace-cdn.com/content/v1/5475f6eae4b0821160f6ac3e/1575300253799-UZPOOB3GIP352JNMNSHB/bigstock-Portrait-Of-Asian-Teacher-In-F-273747487.jpg" id="imagenmuestra"
-                                     class="card-img-top fit-image" alt="singleminded">
+                            <div class="card-header">
+                                <h4 class="card-title d-inline">Profesores</h4>
+                                <a class="btn btn-secondary float-end" data-toggle="tooltip" data-placement="top" title="Imprimir" asp-controller="Classes" asp-action="PrintStudentsList" asp-route-id="7"><i class="bi bi-printer-fill"></i></a>                                
+                            </div>
+
+                            <div col-md-6 col-sm-12>
                                 <div class="card-body">
-                                    <div class="col-12 d-flex justify-content-end">
-                                        <!-- <button type="file" class="btn btn-primary me-1 mb-1" name="imagen" id="imagen">Editar
-                                            foto</button> -->
-                                        <input type="file" class="form-control" name="imagen" id="imagen">
-                                    </div>
+                                    <table class="table" id="table1">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre(s)</th>
+                                                <th>Apelido(s)</th>
+                                                <th>Telefono</th>
+                                                <th>Correo</th>
+                                                <th>Correo I.</th>
+                                                <th>Acciones</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <label>@item.user_name</label>
+                                                    </td>
+                                                    <td>
+                                                        <label>@item.user_surname</label>
+                                                    </td>
+                                                    <td>
+                                                        <label>@item.user_phone_1</label>
+                                                    </td>
+                                                    <td>
+                                                    <label>@item.user_normalized_email_i</label>
+                                                    </td>
+                                                    <td>
+                                                    <label>@item.user_institution_email</label>
+                                                    </td>
+                                                    <td>
+                                                    <a asp-controller="teacher" asp-action="teacherpersonaldata" asp-route-id="@item.id_user" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Ver detalle" ><i class="bi bi-eye"></i></a>
+                                                    <a asp-controller="teacher" asp-action="ClassesAssignedToTeacher" asp-route-id="@item.id_user" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Ver grupos asignados"><i class="bi bi-people-fill"></i></a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="col-12 d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary me-1 mb-1" title="Dar de alta" data-bs-toggle="msg">
-                                Dar de alta</button>
                         </div>
                     </div>
                 </div>
-                <!-------------------------------------Termina Card Foto de Perfil -------------------------------------->
-        </div>
-
-    </section>
-
-</div>
-
-<script>
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
-    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
-</script>
+            </div>
+               @section Scripts{
+                                <partial name = "_ValidationScriptsPartial"/>
+                                <script>$(document).ready(function(){$('[data-toggle="tooltip"]').tooltip();});</script>
+               }
+        </section> 

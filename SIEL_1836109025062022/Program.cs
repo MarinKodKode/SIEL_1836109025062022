@@ -3,10 +3,14 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Identity;
 using SIEL_1836109025062022.Models;
 using SIEL_1836109025062022.Services;
+using SIEL_1836109025062022.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var mySQLConfiguration = new MySQLConfiguration(builder.Configuration.GetConnectionString("DefaultConnection"));
+builder.Services.AddSingleton(mySQLConfiguration);
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ICredentialsRepository, Credentials>();
@@ -15,6 +19,8 @@ builder.Services.AddTransient<ILevelsRepository, LevelsRepository>();
 builder.Services.AddTransient<IModalityRepository, ModalityRepository>();
 builder.Services.AddTransient<IScheduleRepository, ScheduleRepository>();
 builder.Services.AddTransient<IStudentsRepository, StudentsRepository>();
+builder.Services.AddTransient<ITeachersRepository, TeachersRepository>();
+builder.Services.AddTransient<IClassesRepository, ClassesRepository>();
 builder.Services.AddTransient<IInscriptionRepository, InscriptionRepository>();
 builder.Services.AddTransient<IAccountantRepository, AccountantRepository>();
 builder.Services.AddTransient<IStatusRepository, StatusIncriptionRepostitory>();
@@ -38,17 +44,7 @@ builder.Services.AddAuthentication(options =>
     options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
     options.DefaultSignOutScheme = IdentityConstants.ApplicationScheme;
 }).AddCookie(IdentityConstants.ApplicationScheme);
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: "MyAllowAllHeadersPolicy",
-        policy =>
-        {
-            //policy.WithOrigins("https://edapi.engdis.com")
-            policy.AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        });
-});
+
 
 var app = builder.Build();
 
@@ -65,8 +61,6 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// Shows UseCors with CorsPolicyBuilder.
-app.UseCors("MyAllowAllHeadersPolicy");
 
 app.UseAuthentication();
 
@@ -75,5 +69,9 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+IWebHostEnvironment env = app.Environment;
+Rotativa.AspNetCore.RotativaConfiguration.Setup(env.WebRootPath,"../Rotativa/Windows");
+
 
 app.Run();

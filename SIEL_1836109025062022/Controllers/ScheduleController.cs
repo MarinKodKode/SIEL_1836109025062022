@@ -48,6 +48,29 @@ namespace SIEL_1836109025062022.Controllers
                 return View(schedules);
             }
         }
+        //Read
+        public async Task<IActionResult> ModalitySchedules(int id)
+        {
+            var user_id = userService.GetUserId();
+            var credential = new Credential();
+            credential = await credentials.GetCredentials(user_id);
+
+            if (credential.id_role != 1 && credential.id_role != 2)
+            {
+                return RedirectToAction("e404", "Home");
+            }
+            else
+            {
+                var modality = await modalityRepository.GetModalityById(id);
+                ViewData["role"] = credential.id_role;
+                ViewData["picture"] = credential.path_image;
+                ViewData["role_name"] = credential.role_name;
+                ViewData["id_modality"] = modality.id_modality;
+                ViewData["modality_name"] = modality.modality_name;
+                var schedules = await scheduleRepository.GetAllSchedulesByModality(id);
+                return View(schedules);
+            }
+        }
         //Create
         [HttpGet]
         public async Task<IActionResult> CreateSchedule()
@@ -73,26 +96,64 @@ namespace SIEL_1836109025062022.Controllers
                 return View(model);
             }
         }
-
-
-
+        [HttpGet]
+        public async Task<IActionResult> CreateScheduleWithModality(int id)
+        {
+            var user_id = userService.GetUserId();
+            var credential = new Credential();
+            credential = await credentials.GetCredentials(user_id);
+            if (credential.id_role != 1 && credential.id_role != 2)
+            {
+                return RedirectToAction("e404", "Home");
+            }
+            else
+            {
+                var modality = await modalityRepository.GetModalityById(id);
+                ViewData["role"] = credential.id_role;
+                ViewData["picture"] = credential.path_image;
+                ViewData["role_name"] = credential.role_name;
+                ViewData["modality_name"] = modality.modality_name;
+                var model = new Schedule
+                {
+                    schedule_modality = id,
+                    schedule_level = modality.modality_level_id
+                };
+                return View(model);
+            }
+        }
         [HttpPost]
         public async Task<IActionResult> CreateSchedule(Schedule schedule)
         {
-            if (!ModelState.IsValid) { return View(); }
-            var exist = await scheduleRepository.ExistsSchedule(schedule);
-            if (exist)
+            var user_id = userService.GetUserId();
+            var credential = new Credential();
+            credential = await credentials.GetCredentials(user_id);
+            if (credential.id_role != 1 && credential.id_role != 2)
             {
-                var model = new ScheduleCreateViewModel
-                {
-                    Levels = await levelsRepository.GetLevels(),
-                };
-                ModelState.AddModelError(nameof(schedule.schedule_name),
-                    "Ya hay un horario con la misma información asignado al mismo nivel.");
-                return View(model);
+                return RedirectToAction("e404", "Home");
             }
-            await scheduleRepository.CreateSchedule(schedule);
-            return RedirectToAction("Index");
+            else
+            {
+                if (!ModelState.IsValid) { return View(); }
+                var exist = await scheduleRepository.ExistsSchedule(schedule);
+                if (exist)
+                {
+                    var model = new ScheduleCreateViewModel
+                    {
+                        Levels = await levelsRepository.GetLevels(),
+                    };
+                    ModelState.AddModelError(nameof(schedule.schedule_name),
+                        "Ya hay un horario con la misma información asignado al mismo nivel.");
+                    ViewData["role"] = credential.id_role;
+                    ViewData["picture"] = credential.path_image;
+                    ViewData["role_name"] = credential.role_name;
+                    return View(model);
+                }
+                await scheduleRepository.CreateSchedule(schedule);
+                ViewData["role"] = credential.id_role;
+                ViewData["picture"] = credential.path_image;
+                ViewData["role_name"] = credential.role_name;
+                return RedirectToAction("Index");
+            }
         }
         //Update
         [HttpGet]
@@ -187,6 +248,19 @@ namespace SIEL_1836109025062022.Controllers
             var modalities = await GetModalititesByLevelId(schedule_level);
             //var modalities = await modalityRepository.GetAllModalitiesByLevel(schedule_level);
             return Ok(modalities);
+        }
+        private async Task<IEnumerable<SelectListItem>> GetAllSchedulesByModality(int schedule_modality)
+        {
+            var schedules = await scheduleRepository.GetAllSchedulesByModality(schedule_modality);
+            return schedules.Select(x => new SelectListItem(x.schedule_description, x.id_schedule.ToString()));
+        }
+        [HttpPost]
+        public async Task<IActionResult> GetScheduleByModalityJson([FromBody] int schedule_modality)
+        {
+            var user_id = userService.GetUserId();
+            var schedules = await GetAllSchedulesByModality(schedule_modality);
+            //var modalities = await modalityRepository.GetAllModalitiesByLevel(schedule_level);
+            return Ok(schedules);
         }
 
 

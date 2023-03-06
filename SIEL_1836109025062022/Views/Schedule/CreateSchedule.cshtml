@@ -4,103 +4,97 @@
     ViewData["Title"] = "Crear un horario";
 }
 
-<!-- Basic Horizontal form layout section start -->
-<section id="basic-horizontal-layouts">
-    <div class="row match-height justify-content-center">
-        <div class="col-md-8 col-12">
-            <div class="card sombra">
-                <div class="card-header">
-                    <h4 class="card-title">Crear un horario</h4>
-                </div>
-                <div class="card-content">
-                    <div class="card-body">
-                        <form class="form form-horizontal" asp-controller="Schedule" asp-action="CreateSchedule">
-                            <div class="form-body">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <label class="form-label" asp-for="schedule_name">Turno</label>
-                                    </div>
-                                    <div class="col-md-8 form-group">
-                                        <input type="text" asp-for="schedule_name" class="form-control"
-                                               placeholder="Ej.:Matutino, Vespertino, etc.">
-                                        <span asp-validation-for="schedule_name" class="text-danger"></span>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label asp-for="schedule_description">Descripción</label>
-                                    </div>
-                                    <div class="col-md-8 form-group">
-                                        <input type="text" class="form-control" asp-for="schedule_description"
-                                               placeholder="Ej. 8:00 Am - 10:00 AM" />
-                                        <span asp-validation-for="schedule_description" class="text-danger"></span>
-                                    </div>
+    <!-- Basic Horizontal form layout section start -->
+    <section id="basic-horizontal-layouts">
+        <div class="row match-height justify-content-center">
+            <div class="col-md-8 col-12">
+                <div class="card sombra">
+                    <div class="card-header">
+                        <h4 class="card-title">Crear un horario</h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <form class="form form-horizontal" asp-controller="Schedule" asp-action="CreateSchedule">
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label class="form-label" asp-for="schedule_name">Turno</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <input type="text" asp-for="schedule_name"class="form-control"
+                                                placeholder="Ej.:Matutino, Vespertino, etc.">
+                                                <span asp-validation-for="schedule_name" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label asp-for="schedule_description">Descripción</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <input type="text" class="form-control" asp-for="schedule_description"
+                                                placeholder="Ej. 8:00 Am - 10:00 AM"/>
+                                                <span asp-validation-for="schedule_description" class="text-danger"></span>
+                                        </div>
 
-                                    <div class="col-md-4">
-                                        <label asp-for="schedule_level">Nivel</label>
-                                    </div>
-                                    <div class="col-md-8 form-group">
-                                        <select asp-for="schedule_level" id="schedule_level" class="form-select">
-                                            @foreach (var item in Model.Levels)
-                                            {
-                                                <option id="mono" value="@item.id_level">@item.level_name</option>
-                                            }
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label asp-for="schedule_level">Modalidades disponibles para el nivel</label>
-                                    </div>
-                                    <div class="col-md-8 form-group">
-                                        <select required class="form-select" asp-for="schedule_modality">
-                                        </select>
-                                    </div>
+                                        <div class="col-md-4">
+                                            <label asp-for="schedule_level">Nivel</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                                <select asp-for="schedule_level" id="schedule_level" class="form-select"  >
+                                                    @foreach (var item in Model.Levels)
+                                                    {
+                                                        <option id="mono" value="@item.id_level">@item.level_name</option>
+                                                    }
+                                                </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label asp-for="schedule_level">Modalidades disponibles para el nivel</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                                <select required class="form-select" asp-for="schedule_modality">
+                                                    
+                                                </select>
+                                        </div>
 
-                                    <div class="col-sm-12 d-flex justify-content-end">
-                                        <button type="submit" class="btn btn-primary me-1 mb-1"
-                                                title="Guardar" data-bs-toggle="msg">
-                                            Guardar
-                                        </button>
-
-                                        <a class="btn btn-danger" asp-action="index" title="Cancelar" data-bs-toggle="msg">Cancelar</a>
+                                        <div class="col-sm-12 d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-primary me-1 mb-1">Guardar</button>
+                                            
+                                            <a class="btn btn-danger" asp-action="index">Cancelar</a>
+                                        </div>
+                                        
                                     </div>
-
                                 </div>
-                            </div>
-                        </form>
-                        @section Scripts{
-                            <partial name="_ValidationScriptsPartial" />
+                            </form>
+                            @section Scripts{
+                                <partial name = "_ValidationScriptsPartial"/>
 
-                            <script>
-                                const urlGetModalities = '@Url.Action("GetModalitiesByLevel")';
-                                $(function() {
-                                    $("#schedule_level").change(async function() {
-                                        const selectedValue = $(this).val();
-                                        await fetch(urlGetModalities, {
-                                            method: 'POST',
-                                            body: selectedValue,
-                                            headers: {
-                                                'Content-Type': 'application/json'
-                                            }
-                                        }).then((response) => {
-                                            //console.log(response);
-                                            response.json().then((data) => {
-                                                console.log(data);
-                                                const items = data.map(item =>
-                                                    `<option value=${item.value}>${item.text}</option>`);
-                                                $("#schedule_modality").html(items);
+                                <script>
+                                    const urlGetModalities = '@Url.Action("GetModalitiesByLevel")';
+                                    $(function(){
+                                        $("#schedule_level").change(async function(){
+                                            const selectedValue = $(this).val();
+                                            await fetch(urlGetModalities, {
+                                                method: 'POST',
+                                                body: selectedValue,
+                                                headers: {
+                                                    'Content-Type': 'application/json'
+                                                }
+                                            }).then((response)=> {
+                                                //console.log(response);
+                                                response.json().then((data)=>{
+                                                    console.log(data);
+                                                    const items = data.map(item => 
+                                                        `<option value=${item.value}>${item.text}</option>`);
+                                                    $("#schedule_modality").html(items);
+                                                });
                                             });
-                                        });
+                                        })
                                     })
-                                })
-
-                                var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
-                                var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-                                    return new bootstrap.Tooltip(tooltipTriggerEl)
-                                })
-                            </script>
-                        }
+                                </script>
+                            }
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <!-- // Basic Horizontal form layout section end -->
 

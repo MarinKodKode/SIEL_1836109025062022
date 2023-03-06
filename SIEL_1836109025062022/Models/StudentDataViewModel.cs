@@ -6,7 +6,7 @@
         public int stdt_id_class { get; set; } = 1;
         public int stdt_id_program { get; set; }
         public string stdt_control_number { get; set; }
-        public int stdt_is_joined_to_class { get; set; } 
+        public int stdt_is_joined_to_class { get; set; }
         public int id_level { get; set; }
         public string level_name { get; set; } = "Aun no tienes un nivel";
         public int id_program { get; set; }

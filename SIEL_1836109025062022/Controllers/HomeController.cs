@@ -15,10 +15,19 @@ namespace SIEL_1836109025062022.Controllers
 
         public IActionResult Index()
         {
-            return RedirectToAction("Login","User");
+            return RedirectToAction("Login", "User");
         }
 
         public IActionResult Errore()
+        {
+            return View();
+        }
+        public IActionResult e404()
+        {
+            return View();
+        }
+
+        public IActionResult WhereDoYouGo()
         {
             return View();
         }

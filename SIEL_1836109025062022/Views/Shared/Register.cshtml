@@ -9,10 +9,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="~/assets2/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="~/assets2/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="~/assets2/img/impl.png">
+  <link rel="icon" type="image/png" href="~/assets2/img/impl.png">
   <title>
-    Registro
+    SIEL-Registro
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -94,7 +94,8 @@
                 <div class="text-center">
                   <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Registrarse</button>
                 </div>
-                <p class="text-sm mt-3 mb-0">Ya tienes una cuenta? <a href="javascript:;" class="text-dark font-weight-bolder">Inicia sesión</a></p>
+                <p class="text-sm mt-3 mb-0">Ya tienes una cuenta? 
+                    <a asp-controller="User" asp-action="Login" class="text-dark font-weight-bolder">Inicia sesión</a></p>
               </form>
               @section Scripts{
                   <partial name="_ValidationScriptsPartial"/>

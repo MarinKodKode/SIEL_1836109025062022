@@ -1,4 +1,6 @@
 ﻿using Dapper;
+using MySql.Data.MySqlClient;
+using SIEL_1836109025062022.Data;
 using SIEL_1836109025062022.Models;
 using System.Data.SqlClient;
 
@@ -18,19 +20,24 @@ namespace SIEL_1836109025062022.Services
     }
     public class CourseProgramRepository : ICourseProgramRepository
     {
-        private readonly string connectionString;
-        public CourseProgramRepository(IConfiguration configuration)
+        // private readonly string connectionString;
+        private readonly MySQLConfiguration connectionString;
+        public CourseProgramRepository(MySQLConfiguration _connectionString)
         {
-            connectionString = configuration.GetConnectionString("DefaultConnection");
+            connectionString = _connectionString;
         }
 
+        protected MySqlConnection MSconnection()
+        {
+            return new MySqlConnection(connectionString.ConnectionString);
+        }
         public async Task CreateCourseProgram(CourseProgram courseProgram)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             var id_program = await connection.QuerySingleAsync<int>(@"
                             insert into programs (program_description, program_name) 
                             values(@program_description, @program_name);
-                            SELECT SCOPE_IDENTITY();",
+                            SELECT LAST_INSERT_ID();",
                             courseProgram);
             courseProgram.id_program = id_program;
         }
@@ -38,7 +45,7 @@ namespace SIEL_1836109025062022.Services
 
         public async Task<bool> ExistsCourseProgram(string program_name)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             var exists = await connection.QueryFirstOrDefaultAsync<int>(@"
                                             select 1 
                                             from programs
@@ -49,14 +56,14 @@ namespace SIEL_1836109025062022.Services
 
         public async Task<IEnumerable<CourseProgram>> GetAllCoursePrograms()
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             return await connection.QueryAsync<CourseProgram>(@"
                                     select * from programs;");
         }
 
         public async Task UpdateCourseProgrma(CourseProgram courseProgram)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             await connection.ExecuteAsync(@"UPDATE programs
                                             set program_name = @program_name, program_description = @program_description
                                             where id_program = @id_program",
@@ -64,7 +71,7 @@ namespace SIEL_1836109025062022.Services
         }
         public async Task<CourseProgram> GetCourseProgramById(int id_program)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             return await connection.QueryFirstOrDefaultAsync<CourseProgram>(@"
                          select * from programs where id_program = @id_program",
                          new { id_program });
@@ -72,14 +79,14 @@ namespace SIEL_1836109025062022.Services
 
         public async Task DeleteCourseProgramById(int id_program)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             await connection.ExecuteAsync(@"
-                             delete programs where id_program = @id_program",
+                             delete from programs where id_program = @id_program",
                              new { id_program });
         }
         public Task<string> GetCourseProgramNameById(int id_program)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             var program_name = connection.QueryFirstOrDefaultAsync<string>(@"
                          select program_description from programs where id_program = @id_program",
                          new { id_program });
@@ -87,7 +94,7 @@ namespace SIEL_1836109025062022.Services
         }
         public async Task<int> GetGraduatedProgram()
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             var id_program = await connection.QueryFirstOrDefaultAsync<int>(@"
                          select id_program from programs 
                             where program_name like '%gresados%'");
@@ -96,7 +103,7 @@ namespace SIEL_1836109025062022.Services
 
         public async Task<int> GetPlacementTestId()
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            var connection = MSconnection();
             var plm_Test = await connection.QueryFirstOrDefaultAsync<int>(@"
                          select * from programs where program_name like '%ment test%';");
             return plm_Test;

@@ -1,0 +1,89 @@
+﻿@using SIEL_1836109025062022.Models.Users
+@model UserDataViewModelo
+@{
+    ViewData["Title"] = "Datos del facilitador";
+    }
+    <div class="page-heading">
+            <h3>Datos del facilitador</h3>
+        </div>
+        <div class="page-heading">
+           
+            <!-- Basic Horizontal form layout section start -->
+            <section id="basic-horizontal-layouts">
+                <div class="row match-height">
+                </div>
+            </section>
+            <section id="multiple-column-form">
+                <div class="row match-height">
+                    <div class="col-xl-4 col-md-6 col-sm-12">
+                        <div class="card sombra">
+                            <div class="card-content">
+                                <img src="@Model.user_profile_picture" class="card-img-top img-fluid"
+                                    alt="singleminded">
+                                <div class="card-body">
+                                    <center>
+                                        <h5 class="card-title">@Model.user_name @Model.user_surname</h5>
+                                    </center>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-8 col-md-6 col-sm-12">
+                        <div class="card sombra">
+                            <div class="card-header">
+                                <h4 class="card-title">Datos de contácto</h4>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-body">
+                                    <form class="form" asp-controller="User" asp-action="UpdateUser">
+                                        <div class="row">
+                                            <input type="hidden" readonly asp-for="id_user" value="@Model.id_user" />
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="city-column">Institución Educativa</label>
+                                                    <input disabled type="text" readonly id="city-column" class="form-control"
+                                                        value="Tecnológico Nacional de México Campus Villahermosa">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="last-name-column">Correo Electrónico
+                                                        Personal</label>
+                                                    <input type="text" readonly asp-for="user_personal_email" class="form-control"
+                                                        value="@Model.user_personal_email">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="company-column">Correo institucional</label>
+                                                    <input type="text" readonly asp-for="user_institution_email" class="form-control"
+                                                        value="@Model.user_institution_email" >
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="company-column">Número de contácto</label>
+                                                    <input type="text" readonly asp-for="user_phone_1" class="form-control"
+                                                        value="@Model.user_phone_1" >
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="company-column">Número de contácto 2</label>
+                                                    <input type="text" readonly asp-for="user_phone_2" class="form-control"
+                                                         value="@Model.user_phone_2" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- // Basic multiple Column Form section end -->
+        </div>

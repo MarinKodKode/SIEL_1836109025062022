@@ -3,61 +3,53 @@
     ViewData["Title"] = "Convocatorias";
 }
 <div class="page-heading">
-    <h3>Convocatorias</h3>
-</div>
-<section id="multiple-column-form">
-    <div class="row match-height">
-        <div class="row match-height">
-            <div class="col-md-12 col-sm-12">
-                <div class="card sombra">
-                    <div class="card-header">
-                        <h4 class="card-title d-inline">Convocatorias disponibles</h4>
-                    </div>
+            <h3>Convocatorias</h3>
+        </div>
+        <section id="multiple-column-form">
+            <div class="row match-height">
+                <div class="row match-height">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="card sombra">
+                            <div class="card-header">
+                                <h4 class="card-title d-inline">Convocatorias disponibles</h4>
+                            </div>
 
-                    <div col-md-6 col-sm-12>
-                        <div class="card-body">
-                            <table class="table" id="table1">
-                                <thead>
-                                    <tr>
-                                        <th>Nombre Convocatoria</th>
-                                        <th>Fecha de inicio</th>
-                                        <th>Fecha de cierre</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        <tr>
-                                            <td class="text-bold-500 col-md-6">
-                                                <label>@item.announcement_name</label>
-                                            </td>
-                                            <td class="text-bold-500 col-md-2">
-                                                <label>@item.start_date.ToShortDateString()</label>
-                                            </td>
-                                            <td class="text-bold-500 col-md-2">
-                                                <label>@item.end_date.ToShortDateString()</label>
-                                            </td>
-                                            <td class="text-bold-500 col-md-2">
-                                                <a class="btn btn-info sombra-1" asp-controller="Announcement" asp-action="AnnouncementDetail" 
-                                                asp-route-id="@item.id_announcement" title="Ver" data-bs-toggle="msg">
-                                                    Ver <i class="bi bi-eye-fill ms-2"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
+                            <div col-md-6 col-sm-12>
+                                <div class="card-body">
+                                    <table class="table" id="table1">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre Convocatoria</th>
+                                                <th>Fecha de inicio</th>
+                                                <th>Fecha de cierre</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td class="text-bold-500 col-md-6">
+                                                        <label>@item.announcement_name</label>
+                                                    </td>
+                                                    <td class="text-bold-500 col-md-2">
+                                                        <label>@item.start_date.ToShortDateString()</label>
+                                                    </td>
+                                                    <td class="text-bold-500 col-md-2">
+                                                        <label>@item.end_date.ToShortDateString()</label>
+                                                    </td>
+                                                    <td class="text-bold-500 col-md-2">
+                                                        <a class="btn btn-info sombra-1" asp-controller="Announcement" asp-action="AnnouncementDetail" asp-route-id="@item.id_announcement">
+                                                        Ver <i class="bi bi-eye-fill ms-2"></i></a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
-<script>
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
-    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
-</script>
+        </section>

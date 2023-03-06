@@ -1,154 +1,141 @@
 ﻿@model InscriptionViewModel
 @{
     ViewData["Title"] = "Inscripción al curso";
-    var isStudentJoined = ViewBag.status;
+    var isStudentJoined = ViewBag.status; 
 }
 
-@if (!isStudentJoined)
-{
+@if(!isStudentJoined){
 
-    <div class="page-heading">
-        <h3>Inscripción al Curso</h3>
-    </div>
+        <div class="page-heading">
+            <h3>Inscripción al Curso</h3>
+        </div>
 
-    <div class="page-heading">
-        <div class="page-title">
-            <div class="row">
-                <div class="col-12 col-md-12 order-md-1 order-last">
-                    <p class="text-subtitle text-muted">
-                        Selecione los campos solicitados a continuación para
-                        su registro en el siguiente módulo.
-                    </p>
+        <div class="page-heading">
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-12 order-md-1 order-last">
+                        <p class="text-subtitle text-muted">Selecione los campos solicitados a continuación para
+                            su registro en el siguiente módulo.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <section id="multiple-column-form">
+        <section id="multiple-column-form">
 
-        <div class="row match-height">
-            <div class="col-md-7 col-sm-12">
-                <div class="card sombra">
-                    <div class="card-header">
-                        <h4 class="card-title">Selección de Horario y Modalidad</h4>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-body">
-
-                            <form class="form" asp-action="MakeInscription" asp-controller="Student" enctype="multipart/form-data" method="post">
-                                <input type="hidden" readonly value="@Model.insc_id_student" asp-for="insc_id_student" />
-                                <div class="row">
-                                    <div class="col-sm-11 mb-1">
-                                        <div class="input-group input-group-sm mb-3">
-                                            <div class="col-lg-3 col-3">
-                                                <label class="col-form-label">Nivel</label>
-                                            </div>
-                                            <div class="col-md-9 form-group">
-                                                <select class="form-select" asp-for="insc_id_level">
-                                                    @foreach (var item in Model.Levels)
-                                                    {
-                                                        <option value="@item.id_level">@item.level_name</option>
-                                                    }
-                                                </select>
+                <div class="row match-height">
+                    <div class="col-md-7 col-sm-12">
+                        <div class="card sombra">
+                            <div class="card-header">
+                                <h4 class="card-title">Selección de Horario y Modalidad</h4>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-body">
+                                    
+                                    <form class="form" asp-action="MakeInscription" asp-controller="Student" enctype="multipart/form-data" method="post">
+                                        <input type="hidden" readonly value="@Model.insc_id_student" asp-for="insc_id_student"/>
+                                        <div class="row">
+                                            <div class="col-sm-11 mb-1">
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="col-lg-3 col-3">
+                                                        <label class="col-form-label">Nivel</label>
+                                                    </div>
+                                                    <div class="col-md-9 form-group">
+                                                        <select class="form-select" asp-for="insc_id_level">
+                                                            @foreach (var item in Model.Levels)
+                                                            {
+                                                                <option value="@item.id_level">@item.level_name</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="col-lg-3 col-3">
+                                                        <label class="col-form-label">Modalidad</label>
+                                                    </div>
+                                                    <div class="col-md-9 form-group">
+                                                        <select class="form-select" asp-for="insc_id_modality">
+                                                            @foreach (var item in Model.Modalities)
+                                                            {
+                                                                <option value="@item.id_modality">@item.modality_name</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="col-lg-3 col-3">
+                                                        <label class="col-form-label">Horario</label>
+                                                    </div>
+                                                    <div class="col-md-9 form-group">
+                                                        <select class="form-select" asp-for="insc_id_schedule">
+                                                            @foreach (var item in Model.Schedules)
+                                                            {
+                                                                <option value="@item.id_schedule">@item.schedule_name</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="col-12">
+                                                        <label class="col-form-label">Comprobante de pago English Discoveries</label>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <input asp-for="file_one" class="form-control"  type="file" value="upload">
+                                                    </div>
+                                                </div>
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="col-12">
+                                                        <label  class="col-form-label">Comprobante de pago Tecnológico </label>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <input asp-for="file_two" class="form-control"  type="file" value="upload">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 col-lg-12 text-end">
+                                                    <button type="submit" class="btn btn-outline-success">
+                                                        Inscribirme
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="input-group input-group-sm mb-3">
-                                            <div class="col-lg-3 col-3">
-                                                <label class="col-form-label">Modalidad</label>
-                                            </div>
-                                            <div class="col-md-9 form-group">
-                                                <select class="form-select" asp-for="insc_id_modality">
-                                                    @foreach (var item in Model.Modalities)
-                                                    {
-                                                        <option value="@item.id_modality">@item.modality_name</option>
-                                                    }
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="input-group input-group-sm mb-3">
-                                            <div class="col-lg-3 col-3">
-                                                <label class="col-form-label">Horario</label>
-                                            </div>
-                                            <div class="col-md-9 form-group">
-                                                <select class="form-select" asp-for="insc_id_schedule">
-                                                    @foreach (var item in Model.Schedules)
-                                                    {
-                                                        <option value="@item.id_schedule">@item.schedule_name</option>
-                                                    }
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="input-group input-group-sm mb-3">
-                                            <div class="col-12">
-                                                <label class="col-form-label">Comprobante de pago English Discoveries</label>
-                                            </div>
-                                            <div class="col-12">
-                                                <input asp-for="file_one" class="form-control" type="file" value="upload">
-                                            </div>
-                                        </div>
-                                        <div class="input-group input-group-sm mb-3">
-                                            <div class="col-12">
-                                                <label class="col-form-label">Comprobante de pago Tecnológico </label>
-                                            </div>
-                                            <div class="col-12">
-                                                <input asp-for="file_two" class="form-control" type="file" value="upload">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 col-sm-12 col-lg-12 text-end">
-                                            <button type="submit" class="btn btn-outline-success"
-                                                title="Recuerda seleccionar los datos correctamente antes de hacer tu inscripción."
-                                                data-bs-toggle="msg">
-                                                Inscribirme
-                                            </button>
-                                        </div>
-                                    </div>
+                                    </form>
                                 </div>
-                            </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-5 col-md-6 col-sm-12 sombra">
+                        <div class="card">
+                            <div class="card-content">
+                                <center>
+                                    <div class="card-body">
+
+                                        <h5 class="card-title">Datos del Curso Próximo a Inscripción</h5><br>
+
+                                        <div class="badges">
+                                            <h5><span class="badge bg-success">Nivel: Basico 4</span></h5>
+                                        </div><br>
+                                        <div class="badges">
+                                            <h5><span class="badge bg-warning">Programa: Regular</span></h5>
+                                        </div><br>
+                                        <div class="badges">
+                                            <h5><span class="badge bg-danger">Inicio de Clases:</span>
+                                            </h5>
+                                        </div>
+                                        <div class="badges">
+                                            <h5><span class="badge bg-danger">29 de Agosto, 2022</span>
+                                            </h5>
+                                        </div>
+
+                                    </div>
+                                </center>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-5 col-md-6 col-sm-12 sombra">
-                <div class="card">
-                    <div class="card-content">
-                        <center>
-                            <div class="card-body">
-
-                                <h5 class="card-title">Datos del Curso Próximo a Inscripción</h5><br>
-
-                                <div class="badges">
-                                    <h5><span class="badge bg-success">Nivel: Basico 4</span></h5>
-                                </div><br>
-                                <div class="badges">
-                                    <h5><span class="badge bg-warning">Programa: Regular</span></h5>
-                                </div><br>
-                                <div class="badges">
-                                    <h5>
-                                        <span class="badge bg-danger">Inicio de Clases:</span>
-                                    </h5>
-                                </div>
-                                <div class="badges">
-                                    <h5>
-                                        <span class="badge bg-danger">29 de Agosto, 2022</span>
-                                    </h5>
-                                </div>
-
-                            </div>
-                        </center>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    
 }
 else
 {
-    <partial name="_StudentIsAlreadyJoined" />
+  <partial name = "_StudentIsAlreadyJoined"/>  
 }
-<script>
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
-    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
-
-</script>
-

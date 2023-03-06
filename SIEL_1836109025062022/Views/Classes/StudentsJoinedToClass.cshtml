@@ -1,0 +1,73 @@
+﻿@using SIEL_1836109025062022.Models.ViewModel
+@model IEnumerable<StudentSchoolarInformation>
+@{
+    ViewData["Title"] = "Estudiantes";
+    var id_class  = ViewData["id_class"];
+    var id_role = int.Parse(ViewData["role"].ToString());
+}
+
+
+
+        <div class="page-heading">
+            <h3>Alumnos</h3>
+        </div>
+        <section id="multiple-column-form">
+            <div class="row match-height">
+                <div class="row match-height">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Lista de estudiantes</h4>
+                                <a class="btn btn-primary" asp-controller="Classes" asp-action="PrintStudentsList" asp-route-id="@id_class">Imprimir lista</a>
+                                @if(id_role == 1 || id_role == 2 ){
+                                <a class="btn btn-success" asp-controller="Classes" asp-action="PAI" asp-route-id="@id_class">Enviar a TMS <i class="bi bi-check ms-1"></i></a>
+                                }
+                            </div>
+
+                            <div col-md-6 col-sm-12>
+                                <div class="card-body">
+                                    <table class="table" id="table1">
+                                        <thead>
+                                            <tr>
+                                                <th>No. de control</th>
+                                                <th>Nombre(s)</th>
+                                                <th>Apelido(s)</th>
+                                                <th>Telefono</th>
+                                                <th>Correo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <label>@item.stdt_control_number</label>
+                                                    </td>
+                                                    <td>
+                                                        <label>@item.user_name</label>
+                                                    </td>
+                                                    <td>
+                                                        <label>@item.user_surname</label>
+                                                    </td>
+                                                    <td>
+                                                        <label>@item.user_phone_1</label>
+                                                    </td>
+                                                    <td>
+                                                    <label>@item.user_normalized_email_i</label>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+               @section Scripts{
+                                <partial name = "_ValidationScriptsPartial"/>
+
+               }
+        </section>
+     

@@ -51,7 +51,7 @@ namespace SIEL_1836109025062022.Controllers
             }
         }
         [HttpGet]
-        public async Task<IActionResult> CreateModality()
+        public async Task<IActionResult> CreateModality(int id)
         {
             var user_id = userService.GetUserId();
             var credential = new Credential();
@@ -63,12 +63,15 @@ namespace SIEL_1836109025062022.Controllers
             }
             else
             {
+                var level = await levelsRepository.GetLevelById(id);
                 ViewData["role"] = credential.id_role;
                 ViewData["picture"] = credential.path_image;
                 ViewData["role_name"] = credential.role_name;
-                var model = new ModalityViewModel
+                ViewData["level_name"] = level.level_name;
+                ViewData["id_level"] = level.id_level;
+                var model = new Modality
                 {
-                    Levels = await levelsRepository.GetLevels(),
+                    modality_level_id = id,
                 };
                 return View(model);
             }
@@ -186,5 +189,59 @@ namespace SIEL_1836109025062022.Controllers
 
             return Json(true);
         }
+        [HttpGet]
+        public async Task<IActionResult> LevelsModality(int id)
+        {
+            var user_id = userService.GetUserId();
+            var credential = new Credential();
+            credential = await credentials.GetCredentials(user_id);
+
+            if (credential.id_role != 1 && credential.id_role != 2)
+            {
+                return RedirectToAction("e404", "Home");
+            }
+            else
+            {
+                var model = await modalityRepository.GetAllModalitiesByLevel(id);
+                var level = await levelsRepository.GetLevelById(id);
+                if (model == null)
+                {
+                    return RedirectToAction("e404", "Home");
+                }
+                ViewData["role"] = credential.id_role;
+                ViewData["picture"] = credential.path_image;
+                ViewData["role_name"] = credential.role_name;
+                ViewData["level_name"] = level.level_name;
+                ViewData["id_level"] = level.id_level;
+                return View(model);
+            }
+        }
+        public async Task<IActionResult> ListsModality(int id)
+        {
+            var user_id = userService.GetUserId();
+            var credential = new Credential();
+            credential = await credentials.GetCredentials(user_id);
+
+            if (credential.id_role != 1 && credential.id_role != 2)
+            {
+                return RedirectToAction("e404", "Home");
+            }
+            else
+            {
+                var model = await modalityRepository.GetAllModalitiesByLevel(id);
+                var level = await levelsRepository.GetLevelById(id);
+                if (model == null)
+                {
+                    return RedirectToAction("e404", "Home");
+                }
+                ViewData["role"] = credential.id_role;
+                ViewData["picture"] = credential.path_image;
+                ViewData["role_name"] = credential.role_name;
+                ViewData["level_name"] = level.level_name;
+                ViewData["id_level"] = level.id_level;
+                return View(model);
+            }
+        }
+
     }
 }

@@ -2,70 +2,52 @@
 @{
     ViewData["Title"] = "Programas de estudio";
 }
-<!-- Basic Tables start -->
-<section class="section">
-    <div class="row justify-content-center" id="basic-table">
-        <div class="col-12 col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title d-inline">Programas de estudio</h4>
-                    <a class="btn btn-info float-end mr-5" asp-action="CreateCourseProgram" asp-controller="CourseProgram"
-                       title="Crear programa" data-bs-toggle="msg">Crear programa de estudios</a>
-                </div>
-                <div class="card-content">
-                    <div class="card-body">
-                        <p class="card-text">
-                            Listado de programas de estudio registrados en la institución
-                        </p>
-                        <!-- Table with outer spacing -->
-                        <div class="table-responsive">
-                            <table class="table table-lg">
-                                <thead>
-                                    <tr>
-                                        <th>Nombre programa</th>
-                                        <th>Descripción</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="reordenable">
-                                    @foreach (var program in Model)
-                                    {
+    <!-- Basic Tables start -->
+    <section class="section">
+        <div class="row justify-content-center" id="basic-table">
+            <div class="col-12 col-md-12">
+                <div class="card sombra">
+                    <div class="card-header">
+                        <h4 class="card-title d-inline">Programas de estudio</h4>
+                        <a class="btn btn-info float-end mr-5 sombra-1" asp-action="CreateCourseProgram" asp-controller="CourseProgram">Crear programa de estudios</a>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <p class="card-text">Listado de programas de estudio registrados en la institución
+                            </p>
+                            <!-- Table with outer spacing -->
+                            <div class="table-responsive">
+                                <table class="table table-lg">
+                                    <thead>
                                         <tr>
-                                            <td class="text-bold-500 col-md-2">@program.program_name</td>
-                                            <td class="text-bold-500 col-md-7">@program.program_description</td>
-                                            <td class=" col-md-3">
-                                                <a class="btn btn-success" asp-action="EditCourseProgram"
-                                               asp-controller="CourseProgram" asp-route-id="@program.id_program"
-                                               title="Editar" data-bs-toggle="msg">Editar</a>
-
-                                                <a class="btn btn-danger" asp-action="DeleteCourseProgramConfirmation"
-                                               asp-controller="CourseProgram" asp-route-id="@program.id_program"
-                                               title="Eliminar" data-bs-toggle="msg">Eliminar</a>
-                                            </td>
+                                            <th>Nombre programa</th>
+                                            <th>Descripción</th>
+                                            <th>Acciones</th>
                                         </tr>
-                                    }
+                                    </thead>
+                                    <tbody id="reordenable">
+                                        @foreach (var program in Model)
+                                        {
+                                            <tr>
+                                                <td class="text-bold-500 col-md-2">@program.program_name</td>
+                                                <td class="text-bold-500 col-md-7">@program.program_description</td>
+                                                <td class=" col-md-3"> 
+                                                    <a class="btn btn-success sombra-1" asp-action="EditCourseProgram" asp-controller="CourseProgram" asp-route-id="@program.id_program">Editar</a>
+                                                    <a class="btn btn-danger sombra-1" asp-action="DeleteCourseProgramConfirmation" asp-controller="CourseProgram" asp-route-id="@program.id_program">Eliminar</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                        
+                                    </tbody>
+                                </table>
 
-                                </tbody>
-                            </table>
-
-                            @section Scripts{
-                                <script>
-                                    $(function() {
-                                        $("#reordenable").sortable();
-                                    })
-                                </script>
-
-                                <script>
-                                    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'))
-                                    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-                                        return new bootstrap.Tooltip(tooltipTriggerEl)
-                                    })
-                                </script>
-
-
-
-
-                            }
+                                @section Scripts{
+                                    <script>
+                                        $(function(){
+                                            $("#reordenable").sortable();
+                                        })
+                                    </script>
+                                }
                             </div>
                         </div>
                     </div>
