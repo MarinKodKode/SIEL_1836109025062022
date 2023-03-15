@@ -467,7 +467,7 @@ namespace SIEL_1836109025062022.Controllers
             {
                 ViewBag.status = isStudentJoined;
                 //var student_id_program = await studentsRepository.VerifyStudentProgramById(student_id);
-                var student_id_program = 1;
+                //var student_id_program = 1;
                 InscriptionViewModel inscriptionViewModel = new InscriptionViewModel();
                 inscriptionViewModel.insc_id_student = student_id;
                 inscriptionViewModel.Schedules = await scheduleRepository.GetAllSchedulesByLevel(id_level);
