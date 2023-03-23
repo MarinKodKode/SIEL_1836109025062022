@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="UsersPictures\" />
+    <Folder Include="wwwroot\icons\" />
   </ItemGroup>
 
   <ItemGroup>
